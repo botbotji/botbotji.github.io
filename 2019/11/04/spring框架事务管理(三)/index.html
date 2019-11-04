@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="事务管理 事务：一组业务操作，要不全部成功，要不全部失败 特性：ACID  原子性：整体  一致性：完成  隔离性：并发  持久性：结果 隔离问题：  脏读：一个事务读到另一个事务没有提交的数据  不可重复读：一个事务读到另一个事务已提交的数据（update）  虚读（幻读）：一个事务读到另一个事务已提交的数据（insert） 隔离级别：  read uncommitted:读未提交；存在3个问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring框架事务管理(三)">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;04&#x2F;spring%E6%A1%86%E6%9E%B6%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86(%E4%B8%89)&#x2F;index.html">
+<meta property="og:site_name" content="卓尔不凡">
+<meta property="og:description" content="事务管理 事务：一组业务操作，要不全部成功，要不全部失败 特性：ACID  原子性：整体  一致性：完成  隔离性：并发  持久性：结果 隔离问题：  脏读：一个事务读到另一个事务没有提交的数据  不可重复读：一个事务读到另一个事务已提交的数据（update）  虚读（幻读）：一个事务读到另一个事务已提交的数据（insert） 隔离级别：  read uncommitted:读未提交；存在3个问题">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="e:&#x2F;VScode-data&#x2F;1.png">
+<meta property="og:updated_time" content="2019-11-04T05:54:18.715Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="e:&#x2F;VScode-data&#x2F;1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/04/spring框架事务管理(三)/"/>
+
+
+
+
+
+  <title>spring框架事务管理(三) | 卓尔不凡</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/botbotji" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卓尔不凡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/04/spring%E6%A1%86%E6%9E%B6%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86(%E4%B8%89)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卓尔不凡">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卓尔不凡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">spring框架事务管理(三)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-04T02:20:08+08:00">
+                2019-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/04/spring%E6%A1%86%E6%9E%B6%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86(%E4%B8%89)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/11/04/spring%E6%A1%86%E6%9E%B6%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86(%E4%B8%89)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h3><ul>
+<li>事务：一组业务操作，要不全部成功，要不全部失败</li>
+<li>特性：ACID<br>  原子性：整体<br>  一致性：完成<br>  隔离性：并发<br>  持久性：结果</li>
+<li>隔离问题：<br>  脏读：一个事务读到另一个事务没有提交的数据<br>  不可重复读：一个事务读到另一个事务已提交的数据（update）<br>  虚读（幻读）：一个事务读到另一个事务已提交的数据（insert）</li>
+<li>隔离级别：<br>  read uncommitted:读未提交；存在3个问题<br>  read committed:  读已提交；解决，脏读：存在2个问题<br>  repeatable read:  可重复读；解决，脏读，不可重复读，存在一个问题<br>  serializable：    串行化；都解决，单事务。</li>
+<li>MySQL事务操作</li>
+</ul>
+<ol>
+<li>获取连接</li>
+<li>开启事务 conn.setAutoCommit(false);</li>
+<li>提交事务 conn.committed();</li>
+<li>catch()中回滚事务 conn.roolback();</li>
+</ol>
+<ul>
+<li>Savepoint 保存点，记录用户操作的当前位置，之后可以回滚到指定的位置</li>
+</ul>
+<h3 id="spring事务管理（transaction）"><a href="#spring事务管理（transaction）" class="headerlink" title="spring事务管理（transaction）"></a>spring事务管理（transaction）</h3><p>导包：spring-tx<br>三个顶级接口</p>
+<ul>
+<li>PlatformTransactionManager    平台事务管理器   spring要管理事务，必须使用事务管理器<br> 进行事务配置时，必须配置事务管理器</li>
+<li>TransactionDefinition         事务详情（事务定义，事务属性），spring用于确定事物具体详情<br> 例如：隔离级别，是否只读（readonly），超时时间（timeout）<br> 进行事务配置时，必须配置事务详情，spring将配置项封装到给对象的实例。</li>
+<li>TransactionStatus             事务状态，spring用于记录当前的事务运行状态，例如:是否有保存点，事务是否完成<br> spring底层根据状态进行相应操作</li>
+</ul>
+<h4 id="详解："><a href="#详解：" class="headerlink" title="详解："></a>详解：</h4><ul>
+<li>PlatformTransactionManager 平台事务管理器<br>导包：spring-jdbc（jdbc开发） ，spring—orm（整合Hibernate）</li>
+</ul>
+<ol>
+<li>常见事务管理器(及PlatformTransactionManager的实现类)<br>DatesourceTransactionManager    jdbc包下其开发时的事务管理器，采用JdbcTemplate<br>HibernateTransactionManager   Hibernate包下其开发时的事务管理器，整合hibernate<ul>
+<li>api详解<br>TransactionStatus getTransaction(TransationDefinition definition),<br>事务管理器 通过’事务详情’，获得’事务状态’，从而管理事务<br>void commit(TransactionStatus status)    根据状态提交<br>void rollback(TransactionStatus status)  根据状态回滚</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>TransactionDefinition  事务详情<br>  String getName()  配置事务详情名称，一般方法名称。例如：save add<br>  boolean isReadOnly() 是否只读(增删改 读写；查询：只读)<br>  int  getTime()  超时时间<br>  int  Isolationlevel() 隔离级别<br>  int  getPropagationBehavior()  传播行为</p>
+</li>
+<li><p>传播行为：在两个业务之间如何共享事务<br>7种常量<br>PROPAGATLON_REQUIRED , required 必须<br>  支持当前事务，A如果创建事务，B必须使用该事务<br>  如果A没有事务，B将创建一个新事务<br>PROPAGATLON_SUPPORTS ， supports 支持<br>  支持当前事务，A如果创建事务，B必须使用该事务<br>  如果A没有事务，B将已非事务<br>PROPAGATLON_MANDATORY ，mandatory 强制<br>  支持当前事务，A如果创建事务，B必须使用该事务<br>  如果A没有事务，B将抛出异常<br>PROPAGATLON_REQUIRES_NEW  requires_new 必须新的<br>  如果A有事务，将A事务挂提，B将创建一个新的事务<br>  如果A没有事务，B将创建一个新的事务<br>PROPAGATLON_NOT_SUPPORTED , not_supported  不支持<br>  如果A有事务，将A事务挂提，B将已非事务执行<br>  如果A没有事务，B将已非事务执行<br>PROPAGATLON_NEVER ， never  从不<br>  如果A有事务，B将抛出异常<br>  如果A没有事务，B将已非事务执行<br>PROPAGATLON_NESTED ，nested 嵌套<br>  A和B底层采用保存点机制，形成嵌套事务</p>
+</li>
+<li><p>TransactionStatus      事务状态</p>
+<h3 id="事务案例"><a href="#事务案例" class="headerlink" title="事务案例"></a>事务案例</h3></li>
+</ul>
+<ol>
+<li>转账1<br>导包：![图片alt](图片地址 ‘’图片title’’)<br><img src="E:/VScode-data/1.png" alt="jar"></li>
+</ol>
+<ul>
+<li>Dao层<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class AccountDaoImpl extends JdbcDaoSupport implements AccountDao &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void out(String ounter, Integer money) &#123;</span><br><span class="line">        getJdbcTemplate().update(&quot;update account set money = money - ? where username = ?&quot;,money,ounter);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void in(String inner, Integer money) &#123;</span><br><span class="line">        getJdbcTemplate().update(&quot;update account set money = money + ? where username = ?&quot;,money,inner);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Service层<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class AccountServiceImpl implements AccountService &#123;</span><br><span class="line">    /*</span><br><span class="line">    * service层调用Dao</span><br><span class="line">    * */</span><br><span class="line">    private AccountDao accountDao;</span><br><span class="line">    /*</span><br><span class="line">    * spring注入提供set方法</span><br><span class="line">    * */</span><br><span class="line">    public void setAccountDao(AccountDao accountDao) &#123;</span><br><span class="line">        this.accountDao = accountDao;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void transation(String ounter, String inner, Integer money) &#123;</span><br><span class="line">        accountDao.out(ounter,money);</span><br><span class="line">        accountDao.in(inner,money);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>XML配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">       http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line"> &lt;!--    datasource数据源--&gt;</span><br><span class="line">    &lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.cj.jdbc.Dirver&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql://localhost:3306/transation?serverTimezone=Asia/Shanghai&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;user&quot; value=&quot;root&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;password&quot; value=&quot;zhao1314520&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line"> &lt;!--    Dao--&gt;</span><br><span class="line">    &lt;bean id=&quot;accountDao&quot; class=&quot;com.zhao.Dao.Impl.AccountDaoImpl&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"> &lt;!--service层--&gt;</span><br><span class="line">    &lt;bean id=&quot;accountService&quot; class=&quot;com.zhao.Service.Impl.AccountServiceImpl&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure></li>
+<li>测试<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class TestApp &#123;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void save()&#123;</span><br><span class="line"></span><br><span class="line">        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br><span class="line"></span><br><span class="line">        AccountServiceImpl accountService = applicationContext.getBean(&quot;accountService&quot;, AccountServiceImpl.class);</span><br><span class="line"></span><br><span class="line">        accountService.transation(&quot;jack&quot;,&quot;ross&quot; ,1000);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li>手动管理事务（了解）</li>
+</ol>
+<ul>
+<li>spring底层使用 TransactuinTemplate 事务模板进行操作</li>
+<li>操作：<pre><code>1. service 需要获得 TransactionTemplate 事务模板
+2. spring 配置模板，并注入给service
+3. 模板需要注入事务管理器
+4. 配置事务管理器 DateSourceTranctionManager 需要注入DataSource数据源</code></pre></li>
+</ul>
+<ul>
+<li>修改Service<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public class AccountServiceImpl implements AccountService &#123;</span><br><span class="line">    /*</span><br><span class="line">    * service层调用Dao</span><br><span class="line">    * */</span><br><span class="line">    private AccountDao accountDao;</span><br><span class="line">    /*</span><br><span class="line">    * spring注入提供set方法</span><br><span class="line">    * */</span><br><span class="line">    public void setAccountDao(AccountDao accountDao) &#123;</span><br><span class="line">        this.accountDao = accountDao;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /*</span><br><span class="line">    * 创建事务模板</span><br><span class="line">    * spring注入</span><br><span class="line">    * */</span><br><span class="line">    private TransactionTemplate transactionTemplate;</span><br><span class="line">    /*</span><br><span class="line">    * setter方法注入模板</span><br><span class="line">    * */</span><br><span class="line">    public void setTransactionTemplate(TransactionTemplate transactionTemplate) &#123;</span><br><span class="line">        this.transactionTemplate = transactionTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void transation(final String ounter, final String inner, final Integer money) &#123;</span><br><span class="line"></span><br><span class="line">        transactionTemplate.execute(new TransactionCallbackWithoutResult() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) &#123;</span><br><span class="line">                accountDao.out(ounter,money);</span><br><span class="line">                accountDao.in(inner,money);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li>修改XML配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">       http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line"> &lt;!--    datasource数据源--&gt;</span><br><span class="line">    &lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.cj.jdbc.Dirver&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql://localhost:3306/transation?serverTimezone=Asia/Shanghai&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;user&quot; value=&quot;root&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;password&quot; value=&quot;zhao1314520&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line"> &lt;!--    Dao--&gt;</span><br><span class="line">    &lt;bean id=&quot;accountDao&quot; class=&quot;com.zhao.Dao.Impl.AccountDaoImpl&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"> &lt;!--service层--&gt;</span><br><span class="line">    &lt;bean id=&quot;accountService&quot; class=&quot;com.zhao.Service.Impl.AccountServiceImpl&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;!-- 修改（添加）的是以下代码 --&gt;</span><br><span class="line">        &lt;property name=&quot;transactionTemolate&quot; ref=&quot;transactionTemplate&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"> &lt;!--    创建模板--&gt;</span><br><span class="line">    &lt;bean id=&quot;transactionTemplate&quot; class=&quot;org.springframework.transaction.support.TransactionTemplate&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;transactionManager&quot; ref=&quot;txmanager&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"> &lt;!--    配置事务管理器 管理需要事务，事务从Connection获得，连接从连接池DataSource获得--&gt;</span><br><span class="line">    &lt;bean id=&quot;txmanager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="工厂Bean-生成代理：半自动"><a href="#工厂Bean-生成代理：半自动" class="headerlink" title="工厂Bean 生成代理：半自动"></a>工厂Bean 生成代理：半自动</h3><ul>
+<li>Spring提供 管理事务的代理工厂bean： TransactionProxyFactoryBean<ol>
+<li>getBean() 获得代理对象</li>
+<li>Spring 配置一个代理</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>修改XML配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">       http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line"> &lt;!--    datasource数据源--&gt;</span><br><span class="line">    &lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.cj.jdbc.Dirver&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql://localhost:3306/transation?serverTimezone=Asia/Shanghai&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;user&quot; value=&quot;root&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;password&quot; value=&quot;zhao1314520&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line"> &lt;!--    Dao--&gt;</span><br><span class="line">    &lt;bean id=&quot;accountDao&quot; class=&quot;com.zhao3.Dao.Impl.AccountDaoImpl&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"> &lt;!--service层--&gt;</span><br><span class="line">    &lt;bean id=&quot;accountService&quot; class=&quot;com.zhao3.Service.Impl.AccountServiceImpl&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"> &lt;!--    service代理对象</span><br><span class="line">        1.proxyInterfaces接口</span><br><span class="line">        2.target目标类</span><br><span class="line">        3.transactionManager 事务管理器</span><br><span class="line">        4.transactionAttributes 事务属性（事务详情）</span><br><span class="line">        5.prop key:确定哪些方法使用当前事务配置</span><br><span class="line">        6.&lt;prop&gt;标签体中（prop text）：配置事务详情</span><br><span class="line">            格式：PROPAGATION,传播行为</span><br><span class="line">             ISOLATION,隔离级别</span><br><span class="line">             readonly,是否只读</span><br><span class="line">             -Exception,异常回滚</span><br><span class="line">             +Exception，异常提交</span><br><span class="line">         eg:数字1和-1</span><br><span class="line">         &lt;prop key=&quot;transation&quot;&gt;PROPAGATION_REQUIRED,ISOLATION_AEFAULT&lt;/prop&gt; 数字1和-1也可默认传播行为和隔离级别</span><br><span class="line">        --&gt;</span><br><span class="line">    &lt;bean id=&quot;proxyAccountService&quot; class=&quot;org.springframework.transaction.interceptor.TransactionProxyFactoryBean&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;proxyInterfaces&quot; value=&quot;com.zhao3.Service.AccountService&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;target&quot; ref=&quot;accountService&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;transactionManager&quot; ref=&quot;txManager&quot;&gt;&lt;/property&gt;</span><br><span class="line">        &lt;property name=&quot;transactionAttributes&quot;&gt;</span><br><span class="line">            &lt;props&gt;</span><br><span class="line">                &lt;prop key=&quot;transation&quot;&gt;PROPAGATION_REQUIRED,ISOLATION_DEFAULT&lt;/prop&gt;</span><br><span class="line">            &lt;/props&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;!--    事务管理器--&gt;</span><br><span class="line">    &lt;bean id=&quot;txManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br><span class="line"> ``` </span><br><span class="line">- 测试类</span><br></pre></td></tr></table></figure>
+<p>public class TestApp {</p>
+<p>  @Test<br>  public void save(){</p>
+<pre><code>ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;com/zhao3/applicationContext.xml&quot;);
+
+AccountService accountService = applicationContext.getBean(&quot;proxyAccountService&quot;, AccountService.class);
+
+accountService.transation(&quot;jack&quot;,&quot;ross&quot; ,1000);</code></pre><p>  }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">* 注意：</span><br><span class="line">    有异常：org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bean named &apos;proxyAccountService&apos; is expected to be of type &apos;com.zhao3.Service.Impl.AccountServiceImpl&apos; but was actually of type &apos;com.sun.proxy.$Proxy9&apos;</span><br><span class="line">    解决方法：</span><br><span class="line">    AccountService accountService = applicationContext.getBean(&quot;proxyAccountService&quot;, AccountService.class);</span><br><span class="line">    此处要用接口，用实现类会报上面异常</span><br><span class="line"></span><br><span class="line">### AOP配置基于XML</span><br><span class="line">* spring XML配置aop 自动生成代理，进行事务管理</span><br><span class="line">1. 配置事务管理器</span><br><span class="line">2. 配置事务详情</span><br><span class="line">3. 配置aop</span><br><span class="line">* XML配置文件</span><br></pre></td></tr></table></figure>
+<?xml version="1.0" encoding="UTF-8"?>
+<p>&lt;beans xmlns=”<a href="http://www.springframework.org/schema/beans&quot;" target="_blank" rel="noopener">http://www.springframework.org/schema/beans&quot;</a></p>
+<pre><code>xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</code></pre></li>
+</ul>
+<!--    datasource数据源-->
+<pre><code>&lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;
+    &lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.cj.jdbc.Dirver&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql://localhost:3306/transation?serverTimezone=Asia/Shanghai&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;user&quot; value=&quot;root&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;password&quot; value=&quot;zhao1314520&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;</code></pre><!--    Dao-->
+<pre><code>&lt;bean id=&quot;accountDao&quot; class=&quot;com.zhao3.Dao.Impl.AccountDaoImpl&quot;&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;</code></pre><!--service层-->
+<pre><code>&lt;bean id=&quot;accountService&quot; class=&quot;com.zhao3.Service.Impl.AccountServiceImpl&quot;&gt;
+    &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;</code></pre><!--    service代理对象
+        1.proxyInterfaces接口
+        2.target目标类
+        3.transactionManager 事务管理器
+        4.transactionAttributes 事务属性（事务详情）
+        5.prop key:确定哪些方法使用当前事务配置
+        6.<prop>标签体中（prop text）：配置事务详情
+            格式：PROPAGATION,传播行为
+             ISOLATION,隔离级别
+             readonly,是否只读
+             -Exception,异常回滚
+             +Exception，异常提交
+         eg:数字1和-1
+         <prop key="transation">PROPAGATION_REQUIRED,ISOLATION_AEFAULT</prop> 数字1和-1也可默认传播行为和隔离级别
+        -->
+<pre><code>&lt;bean id=&quot;proxyAccountService&quot; class=&quot;org.springframework.transaction.interceptor.TransactionProxyFactoryBean&quot;&gt;
+    &lt;property name=&quot;proxyInterfaces&quot; value=&quot;com.zhao3.Service.AccountService&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;target&quot; ref=&quot;accountService&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;transactionManager&quot; ref=&quot;txManager&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;transactionAttributes&quot;&gt;
+        &lt;props&gt;
+            &lt;prop key=&quot;transation&quot;&gt;PROPAGATION_REQUIRED,ISOLATION_DEFAULT&lt;/prop&gt;
+        &lt;/props&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;</code></pre><!--    事务管理器-->
+<pre><code>&lt;bean id=&quot;txManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;</code></pre></beans>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 测试类</span><br></pre></td></tr></table></figure>
+public class TestApp {
+
+<pre><code>@Test
+public void save(){
+
+    ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;com/zhao3/applicationContext.xml&quot;);
+
+    AccountService accountService = applicationContext.getBean(&quot;proxyAccountService&quot;, AccountService.class);
+
+    accountService.transation(&quot;jack&quot;,&quot;ross&quot; ,1000);
+}</code></pre><p>}<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">### AOP配置基于注解</span><br><span class="line"></span><br><span class="line">* 配置事务管理器，并将事务管理器交予spring</span><br><span class="line">* 在目标类或目标方法添加注解即可 @Transactional</span><br><span class="line">* XML配置</span><br></pre></td></tr></table></figure><br><?xml version="1.0" encoding="UTF-8"?><br><beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+"></p>
+ <!--    datasource数据源-->
+<pre><code>&lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;
+    &lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.cj.jdbc.Dirver&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql://localhost:3306/transation?serverTimezone=Asia/Shanghai&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;user&quot; value=&quot;root&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;password&quot; value=&quot;zhao1314520&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;</code></pre> <!--    Dao-->
+<pre><code>&lt;bean id=&quot;accountDao&quot; class=&quot;com.zhao4.Dao.Impl.AccountDaoImpl&quot;&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;</code></pre> <!--service层-->
+<pre><code>&lt;bean id=&quot;accountService&quot; class=&quot;com.zhao4.Service.Impl.AccountServiceImpl&quot;&gt;
+    &lt;property name=&quot;accountDao&quot; ref=&quot;accountDao&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;</code></pre><!--    事务管理
+        1. 事务管理器
+        -->
+<pre><code>&lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;</code></pre> <!--将事务管理器交予Spring
+    transaction-manager="transactionManager" 配置事务管理器
+    proxy-target-class="false" 值为true表示底层强制使用cglib代理
+    -->
+<pre><code>&lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot;&gt;&lt;/tx:annotation-driven&gt;</code></pre></beans>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* service层</span><br></pre></td></tr></table></figure>
+ @Transactional
+ public class AccountServiceImpl implements AccountService {
+    /*
+    * service层调用Dao
+    * */
+    private AccountDao accountDao;
+    /*
+    * spring注入提供set方法
+    * */
+    public void setAccountDao(AccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
+
+<pre><code>@Override
+public void transation(String ounter, String inner, Integer money) {
+    accountDao.out(ounter,money);
+    accountDao.in(inner,money);
+}</code></pre><p> }<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 注解事务详情配置</span><br></pre></td></tr></table></figure><br>    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT )<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">### 整合Junit</span><br><span class="line">1. 导包：spring-test</span><br><span class="line">2. 让Junit通知Spring加载配置文件 </span><br><span class="line">   加注解:</span><br><span class="line">   @RunWith(SpringIunit4ClassRunner.class)</span><br><span class="line">   @ContextConfiguration(locations=&quot;classpath:applicationContext.xml&quot;)</span><br><span class="line">   @Autowried //与junit整合，不需要在spring Xml中配置扫描</span><br><span class="line">3. 让 spring容器自动注入</span><br><span class="line">* 案例：</span><br></pre></td></tr></table></figure><br> @RunWith(SpringJUnit4ClassRunner.class)<br> @ContextConfiguration(locations = “classpath:applicationContext.xml”)<br> public class TestApp {</p>
+<pre><code>@Autowired //与Junit整合，不需要Spring xml 配置扫描
+private AccountService accountService;
+
+@Test
+public void save(){</code></pre><p> //        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(“com/zhao4/applicationContext.xml”);<br> //<br> //        AccountService accountService = applicationContext.getBean(“accountService”, AccountService.class);</p>
+<pre><code>    accountService.transation(&quot;jack&quot;,&quot;ross&quot; ,1000);
+}</code></pre><p> }<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> ### 整合Web</span><br><span class="line"> 导入jar包：spring-web</span><br><span class="line"> 1. tomcat启动加载配置文件</span><br><span class="line">    servlet  init(ServletConfig)  &lt;load-on-start&gt;2</span><br><span class="line">    filter    init(FilterConfig)  web.xml 注册过滤器自动调用初始化</span><br><span class="line">    listener(监听器)  ServletContextListener  ServletContext对象的监听【Spring】</span><br><span class="line">    Spring 提供监听器 ContextLoaderListener   web.xml  &lt;listener&gt;&lt;listener-class&gt;....  </span><br><span class="line">        如果只配置监听器，默认加载xml位置，WEB-INF/applicationContext.xml</span><br><span class="line"> 2. 确定配置文件，通过系统初始化参数</span><br><span class="line">    servletContext 初始化参数 web.xml </span><br><span class="line">    &lt;context-param&gt;</span><br><span class="line">        &lt;param-name&gt;contextConfigLocation</span><br><span class="line">        &lt;param-value&gt;classpath:applicationContext.xml</span><br><span class="line">* web.xml</span><br></pre></td></tr></table></figure><br> <?xml version="1.0" encoding="UTF-8"?><br> <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0"></p>
+ <!--    确定配置文件的位置-->
+<pre><code>&lt;context-param&gt;
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+    &lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;
+&lt;/context-param&gt;</code></pre> <!--    配置Spring的监听器 用来加载Xml配置-->
+<pre><code>&lt;listener&gt;
+    &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;
+&lt;/listener&gt;</code></pre> </web-app>
+  ```
+* 从ServletContext作用域 获得spring容器（了解）
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢关顾！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/qrcode.png" alt="卓尔不凡 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zgub.jpg" alt="卓尔不凡 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/04/Sprig%E6%A1%86%E6%9E%B6AOP(%E4%BA%8C)/" rel="next" title="Sprig框架AOP(二)">
+                <i class="fa fa-chevron-left"></i> Sprig框架AOP(二)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="卓尔不凡" />
+            
+              <p class="site-author-name" itemprop="name">卓尔不凡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/botbotji" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#事务管理"><span class="nav-number">1.</span> <span class="nav-text">事务管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spring事务管理（transaction）"><span class="nav-number">2.</span> <span class="nav-text">spring事务管理（transaction）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#详解："><span class="nav-number">2.1.</span> <span class="nav-text">详解：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务案例"><span class="nav-number">3.</span> <span class="nav-text">事务案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂Bean-生成代理：半自动"><span class="nav-number">4.</span> <span class="nav-text">工厂Bean 生成代理：半自动</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓尔不凡</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
