@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="Hibernate框架," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="HQL查询 HQL的语法与SQL语法基本一致，不同的是HQL是指向面向对象查询的，查询的是对象和对象中的属性 HQL关键支部区分大小写，但类名和属性区分大小写123456select 别名&#x2F;属性名&#x2F;表达式from 实体 as 别名 where 过滤条件group by 分组条件having 分组后的结果的过滤条件orday by 排序条件  查询所有客户1234567891011121314151">
+<meta name="keywords" content="Hibernate框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hibernate框架(四)">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;Hibernate%E6%A1%86%E6%9E%B6-%E5%9B%9B&#x2F;index.html">
+<meta property="og:site_name" content="卓尔不凡">
+<meta property="og:description" content="HQL查询 HQL的语法与SQL语法基本一致，不同的是HQL是指向面向对象查询的，查询的是对象和对象中的属性 HQL关键支部区分大小写，但类名和属性区分大小写123456select 别名&#x2F;属性名&#x2F;表达式from 实体 as 别名 where 过滤条件group by 分组条件having 分组后的结果的过滤条件orday by 排序条件  查询所有客户1234567891011121314151">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-18T16:09:21.666Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/19/Hibernate框架-四/"/>
+
+
+
+
+
+  <title>Hibernate框架(四) | 卓尔不凡</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/botbotji" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卓尔不凡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">师夷长技以制夷</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/19/Hibernate%E6%A1%86%E6%9E%B6-%E5%9B%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卓尔不凡">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卓尔不凡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hibernate框架(四)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-19T00:08:03+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/19/Hibernate%E6%A1%86%E6%9E%B6-%E5%9B%9B/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/11/19/Hibernate%E6%A1%86%E6%9E%B6-%E5%9B%9B/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="HQL查询"><a href="#HQL查询" class="headerlink" title="HQL查询"></a>HQL查询</h3><ul>
+<li>HQL的语法与SQL语法基本一致，不同的是HQL是指向面向对象查询的，查询的是对象和对象中的属性</li>
+<li>HQL关键支部区分大小写，但类名和属性区分大小写<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select 别名/属性名/表达式</span><br><span class="line"><span class="keyword">from</span> 实体 as 别名 </span><br><span class="line">where 过滤条件</span><br><span class="line">group by 分组条件</span><br><span class="line">having 分组后的结果的过滤条件</span><br><span class="line">orday by 排序条件</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查询所有客户<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public <span class="keyword">class</span> Lesson8 &#123;</span><br><span class="line"></span><br><span class="line">   @Test</span><br><span class="line">   public void save<span class="literal">()</span>&#123;</span><br><span class="line"></span><br><span class="line">       Session session = util.<span class="keyword">open</span><span class="constructor">Session()</span>;</span><br><span class="line">       session.get<span class="constructor">Transaction()</span>.<span class="keyword">begin</span><span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//查询所有客户，查询是所有表的字段</span></span><br><span class="line">       Query query = session.create<span class="constructor">Query(<span class="string">"from Customer"</span>)</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//查询结果会封装到一个list集合中</span></span><br><span class="line">       List&lt;Customer&gt; <span class="built_in">list</span> = query.<span class="built_in">list</span><span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//遍历</span></span><br><span class="line">       for(Customer c : <span class="built_in">list</span>)&#123;</span><br><span class="line">           <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(c.get<span class="constructor">Name()</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       session.get<span class="constructor">Transaction()</span>.commit<span class="literal">()</span>;</span><br><span class="line">       session.close<span class="literal">()</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>选择查询<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public <span class="keyword">class</span> Lesson10 &#123;</span><br><span class="line"></span><br><span class="line">   @Test</span><br><span class="line">   public void save<span class="literal">()</span>&#123;</span><br><span class="line"></span><br><span class="line">       Session session = util.<span class="keyword">open</span><span class="constructor">Session()</span>;</span><br><span class="line">       session.get<span class="constructor">Transaction()</span>.<span class="keyword">begin</span><span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//1.带条件</span></span><br><span class="line">       <span class="comment">//Query query = session.createQuery("from Customer where id=2");</span></span><br><span class="line">       <span class="comment">//Query query = session.createQuery("from Customer where id=?");</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">//2.别名</span></span><br><span class="line">       <span class="comment">//Query query = session.createQuery("from Customer c where c.id=?");</span></span><br><span class="line">       Query query = session.create<span class="constructor">Query(<span class="string">"select c from Customer c where c.id=?"</span>)</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//3.设置参数</span></span><br><span class="line">       query.set<span class="constructor">Integer(0,2)</span>;</span><br><span class="line">       <span class="comment">//query.setParameter(1,2);</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">//4.查询结果会封装到一个list集合中</span></span><br><span class="line">       List&lt;Customer&gt; <span class="built_in">list</span> = query.<span class="built_in">list</span><span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//遍历</span></span><br><span class="line">       for(Customer c : <span class="built_in">list</span>)&#123;</span><br><span class="line">           <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(c.get<span class="constructor">Name()</span>);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//查询只获取一条数据</span></span><br><span class="line">       Customer c = (Customer)query.unique<span class="constructor">Result()</span>;</span><br><span class="line">       <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out,println(c);</span><br><span class="line"></span><br><span class="line">       session.get<span class="constructor">Transaction()</span>.commit<span class="literal">()</span>;</span><br><span class="line">       session.close<span class="literal">()</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>投影查询(其不会把结果封装成对象，封装的是数组)<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">public</span> <span class="keyword">class</span> Lesson11 &#123;</span><br><span class="line"></span><br><span class="line">   @Test</span><br><span class="line">   <span class="built_in">public</span> <span class="type">void</span> save()&#123;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">Session</span> <span class="keyword">session</span> = util.openSession();</span><br><span class="line">       <span class="keyword">session</span>.getTransaction().<span class="keyword">begin</span>();</span><br><span class="line"></span><br><span class="line">       //查询所有客户</span><br><span class="line">       Query query = <span class="keyword">session</span>.createQuery("select c.id,c.name from Customer c ");</span><br><span class="line"></span><br><span class="line">       //查询结果会封装到一个list集合中</span><br><span class="line">       List&lt;<span class="keyword">Object</span>[]&gt; list = query.list();</span><br><span class="line"></span><br><span class="line">       //注意：封装的是数组</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">Object</span>[] obj : list)&#123;</span><br><span class="line">           <span class="keyword">for</span>(<span class="keyword">Object</span> c : obj)&#123;</span><br><span class="line">               <span class="keyword">System</span>.<span class="keyword">out</span>.peintln(c);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">System</span>.<span class="keyword">out</span>.println("--------------")</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">session</span>.getTransaction().<span class="keyword">commit</span>();</span><br><span class="line">       <span class="keyword">session</span>.<span class="keyword">close</span>();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="排序-order-by-desc降序-asc升序"><a href="#排序-order-by-desc降序-asc升序" class="headerlink" title="排序 order by desc降序  asc升序"></a>排序 order by desc降序  asc升序</h3> <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    Session session = util.openSession();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询所有客户结果会封装到一个list集合中</span></span><br><span class="line">    List&lt;Customer&gt; <span class="built_in">list</span> = session.createQuery(<span class="string">"from Customer c order by c.id desc"</span>).<span class="built_in">list</span>();</span><br><span class="line"></span><br><span class="line">   <span class="comment">//遍历</span></span><br><span class="line">    <span class="keyword">for</span>(Customer c : <span class="built_in">list</span>)&#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(c)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    session.<span class="built_in">close</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3> <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Query</span> <span class="keyword">query</span> = session.createQuery(<span class="string">"from Customer"</span>);</span><br><span class="line"><span class="comment">//pageNum 当前页（之前的 pageCode）</span></span><br><span class="line"><span class="keyword">query</span>.setFirstResult(0);</span><br><span class="line"> <span class="comment">//每页显示个数，pageSize</span></span><br><span class="line"> <span class="keyword">query</span>.setMaxResults(5);</span><br></pre></td></tr></table></figure>
+<h3 id="聚合函数和分组查询"><a href="#聚合函数和分组查询" class="headerlink" title="聚合函数和分组查询"></a>聚合函数和分组查询</h3> <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line"> <span class="built_in">public</span> <span class="type">void</span> save()&#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">Session</span> <span class="keyword">session</span> = util.openSession();</span><br><span class="line"></span><br><span class="line">     //查询所有客户结果会封装到一个list集合中</span><br><span class="line">     Query query = <span class="keyword">session</span>.createQuery("select count（*）from Customer c ");</span><br><span class="line"></span><br><span class="line">     Long count = (Long)query.uniqueResult();</span><br><span class="line">     <span class="keyword">System</span>.<span class="keyword">out</span>.println("客户表的总记录：+count")</span><br><span class="line"></span><br><span class="line">     //HQL分组<span class="keyword">group</span> <span class="keyword">by</span></span><br><span class="line">     //<span class="keyword">SQL</span>语句 <span class="keyword">select</span> o.customer_id,count(o.customer_id) <span class="keyword">from</span>  t_order o <span class="keyword">group</span> <span class="keyword">by</span> o.customer_id;</span><br><span class="line"></span><br><span class="line">     List&lt;<span class="keyword">object</span>[]&gt; list = <span class="keyword">session</span>.createQuery("select o.customer, count(o) from Order o group by o.customer").list();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">Object</span>[] obj : list))&#123;</span><br><span class="line">         <span class="keyword">for</span>(<span class="keyword">object</span> o : obj)&#123;</span><br><span class="line">             <span class="keyword">System</span>.<span class="keyword">out</span>.println(o);</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">System</span>.<span class="keyword">out</span>.println("----------");</span><br><span class="line">     &#125;</span><br><span class="line">     </span><br><span class="line">     <span class="keyword">session</span>.<span class="keyword">close</span>();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h3><ul>
+<li><p>inner join 内连接</p>
+</li>
+<li><p>left outer join 左外连接</p>
+</li>
+<li><p>right outer join 右外连接</p>
+</li>
+<li><p>HQL中：<br>内连接  inner join | join </p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">   <span class="built_in">public</span> <span class="type">void</span> save()&#123;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">Session</span> <span class="keyword">session</span> = util.openSession();</span><br><span class="line">       <span class="keyword">session</span>.getTransaction.<span class="keyword">begin</span>();</span><br><span class="line"></span><br><span class="line">       //内连接【<span class="keyword">inner</span> <span class="keyword">join</span>】返回结果数组List&lt;<span class="keyword">Object</span>[]&gt;</span><br><span class="line">       //<span class="keyword">From</span> Customer <span class="keyword">inner</span> <span class="keyword">join</span> c.orders 相当于 <span class="keyword">select</span> * form t_customer tc <span class="keyword">inner</span> <span class="keyword">join</span> t_order <span class="keyword">to</span> <span class="keyword">on</span> tc.id = <span class="keyword">to</span>.customer.id</span><br><span class="line">       List&lt;<span class="keyword">Object</span>[]&gt; list = <span class="keyword">session</span>.createQuery("From Customer c inner join c.orders").list();</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">Object</span>[] obj : list)&#123;</span><br><span class="line">           <span class="keyword">System</span>.<span class="keyword">out</span>.println(obj[<span class="number">0</span>]+":"+obj[<span class="number">1</span>]);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">session</span>.getTransaction().<span class="keyword">commit</span>();</span><br><span class="line">       <span class="keyword">session</span>.<span class="keyword">close</span>();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>迫切内连接  inner join feath | join fetch</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">   <span class="built_in">public</span> <span class="type">void</span> save()&#123;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">Session</span> <span class="keyword">session</span> = util.openSession();</span><br><span class="line">       <span class="keyword">session</span>.getTransaction.<span class="keyword">begin</span>();</span><br><span class="line"></span><br><span class="line">       // 迫切内连接  <span class="keyword">inner</span> <span class="keyword">join</span> feath | <span class="keyword">join</span> <span class="keyword">fetch</span> 返回数据List&lt;Customer&gt;;</span><br><span class="line">       List&lt;Customer&gt; list = <span class="keyword">session</span>.createQuery("From Customer c inner join fetch c.orders").list();</span><br><span class="line"></span><br><span class="line">       <span class="keyword">for</span>(Customer c : list)&#123;</span><br><span class="line">           <span class="keyword">System</span>.<span class="keyword">out</span>.println(c.getName());</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">session</span>.getTransaction().<span class="keyword">commit</span>();</span><br><span class="line">       <span class="keyword">session</span>.<span class="keyword">close</span>();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>隐式内连接【join】 </p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">  <span class="built_in">public</span> <span class="type">void</span> save()&#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">Session</span> <span class="keyword">session</span> = util.openSession();</span><br><span class="line">      <span class="keyword">session</span>.getTransaction.<span class="keyword">begin</span>();</span><br><span class="line"></span><br><span class="line">      //隐式内连接 == 笛卡尔集过滤条件</span><br><span class="line">      List&lt;<span class="keyword">Object</span>[]&gt; list = <span class="keyword">session</span>.createQuery("From Customer c, Order o where c = o.customer").list();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">Object</span>[] obj : list)&#123;</span><br><span class="line">          <span class="keyword">System</span>.<span class="keyword">out</span>.println(obj[<span class="number">0</span>]+":"+obj[<span class="number">1</span>]);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">session</span>.getTransaction().<span class="keyword">commit</span>();</span><br><span class="line">      <span class="keyword">session</span>.<span class="keyword">close</span>();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>左外连接   left outer join | left join 左表中如果没有右表的匹配数据，左表记录也会显示<br>迫切左外连接  left outer join fetch | left join fetch<br>右外连接  right outer join | outer join<br>交叉连接  ClassA ClassB</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">  <span class="built_in">public</span> <span class="type">void</span> save()&#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">Session</span> <span class="keyword">session</span> = util.openSession();</span><br><span class="line">      <span class="keyword">session</span>.getTransaction.<span class="keyword">begin</span>();</span><br><span class="line"></span><br><span class="line">      //HQL交叉连接相当于 == <span class="keyword">SQL</span>笛卡尔集</span><br><span class="line">      List&lt;<span class="keyword">Object</span>[]&gt; list = <span class="keyword">session</span>.createQuery("From Customer c, Order o").list();</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">Object</span>[] obj : list)&#123;</span><br><span class="line">          <span class="keyword">System</span>.<span class="keyword">out</span>.println(obj[<span class="number">0</span>]+":"+obj[<span class="number">1</span>]);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">session</span>.getTransaction().<span class="keyword">commit</span>();</span><br><span class="line">      <span class="keyword">session</span>.<span class="keyword">close</span>();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="命名查询"><a href="#命名查询" class="headerlink" title="命名查询"></a>命名查询</h3><ul>
+<li>命名查询:hql写在映射文件,通过session的getNameQuery()来返回一个Query对象<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">  <span class="built_in">public</span> <span class="type">void</span> save()&#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">Session</span> <span class="keyword">session</span> = util.openSession();</span><br><span class="line">      <span class="keyword">session</span>.getTransaction.<span class="keyword">begin</span>();</span><br><span class="line"></span><br><span class="line">      //命名查询,把hql写在映射文件中比较灵活</span><br><span class="line">      <span class="comment">/*hql写入映射文件2种方式：</span></span><br><span class="line"><span class="comment">      *1.写在类class标签里面，hql是局部的</span></span><br><span class="line"><span class="comment">      *2.写在hibernate-mapping标签里面，hql是全局的</span></span><br><span class="line"><span class="comment">      *</span></span><br><span class="line"><span class="comment">      * */</span></span><br><span class="line">      //String hql = "from Customer";</span><br><span class="line">      //Query query = <span class="keyword">session</span>.createQuery(hql);</span><br><span class="line">      //<span class="keyword">System</span>.<span class="keyword">out</span>.println(query.list());</span><br><span class="line"></span><br><span class="line">      //获取<span class="keyword">Class</span>里的局部hql语句(方法参数 包名+类名);</span><br><span class="line">      Query query = <span class="keyword">session</span>.getNameQuery("zhao/hibernate/domain/Customer.hql1");</span><br><span class="line">      <span class="keyword">System</span>.<span class="keyword">out</span>.println(query.list());</span><br><span class="line"></span><br><span class="line">      //获取hibernate-<span class="keyword">mapping</span>中全局的hql(方法参数 类名);</span><br><span class="line">      Query query = <span class="keyword">session</span>.getNameQuery("hql2");</span><br><span class="line">      query.setParames(<span class="number">0</span>,"沐沐");</span><br><span class="line">      <span class="keyword">System</span>.<span class="keyword">out</span>.println(query.uniqueResult());</span><br><span class="line">      <span class="keyword">session</span>.getTransaction().<span class="keyword">commit</span>();</span><br><span class="line">      <span class="keyword">session</span>.<span class="keyword">close</span>();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></li>
+<li>映射文件<!--第一种hql的位置-->
+<query name="hql1">hql语句</query><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE hibernate-mapping PUBLIC</span></span><br><span class="line"><span class="meta">       "-//Hibernate/Hibernate Mapping DTD 3.0//EN"</span></span><br><span class="line"><span class="meta">       "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hibernate-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">"zhao.hibernate.domain.Customer"</span> <span class="attr">table</span>=<span class="string">"customer"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">id</span> <span class="attr">name</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"id"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">generator</span> <span class="attr">class</span>=<span class="string">"native"</span>&gt;</span><span class="tag">&lt;/<span class="name">generator</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"name"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--        描述一对多关系</span></span><br><span class="line"><span class="comment">       key中Colum写的是外键名称</span></span><br><span class="line"><span class="comment">       one-to-many 一对多，其class属性表示外键表实体类名--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">set</span> <span class="attr">name</span>=<span class="string">"orders"</span> <span class="attr">cascade</span>=<span class="string">"delete-orphan"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">key</span> <span class="attr">column</span>=<span class="string">"customer_id"</span>&gt;</span><span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">one-to-many</span> <span class="attr">class</span>=<span class="string">"zhao.hibernate.domain.Order"</span>&gt;</span><span class="tag">&lt;/<span class="name">one-to-many</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">&lt;!--第一种hql的位置--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">query</span> <span class="attr">name</span>=<span class="string">"hql1"</span>&gt;</span>from Customer<span class="tag">&lt;/<span class="name">query</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--第二种hql的位置--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">query</span> <span class="attr">name</span>=<span class="string">"hql2"</span>&gt;</span>from Customer where name=?<span class="tag">&lt;/<span class="name">query</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">hibernate-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置C3P0"><a href="#配置C3P0" class="headerlink" title="配置C3P0"></a>配置C3P0</h3></li>
+<li>找到Hibernate\hibernate-release-5.4.8.Final\project\etc\hibernate.properties文件<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--		配置C3P0连接池--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--		#hibernate.connection.provider_class org.hibernate.connection.C3P0ConnectionProvider--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernate.connection.provider_class"</span>&gt;</span>org.hibernate.connection.C3P0ConnectionProvider<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--		#hibernate.c3p0.max_size 2</span></span><br><span class="line"><span class="comment">		#hibernate.c3p0.min_size 2</span></span><br><span class="line"><span class="comment">		#hibernate.c3p0.timeout 5000</span></span><br><span class="line"><span class="comment">		#hibernate.c3p0.max_statements 100</span></span><br><span class="line"><span class="comment">		#hibernate.c3p0.idle_test_period 3000</span></span><br><span class="line"><span class="comment">		#hibernate.c3p0.acquire_incre</span></span><br><span class="line"><span class="comment">           ment 2</span></span><br><span class="line"><span class="comment">		#hibernate.c3p0.validate false--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"c3p0.max_size"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"c3p0.min_size"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"c3p0.timeout"</span>&gt;</span>5000<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"c3p0.max_statements"</span>&gt;</span>100<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"c3p0.idle_test_period"</span>&gt;</span>3000<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"c3p0.acquire_increment"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"c3p0.validate"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="悲观锁，乐观锁"><a href="#悲观锁，乐观锁" class="headerlink" title="悲观锁，乐观锁"></a>悲观锁，乐观锁</h3><ul>
+<li><p>悲观锁分为两种：</p>
+<ol>
+<li>读锁/共享锁【比较少用】</li>
+</ol>
+<ul>
+<li>读锁可被其他线程所共享，如果是读取的话大家都可以用这把锁读到数据。<br>select * from table lock in share mode（读锁/共享锁）<br>start transaction; 开启事务<br>commit;  提交事务</li>
+</ul>
+<ol start="2">
+<li>写锁/排他锁【用的多】</li>
+</ol>
+<ul>
+<li><p>写锁不能共享，只要有人为数据加入了写锁，其他人就不能为数据加入任何锁<br>select * from table for update;【锁表，不推荐使用】<br>select * from table  where id= 1 for update;【锁行，常用】   </p>
+<h3 id="Hibernate添加写锁"><a href="#Hibernate添加写锁" class="headerlink" title="Hibernate添加写锁"></a>Hibernate添加写锁</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">    <span class="built_in">public</span> <span class="type">void</span> save()&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">Session</span> <span class="keyword">session</span> = util.openSession();</span><br><span class="line">        <span class="keyword">session</span>.getTransaction.<span class="keyword">begin</span>();</span><br><span class="line"></span><br><span class="line">        //hibernate 的写锁/陪他锁实现</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 演示</span></span><br><span class="line"><span class="comment">         * A线程【命令行】，开启事务--》读取一行数据加锁</span></span><br><span class="line"><span class="comment">         * B 线程【应用程序】，开启事务--》读取一行数据加锁</span></span><br><span class="line"><span class="comment">         **/</span></span><br><span class="line">         //方式一执行<span class="keyword">Sql</span>语句进行写锁</span><br><span class="line">         Customer customer = <span class="keyword">session</span>.<span class="keyword">get</span>(Customer.<span class="keyword">class</span>,<span class="number">1</span>,LockOptions.<span class="keyword">UPDATE</span>);//写锁</span><br><span class="line">         <span class="keyword">System</span>,<span class="keyword">out</span>.println(customer);</span><br><span class="line"></span><br><span class="line">         //方式<span class="number">2</span></span><br><span class="line">         //Query query = <span class="keyword">session</span>.createQuery("from Customer where id=?");</span><br><span class="line">         query.setLockOpties(LockOptions.<span class="keyword">UPDATE</span>);</span><br><span class="line">         query.setParamer(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">         Customer customer = (Customer)query.uniqueResult();</span><br><span class="line">         //query.executeUpdate();</span><br><span class="line">         <span class="keyword">System</span>,<span class="keyword">out</span>.println(customer);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">session</span>.getTransaction().<span class="keyword">commit</span>();</span><br><span class="line">        <span class="keyword">session</span>.<span class="keyword">close</span>();</span><br><span class="line">    &#125;</span><br><span class="line"> ```    </span><br><span class="line">* 乐观锁</span><br><span class="line"> 乐观锁就是添加一个<span class="keyword">version</span>字段来控制数据的不一致性</span><br><span class="line"> <span class="number">1.</span> 实体类</span><br></pre></td></tr></table></figure>
+<p>public class Customer {</p>
+<p>private Integer id;  //客户Id<br>private String name; //客户名称</p>
+<p>//加个乐观锁：加个版本控制字段，字段用Integer<br>private Integer version;</p>
+<p>public Integer getVersion() {<br>   return version;<br>}</p>
+<p>public void setVersion(Integer version) {<br>   this.version = version;<br>}</p>
+<p>//一对多属性描述，一个客户对应有多个订单<br>private Set<Order> orders = new HashSet<Order>();</p>
+<p>public Integer getId() {<br>   return id;<br>}</p>
+<p>public void setId(Integer id) {<br>   this.id = id;<br>}</p>
+<p>public String getName() {<br>   return name;<br>}</p>
+<p>public void setName(String name) {<br>   this.name = name;<br>}</p>
+<p>public Set<Order> getOrders() {<br>   return orders;<br>}</p>
+<p>public void setOrders(Set<Order> orders) {<br>   this.orders = orders;<br>}</p>
+<p>@Override<br>public String toString() {<br>   return “Customer{“ +</p>
+<pre><code>&quot;id=&quot; + id +
+&quot;, name=&apos;&quot; + name + &apos;\&apos;&apos; +
+&apos;}&apos;;</code></pre><p>}<br>}</p>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.映射文件<span class="selector-tag">customer</span><span class="selector-class">.hbm</span><span class="selector-class">.xml</span></span><br></pre></td></tr></table></figure>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+ <class name="zhao.hibernate.domain.Customer" table="customer">
+     <id name="id" column="id">
+         <generator class="native"></generator>
+     </id>
+    <!--乐观锁 位置有dtd约束 放在 id和property和id中间-->
+     <version name="version"></version>
+
+<pre><code>&lt;property name=&quot;name&quot; column=&quot;name&quot;&gt;&lt;/property&gt;</code></pre></li>
+</ul>
+ <!--        描述一对多关系
+        key中Colum写的是外键名称
+        one-to-many 一对多，其class属性表示外键表实体类名-->
+<pre><code>    &lt;set name=&quot;orders&quot; cascade=&quot;delete-orphan&quot;&gt;
+        &lt;key column=&quot;customer_id&quot;&gt;&lt;/key&gt;
+        &lt;one-to-many class=&quot;zhao.hibernate.domain.Order&quot;&gt;&lt;/one-to-many&gt;
+    &lt;/set&gt;
+&lt;/class&gt;</code></pre> </hibernate-mapping>
+  <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3.</span> 测试类</span><br></pre></td></tr></table></figure>
+ /*
+ *乐观锁
+ * */
+ public class Lesson12 {
+
+<pre><code>@Test
+public void save(){
+
+    Session session = util.openSession();
+    session.getTransaction().begin();
+
+    //乐观锁：每次更新，版本都会加1
+    /*
+    * 如果当前的版本【2】比数据库【3】中的低，就不更新，报错
+    * Row was uodated or deleted by another transaction;
+    * 乐观锁是hibernate自己实现的
+    * for update 是Mysql 实现的
+    * */
+    Customer customer = session.get(Customer.class,1);
+    customer.setName(&quot;阿尔提尔&quot;);
+
+    session.getTransaction().commit();
+    session.close();
+}</code></pre><p> }<br>  <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">### log4j日志配置</span><br><span class="line"><span class="comment">* 配置文件内容：</span></span><br><span class="line">    1. 记录器</span><br><span class="line">    2. 输出源</span><br><span class="line">    3. 布局</span><br><span class="line"><span class="comment">* 记录器</span></span><br><span class="line"> 例如：log4j.rootLogger=info,stdout,<span class="keyword">file</span></span><br><span class="line"> 格式： log4j.rootLogger=日志级别，输出源1，输出源2，...</span><br><span class="line"> log4j 日志级别： fatal致命错误 <span class="keyword">error</span>错误 warm警告 info信息 debug调试  trace堆栈信息（由高到低顺序）</span><br><span class="line"><span class="comment"> * stdout控制台输出源</span></span><br><span class="line"><span class="comment">* 输出源</span></span><br><span class="line">   例如：log4j.appender.<span class="keyword">file</span>=org.apaphe.log4j.FileAppender</span><br><span class="line">   格式：log4j.appender.输出源的名称=输出源的实现类</span><br><span class="line">   名称：自定义</span><br><span class="line">   实现类：log4j提供</span><br><span class="line">   输出源属性例如：log4j.appender.<span class="keyword">file</span>.<span class="keyword">File</span>=<span class="keyword">d</span>:/mylong.<span class="keyword">log</span></span><br><span class="line">   输出源属性格式：log4j.appender.名称.属性=值</span><br></pre></td></tr></table></figure></p>
+<h3 id="direct-log-messages-to-stdout"><a href="#direct-log-messages-to-stdout" class="headerlink" title="direct log messages to stdout"></a>direct log messages to stdout</h3><p> log4j.appender.stdout=org.apache.log4j.ConsoleAppender<br> log4j.appender.stdout.Target=System.out<br> log4j.appender.stdout.layout=org.apache.log4j.PatternLayout<br> log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n</p>
+<h3 id="direct-messages-to-file-hibernate-log"><a href="#direct-messages-to-file-hibernate-log" class="headerlink" title="direct messages to file hibernate.log"></a>direct messages to file hibernate.log</h3><p> #log4j.appender.file=org.apache.log4j.FileAppender</p>
+<h1 id="文件输出路径"><a href="#文件输出路径" class="headerlink" title="文件输出路径"></a>文件输出路径</h1><p> #log4j.appender.file.File=hibernate.log<br> #log4j.appender.file.layout=org.apache.log4j. PatternLayout<br> #log4j.appender.file.layout.ConversionPattern=%d  {ABSOLUTE} %5p %c{1}:%L - %m%n</p>
+<h3 id="set-log-levels-for-more-verbose-logging-change-‘info’-to-‘debug’"><a href="#set-log-levels-for-more-verbose-logging-change-‘info’-to-‘debug’" class="headerlink" title="set log levels - for more verbose logging change   ‘info’ to ‘debug’"></a>set log levels - for more verbose logging change   ‘info’ to ‘debug’</h3><h3 id="log4j-rootLogger-warn-stdout"><a href="#log4j-rootLogger-warn-stdout" class="headerlink" title="log4j.rootLogger=warn, stdout"></a>log4j.rootLogger=warn, stdout</h3><h1 id="ware-：日志级别"><a href="#ware-：日志级别" class="headerlink" title="ware ：日志级别"></a>ware ：日志级别</h1>  <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">* 代码里使用日志。</span><br><span class="line"> step1:创建日志对象</span><br><span class="line"> step2：调用日志对象的方法</span><br><span class="line"></span><br><span class="line"> Logger（org.slf4j）</span><br><span class="line"> Logger logger = <span class="module-access"><span class="module"><span class="identifier">LoggerFactory</span>.</span></span>get<span class="constructor">Logger()</span></span><br></pre></td></tr></table></figure>
+<p>  public class Lesson12 {<br>    //Logger（org.slf4j）<br>    Logger logger = LoggerFactory.getLogger(Lesson12.class);<br>    @Test<br>    public void save(){</p>
+<pre><code>    Session session = util.openSession();
+    session.getTransaction().begin();
+
+
+   logger.error(&quot;error....&quot;);//错误
+   ligger.ware(&quot;ware....&quot;);//警告
+   logger.info(&quot;info.....&quot;);//信息 
+
+
+    session.getTransaction().commit();
+    session.close();
+}</code></pre><p> }<br>   ```</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢关顾！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/qrcode.png" alt="卓尔不凡 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zgub.jpg" alt="卓尔不凡 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hibernate%E6%A1%86%E6%9E%B6/" rel="tag"><i class="fab fa-behance-square"></i> Hibernate框架</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/16/Hibernate%E6%A1%86%E6%9E%B6-%E4%B8%89/" rel="next" title="Hibernate框架(三)">
+                <i class="fa fa-chevron-left"></i> Hibernate框架(三)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="卓尔不凡" />
+            
+              <p class="site-author-name" itemprop="name">卓尔不凡</p>
+              <p class="site-description motion-element" itemprop="description">你我暮年，闲坐庭院， 云卷云舒听雨声，星密星稀赏月影， 花开花落忆江南， 你话往时，我画往事， 愿有岁月可回首，且以深情共白头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/botbotji" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HQL查询"><span class="nav-number">1.</span> <span class="nav-text">HQL查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序-order-by-desc降序-asc升序"><span class="nav-number">2.</span> <span class="nav-text">排序 order by desc降序  asc升序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分页"><span class="nav-number">3.</span> <span class="nav-text">分页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合函数和分组查询"><span class="nav-number">4.</span> <span class="nav-text">聚合函数和分组查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接查询"><span class="nav-number">5.</span> <span class="nav-text">连接查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名查询"><span class="nav-number">6.</span> <span class="nav-text">命名查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置C3P0"><span class="nav-number">7.</span> <span class="nav-text">配置C3P0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#悲观锁，乐观锁"><span class="nav-number">8.</span> <span class="nav-text">悲观锁，乐观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hibernate添加写锁"><span class="nav-number">9.</span> <span class="nav-text">Hibernate添加写锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#direct-log-messages-to-stdout"><span class="nav-number">10.</span> <span class="nav-text">direct log messages to stdout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#direct-messages-to-file-hibernate-log"><span class="nav-number">11.</span> <span class="nav-text">direct messages to file hibernate.log</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件输出路径"><span class="nav-number"></span> <span class="nav-text">文件输出路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#set-log-levels-for-more-verbose-logging-change-‘info’-to-‘debug’"><span class="nav-number">1.</span> <span class="nav-text">set log levels - for more verbose logging change   ‘info’ to ‘debug’</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#log4j-rootLogger-warn-stdout"><span class="nav-number">2.</span> <span class="nav-text">log4j.rootLogger=warn, stdout</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ware-：日志级别"><span class="nav-number"></span> <span class="nav-text">ware ：日志级别</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓尔不凡</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+</body>
+</html>
