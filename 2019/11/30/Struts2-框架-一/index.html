@@ -99,7 +99,7 @@
 <meta property="og:description" content="struts2框架执行流程图  应用流程注解  当Web容器收到请求（HttpServletRequest）它将请求传递给一个标准的的过滤链包括（ActionContextCleanUp）过滤器。经过Other filters(SiteMesh ,etc)，需要调用FilterDispatcher核心控制器，然后它调用ActionMapper确定请求哪个Action，ActionMapper返回一">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https:&#x2F;&#x2F;timgsa.baidu.com&#x2F;timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1573586858256&amp;di=9a6128e13e4f09150bf63d78bed0bc09&amp;imgtype=0&amp;src=http%3A%2F%2Fstatic.zybuluo.com%2FYano%2F84bw9li87dg4p3ytl00uhq6x%2FStruts2%25E5%258E%259F%25E7%2590%2586.png">
-<meta property="og:updated_time" content="2019-11-30T14:43:44.308Z">
+<meta property="og:updated_time" content="2019-11-30T14:57:31.971Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;timgsa.baidu.com&#x2F;timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1573586858256&amp;di=9a6128e13e4f09150bf63d78bed0bc09&amp;imgtype=0&amp;src=http%3A%2F%2Fstatic.zybuluo.com%2FYano%2F84bw9li87dg4p3ytl00uhq6x%2FStruts2%25E5%258E%259F%25E7%2590%2586.png">
 
@@ -474,7 +474,7 @@
 <h3 id="结果集"><a href="#结果集" class="headerlink" title="结果集"></a>结果集</h3></li>
 </ul>
 </li>
-<li>自定义结果集  继承 StrutsResultSupport<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义结果集</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">Cqudate</span> <span class="keyword">extends</span> <span class="title">StrutsResultSupport</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">protected</span> void doExecute(<span class="type">String</span> arg0, <span class="type">ActionInvocation</span> arg1) <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"> ```              </span><br><span class="line">* struts.xml文件</span><br></pre></td></tr></table></figure>
+<li>自定义结果集  继承 StrutsResultSupport<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义结果集</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">Cqudate</span> <span class="keyword">extends</span> <span class="title">StrutsResultSupport</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">protected</span> void doExecute(<span class="type">String</span> arg0, <span class="type">ActionInvocation</span> arg1) <span class="keyword">throws</span> <span class="type">Exception</span> &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">```              </span><br><span class="line">* struts.xml文件</span><br></pre></td></tr></table></figure>
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
   "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
@@ -495,7 +495,7 @@
 
 
 </struts>
- <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### 获取servlet 的api方式</span><br><span class="line">* 通过SrevletActionContext</span><br></pre></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### 获取servlet 的api方式</span><br><span class="line">* 通过SrevletActionContext</span><br></pre></td></tr></table></figure>
 public class TestAction extends ActionSupport {
 
 
@@ -509,7 +509,9 @@ public String text() {
 <p> //        4.application(sercletContext)<br>        ServletContext context = ServletActionContext.getServletContext();<br> //        NONE不跳转，不去找result标签<br>        System.out.println(response);<br>        System.out.println(request);<br>        System.out.println(session);<br>        System.out.println(context);</p>
 <p> //        org.apache.struts2.dispatcher.StrutsRequestWrapper@34374916 ruquest 属于<br> //        org.apache.catalina.session.StandardSessionFacade@40e7fb20  属于Tomcat<br> //        org.apache.catalina.core.ApplicationContextFacade@20dc66ff 属于Tomcat<br> //        org.apache.catalina.connector.ResponseFacade@5973cd44 属于Tomcat</p>
 <pre><code>    return NONE;
-}</code></pre><p>}<br> <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>通过实现ServletRequestAware接口，让Struts自动注入</span><br></pre></td></tr></table></figure><br> public class Test2Action extends ActionSupport implements ServletRequestAware{</p>
+}</code></pre><p>}</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>通过实现ServletRequestAware接口，让Struts自动注入</span><br></pre></td></tr></table></figure>
+<p> public class Test2Action extends ActionSupport implements ServletRequestAware{</p>
 <pre><code>private static final long serialVersionUID = 1L;
 HttpServletResponse  response;
 HttpServletRequest request;
@@ -520,9 +522,13 @@ public String text() {
 System.out.println(request);
 
 return NONE;</code></pre><p> //        NONE不跳转，不去找result标签<br>    }<br>    @Override<br>    public void setServletRequest(HttpServletRequest request) {<br>        // TODO Auto-generated method stub<br>        this.request = request;<br>    }</p>
-<p>}<br> <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>struts.xml</span><br></pre></td></tr></table></figure><br> <?xml version="1.0" encoding="UTF-8" ?><br> <!DOCTYPE struts PUBLIC
+<p>}</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>struts.xml</span><br></pre></td></tr></table></figure>
+ <?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
-    "http://struts.apache.org/dtds/struts-2.3.dtd"></p>
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
  <struts>
  <!-- 配置开发模式 可以显示跟详细的错误信息-->
     <constant name="struts.devMode" value="true"></constant>
@@ -533,7 +539,7 @@ return NONE;</code></pre><p> //        NONE不跳转，不去找result标签<br>
         &lt;action name=&quot;test2&quot; class=&quot;com.zhao.web.action.Test2Action&quot; method=&quot;text&quot;&gt;
         &lt;/action&gt;
 &lt;/package&gt;</code></pre> </struts>
- <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### 获取请求参数</span><br><span class="line">* 实体类</span><br></pre></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### 获取请求参数</span><br><span class="line">* 实体类</span><br></pre></td></tr></table></figure>
  public class User {
     private String username;
     private String password;
@@ -555,79 +561,94 @@ return NONE;</code></pre><p> //        NONE不跳转，不去找result标签<br>
     }
 
 <p> }</p>
-  <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* <span class="number">1.</span> Action获取请求参数两种方式：ServletActionContext</span><br></pre></td></tr></table></figure>
-<p> public class LoginAction extends ActionSupport {</p>
-<pre><code>private String username;
-private String password;
-public void setUsername(String username) {
-    System.out.println(&quot;setUsername&quot;);
-    this.username = username;
-}
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* <span class="number">1.</span> Action获取请求参数两种方式：ServletActionContext</span><br></pre></td></tr></table></figure>
+<pre><code> public class LoginAction extends ActionSupport {
 
-public void setPassword(String password) {
-    System.out.println(&quot;SetPassword&quot;);
-    this.password = password;
-}
-
-
-public String login() throws Exception {</code></pre><p> //        获取求参数<br> //        第一种方式：ServletActionContext<br> //        HttpServletRequest request = ServletActionContext.getRequest();<br> //        String username = request.getParameter(“username”);<br> //        String password = request.getParameter(“password”);</p>
-<p> //        第二种方式：通过属性的Set注入</p>
-<pre><code>    System.out.println(username);
-    System.out.println(password);
-    HttpServletResponse response = ServletActionContext.getResponse();
-
-    return NONE;
-}</code></pre><p>}</p>
- <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>前端页面login.jsp</span><br></pre></td></tr></table></figure>
-<form action="${pageContext.request.contextPath }/login.action">
-    用户名：<input name="username" type="text"/><br>
-    密&emsp;码：<input name="password" type="password"/><br>
-    <input type="submit" value="登录"/>
-</form>
- <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 第三种方式：<span class="keyword">set</span>模型属性注入</span><br></pre></td></tr></table></figure>
- public class LoginSetModelAction extends ActionSupport {
- //    获取请求参数
- //    第三种方式：set模型属性注入
-    private User user;
-    public User getUser() {
-        System.out.println("getUser");
-        return user;
+    private String username;
+    private String password;
+    public void setUsername(String username) {
+        System.out.println(&quot;setUsername&quot;);
+        this.username = username;
     }
 
-<pre><code>public void setUser(User user) {
-    System.out.println(&quot;setUser&quot;);
-    this.user = user;
-}
-
-public String login(){
-    System.out.println(user);
-    return NONE;
-}</code></pre><p> }<br>  <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 前端页面<span class="module-access"><span class="module"><span class="identifier">LoginSetModel</span>.</span></span>jsp</span><br></pre></td></tr></table></figure></p>
-<form action="${pageContext.request.contextPath }/LoginSetModel.action">
-    用户名：<input name="user.username" type="text"/><br>
-    密&emsp;码：<input name="user.password" type="user.password"/><br>
-    <input type="submit" value="登录"/>
-</form>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 第四种方式：通过模型注入，在action里实现一个模型驱动接口ModelDriven<span class="tag">&lt;<span class="name">User</span>&gt;</span></span><br></pre></td></tr></table></figure>
-public class LoginModelAction extends ActionSupport implements ModelDriven<User>{
-    /** 第四种方式：通过模型注入，在action里实现一个模型驱动接口
-     *  提供一个模型属性，并一定要赋值
-     *  通过这种方式，不用在jsp页面写user.
-     *  
-     */
-    private User user = new User();
-    @Override
-    public User getModel() {
-        // TODO Auto-generated method stub
-        return user;
+    public void setPassword(String password) {
+        System.out.println(&quot;SetPassword&quot;);
+        this.password = password;
     }
-    public String login(){
-        System.out.println(user);
+
+
+    public String login() throws Exception {
+ //        获取求参数
+ //        第一种方式：ServletActionContext
+ //        HttpServletRequest request = ServletActionContext.getRequest();
+ //        String username = request.getParameter(&quot;username&quot;);
+ //        String password = request.getParameter(&quot;password&quot;);
+
+
+ //        第二种方式：通过属性的Set注入
+
+        System.out.println(username);
+        System.out.println(password);
+        HttpServletResponse response = ServletActionContext.getResponse();
+
         return NONE;
     }
 
-<p>}<br> <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>前端页面modellogin.jsp</span><br></pre></td></tr></table></figure><br> <form action="${pageContext.request.contextPath }/Model.action"><br>    用户名：<input name="username" type="text"/><br><br>    密&emsp;码：<input name="password" type="password"/><br><br>    <input type="submit" value="登录"/><br> </form><br>  ```</p>
+}</code></pre><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>前端页面login.jsp</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;form action=&quot;${pageContext.request.contextPath }/login.action&quot;&gt;
+    用户名：&lt;input name=&quot;username&quot; type=&quot;text&quot;/&gt;&lt;br&gt;
+    密&amp;emsp;码：&lt;input name=&quot;password&quot; type=&quot;password&quot;/&gt;&lt;br&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;登录&quot;/&gt;
+&lt;/form&gt;</code></pre> <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 第三种方式：<span class="keyword">set</span>模型属性注入</span><br></pre></td></tr></table></figure>
+<pre><code>public class LoginSetModelAction extends ActionSupport {
+//    获取请求参数
+//    第三种方式：set模型属性注入
+   private User user;
+   public User getUser() {
+       System.out.println(&quot;getUser&quot;);
+       return user;
+   }
 
+   public void setUser(User user) {
+       System.out.println(&quot;setUser&quot;);
+       this.user = user;
+   }
+
+   public String login(){
+       System.out.println(user);
+       return NONE;
+   }
+}</code></pre><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 前端页面<span class="module-access"><span class="module"><span class="identifier">LoginSetModel</span>.</span></span>jsp</span><br></pre></td></tr></table></figure>
+ <form action="${pageContext.request.contextPath }/LoginSetModel.action">
+    用户名：<input name="user.username" type="text"/><br>
+    密&emsp;码：<input name="user.password" type="user.password"/><br>
+    <input type="submit" value="登录"/>
+ </form>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 第四种方式：通过模型注入，在action里实现一个模型驱动接口ModelDriven<span class="tag">&lt;<span class="name">User</span>&gt;</span></span><br></pre></td></tr></table></figure>
+    public class LoginModelAction extends ActionSupport implements ModelDriven<User>{
+        /** 第四种方式：通过模型注入，在action里实现一个模型驱动接口
+         *  提供一个模型属性，并一定要赋值
+         *  通过这种方式，不用在jsp页面写user.
+         *  
+         */
+        private User user = new User();
+        @Override
+        public User getModel() {
+            // TODO Auto-generated method stub
+            return user;
+        }
+        public String login(){
+            System.out.println(user);
+            return NONE;
+        }
+
+<pre><code>}</code></pre><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>前端页面modellogin.jsp</span><br></pre></td></tr></table></figure>
+ <form action="${pageContext.request.contextPath }/Model.action">
+    用户名：<input name="username" type="text"/><br>
+    密&emsp;码：<input name="password" type="password"/><br>
+    <input type="submit" value="登录"/>
+ </form>
+```
       
     </div>
     
