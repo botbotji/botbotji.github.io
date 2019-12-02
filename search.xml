@@ -1,6 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>java 反射机制详解</title>
+    <url>/2019/12/02/java-%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h3 id="反射：框架设计的灵魂"><a href="#反射：框架设计的灵魂" class="headerlink" title="反射：框架设计的灵魂"></a>反射：框架设计的灵魂</h3><pre><code>* 框架：半成品软件，可以在框架的基础上进行软件开发，简化编码
+* 反射：将类的各个组成部分封装为其他对象，这就是反射机制；
+    * 好处：
+          1. 可以在程序运行过程中，操作这些对象。
+          2. 可以解耦，提高程序的可扩展性 </code></pre><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul>
+<li><p>定义：JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。</p>
+</li>
+<li><p>用途：在日常的第三方应用开发过程中，经常会遇到某个类的某个成员变量、方法或是属性是私有的或是只对系统应用开放，这时候就可以利用Java的反射机制通过反射来获取所需的私有成员或是方法。</p>
+<h4 id="反射机制的相关类"><a href="#反射机制的相关类" class="headerlink" title="反射机制的相关类"></a>反射机制的相关类</h4></li>
+<li><p>获取Class(字节码文件)对象的方式：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Class.forName(“全类名”)</td>
+<td align="center">将字节码文件加载进内存，返回class对象(一般用于：配置文件，将类名定义在配置文件中。读取文件，加载类)</td>
+</tr>
+<tr>
+<td>类名.class</td>
+<td align="center">通过类名属性class属性获取(一般用于：参数的传递)</td>
+</tr>
+<tr>
+<td>对象.getClass()</td>
+<td align="center">getClass()方法在Object类中定义的(一般用于：对象获取字节码方式)</td>
+</tr>
+<tr>
+<td>- 注意：同一个字节码文件(*.class)在一次程序运行过程中，只被加载一次，不论那种方式获取的class对象都是同一个。</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>与Java反射相关的类如下：<br>类名|用途<br>–|:–:<br>Class类|代表类的实体，在运行的Java应用程序中表示类和接口<br>Field类|代表类的成员变量（成员变量也称为类的属性）<br>Method类|代表类的方法<br>Constructor类|代表类的构造方法</p>
+<h4 id="Class类"><a href="#Class类" class="headerlink" title="Class类"></a>Class类</h4><ul>
+<li>Class代表类的实体，在运行的Java应用程序中表示类和接口。在这个类中提供了很多有用的方法，这里对他们简单的分类介绍。<h5 id="获得类相关的方法"><a href="#获得类相关的方法" class="headerlink" title="获得类相关的方法"></a>获得类相关的方法</h5></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>asSubclass(Class<U> clazz)</td>
+<td align="center">把传递的类的对象转换成代表其子类的对象</td>
+</tr>
+<tr>
+<td>Cast</td>
+<td align="center">把对象转换成代表类或是接口的对象</td>
+</tr>
+<tr>
+<td>getClassLoader()</td>
+<td align="center">获得类的加载器</td>
+</tr>
+<tr>
+<td>getClasses()</td>
+<td align="center">返回一个数组，数组中包含该类中所有公共类和接口类的对象</td>
+</tr>
+<tr>
+<td>getDeclaredClasses()</td>
+<td align="center">返回一个数组，数组中包含该类中所有类和接口类的对象</td>
+</tr>
+<tr>
+<td>forName(String className)</td>
+<td align="center">根据类名返回类的对象</td>
+</tr>
+<tr>
+<td>getName()</td>
+<td align="center">获得类的完整路径名字</td>
+</tr>
+<tr>
+<td>newInstance()</td>
+<td align="center">创建类的实例</td>
+</tr>
+<tr>
+<td>getPackage()</td>
+<td align="center">获得类的包</td>
+</tr>
+<tr>
+<td>getSimpleName()</td>
+<td align="center">获得类的名字</td>
+</tr>
+<tr>
+<td>getSuperclass()</td>
+<td align="center">获得当前类继承的父类的名字</td>
+</tr>
+<tr>
+<td>getInterfaces()</td>
+<td align="center">获得当前类实现的类或是接口</td>
+</tr>
+</tbody></table>
+<h5 id="获得类中属性相关的方法"><a href="#获得类中属性相关的方法" class="headerlink" title="获得类中属性相关的方法"></a>获得类中属性相关的方法</h5><table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Field[] getField(String name)</td>
+<td align="left">获得某个公有的属性对象</td>
+</tr>
+<tr>
+<td>Field[] getFields()</td>
+<td align="left">获得所有公有的属性对象</td>
+</tr>
+<tr>
+<td>Field[] getDeclaredField(String name)</td>
+<td align="left">获得某个属性对象</td>
+</tr>
+<tr>
+<td>Field[] getDeclaredFields()</td>
+<td align="left">获得所有属性对象</td>
+</tr>
+</tbody></table>
+<h5 id="获得类中注解相关的方法"><a href="#获得类中注解相关的方法" class="headerlink" title="获得类中注解相关的方法"></a>获得类中注解相关的方法</h5><table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Field[] getAnnotation(Class<A> annotationClass)</td>
+<td align="left">返回该类中与参数类型匹配的公有注解对象</td>
+</tr>
+<tr>
+<td>Field[] getAnnotations()</td>
+<td align="left">返回该类所有的公有注解对象</td>
+</tr>
+<tr>
+<td>Field[] getDeclaredAnnotation(Class<A> annotationClass)</td>
+<td align="left">返回该类中与参数类型匹配的所有注解对象</td>
+</tr>
+<tr>
+<td>Field[] getDeclaredAnnotations()</td>
+<td align="left">返回该类所有的注解对象</td>
+</tr>
+</tbody></table>
+<h5 id="获得类中构造器相关的方法"><a href="#获得类中构造器相关的方法" class="headerlink" title="获得类中构造器相关的方法"></a>获得类中构造器相关的方法</h5><table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Constructor<?>[] getConstructor(Class...<?> Constructor&lt;?&gt;[] parameterTypes)</td>
+<td align="left">获得该类中与参数类型匹配的公有构造方法</td>
+</tr>
+<tr>
+<td>Constructor&lt;?&gt;[] getConstructors()</td>
+<td align="left">获得该类的所有公有构造方法</td>
+</tr>
+<tr>
+<td>Constructor<?>[] getDeclaredConstructor(Class...<?> parameterTypes)</td>
+<td align="left">获得该类中与参数类型匹配的构造方法</td>
+</tr>
+<tr>
+<td>Constructor&lt;?&gt;[] getDeclaredConstructors()</td>
+<td align="left">获得该类所有构造方法</td>
+</tr>
+</tbody></table>
+<h5 id="获得类中方法相关的方法"><a href="#获得类中方法相关的方法" class="headerlink" title="获得类中方法相关的方法"></a>获得类中方法相关的方法</h5><table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Method[] getMethod(String name, Class…&lt;?&gt; parameterTypes)</td>
+<td align="left">获得该类某个公有的方法</td>
+</tr>
+<tr>
+<td>Method[] getMethods()</td>
+<td align="left">获得该类所有公有的方法</td>
+</tr>
+<tr>
+<td>Method[] getDeclaredMethod(String name, Class…&lt;?&gt; parameterTypes)</td>
+<td align="left">获得该类某个方法</td>
+</tr>
+<tr>
+<td>Method[] getDeclaredMethods()</td>
+<td align="left">获得该类所有方法</td>
+</tr>
+</tbody></table>
+<h5 id="类中其他重要的方法"><a href="#类中其他重要的方法" class="headerlink" title="类中其他重要的方法"></a>类中其他重要的方法</h5><table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>isAnnotation()</td>
+<td align="left">如果是注解类型则返回true</td>
+</tr>
+<tr>
+<td>isAnnotationPresent(Class&lt;? extends Annotation&gt; annotationClass)</td>
+<td align="left">如果是指定类型注解类型则返回true</td>
+</tr>
+<tr>
+<td>isAnonymousClass()</td>
+<td align="left">如果是匿名类则返回true</td>
+</tr>
+<tr>
+<td>isArray()</td>
+<td align="left">如果是一个数组类则返回true</td>
+</tr>
+<tr>
+<td>isEnum()</td>
+<td align="left">如果是枚举类则返回true</td>
+</tr>
+<tr>
+<td>isInstance(Object obj)</td>
+<td align="left">如果obj是该类的实例则返回true</td>
+</tr>
+<tr>
+<td>isInterface()</td>
+<td align="left">如果是接口类则返回true</td>
+</tr>
+<tr>
+<td>isLocalClass()</td>
+<td align="left">如果是局部类则返回true</td>
+</tr>
+<tr>
+<td>isMemberClass()</td>
+<td align="left">如果是内部类则返回true</td>
+</tr>
+</tbody></table>
+<h5 id="Field类-Field代表类的成员变量（成员变量也称为类的属性）。"><a href="#Field类-Field代表类的成员变量（成员变量也称为类的属性）。" class="headerlink" title="Field类|Field代表类的成员变量（成员变量也称为类的属性）。"></a>Field类|Field代表类的成员变量（成员变量也称为类的属性）。</h5><table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>equals(Object obj)</td>
+<td align="left">属性与obj相等则返回true</td>
+</tr>
+<tr>
+<td>get(Object obj)</td>
+<td align="left">获得obj中对应的属性值</td>
+</tr>
+<tr>
+<td>set(Object obj, Object value)</td>
+<td align="left">设置obj中对应属性值</td>
+</tr>
+</tbody></table>
+<h5 id="Method类-Method代表类的方法。"><a href="#Method类-Method代表类的方法。" class="headerlink" title="Method类|Method代表类的方法。"></a>Method类|Method代表类的方法。</h5><table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>invoke(Object obj, Object… args)</td>
+<td align="left">传递object对象及参数调用该对象对应的方法</td>
+</tr>
+</tbody></table>
+<h5 id="Constructor类-Constructor代表类的构造方法。"><a href="#Constructor类-Constructor代表类的构造方法。" class="headerlink" title="Constructor类|Constructor代表类的构造方法。"></a>Constructor类|Constructor代表类的构造方法。</h5><table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>newInstance(Object… initargs)</td>
+<td align="left">根据传递的参数创建类的对象</td>
+</tr>
+</tbody></table>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><ul>
+<li><p>获取成员变量</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"> <span class="comment">/*1. 获取成员变量们</span></span><br><span class="line"><span class="comment">  * Field[] getFields();  获取public修饰的成员变量</span></span><br><span class="line"><span class="comment">  * Field[] getField(String name); 获取指定的public修饰的成员变量</span></span><br><span class="line"><span class="comment">  * Field[] getDeclaredFields();</span></span><br><span class="line"><span class="comment">  * Field[] getDeclaredField(String name);</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="built_in">public</span> <span class="keyword">class</span> test &#123;</span><br><span class="line">   <span class="built_in">public</span> static <span class="type">void</span> main(String[] args) throws NoSuchFieldException, IllegalAccessException &#123;</span><br><span class="line">       //<span class="number">0.</span>获取Person的<span class="keyword">class</span>对象</span><br><span class="line">       <span class="keyword">Class</span> personClass = Person.<span class="keyword">class</span>;</span><br><span class="line">       //<span class="number">1.</span>Field[] getFields() 获取所有<span class="built_in">public</span>修饰的成员变量</span><br><span class="line">       Field[] fields = personClass.getFields();</span><br><span class="line">       <span class="keyword">for</span> (Field field : fields) &#123;</span><br><span class="line">           <span class="keyword">System</span>.<span class="keyword">out</span>.println(field);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">System</span>.<span class="keyword">out</span>.println("---------");</span><br><span class="line">       //<span class="number">1.</span>Field[] getFields(String <span class="type">name</span>) 获取指定<span class="built_in">public</span>修饰的成员变量</span><br><span class="line">       Field mimi = personClass.getField("mimi");</span><br><span class="line">       //操作<span class="keyword">get</span>|<span class="keyword">set</span></span><br><span class="line">       Person p = <span class="built_in">new</span> Person();</span><br><span class="line">       <span class="keyword">Object</span> <span class="keyword">value</span> = mimi.<span class="keyword">get</span>(p);</span><br><span class="line">       //mimi.<span class="keyword">set</span>("咪咪");</span><br><span class="line">       <span class="keyword">System</span>.<span class="keyword">out</span>.println(<span class="keyword">value</span>);</span><br><span class="line">       mimi.<span class="keyword">set</span>(p, "咪咪");</span><br><span class="line">       <span class="keyword">System</span>.<span class="keyword">out</span>.println(p);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">System</span>.<span class="keyword">out</span>.println("-----------");</span><br><span class="line">       //<span class="number">3.</span>Field[] getDeclareFields() 获取所有的成员变量,不考虑修饰符</span><br><span class="line">       Field[] declaredFields = personClass.getDeclaredFields();</span><br><span class="line">       <span class="keyword">for</span> (Field field : declaredFields) &#123;</span><br><span class="line">           <span class="keyword">System</span>.<span class="keyword">out</span>.println(field);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">System</span>.<span class="keyword">out</span>.println("-----------");</span><br><span class="line">       <span class="comment">/*</span></span><br><span class="line"><span class="comment">       *4.Field[] getDeclareFields(String name)</span></span><br><span class="line"><span class="comment">       * 获取指定的成员变量,注意设置私有的属性是汇报错</span></span><br><span class="line"><span class="comment">       * 解决方法：暴力反射</span></span><br><span class="line"><span class="comment">       * 忽略访问修饰符的安全检查</span></span><br><span class="line"><span class="comment">       * 对象.setAccessible()</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">       Field <span class="type">name</span> = personClass.getDeclaredField("name");</span><br><span class="line">       //忽略访问修饰符的安全检查</span><br><span class="line">       <span class="type">name</span>.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">Object</span> value2 = <span class="type">name</span>.<span class="keyword">get</span>(p);</span><br><span class="line">       <span class="keyword">System</span>.<span class="keyword">out</span>.println(value2);</span><br><span class="line">       <span class="type">name</span>.<span class="keyword">set</span>(p, "赵明");</span><br><span class="line">       <span class="keyword">System</span>.<span class="keyword">out</span>.println(p);</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>获取构造器</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">public static void main(String<span class="literal">[]</span> args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException &#123;</span><br><span class="line">      <span class="comment">//0.获取Person的class对象</span></span><br><span class="line">      Class personClass = <span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span><span class="keyword">class</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/*2. 获取构造方法们</span></span><br><span class="line"><span class="comment">      * Constructor&lt;?&gt;[] getConstructors();</span></span><br><span class="line"><span class="comment">      * Constructor&lt;T&gt;[] getConstructor(类&lt;?&gt;... parameterTypes);</span></span><br><span class="line"><span class="comment">      * Constructor&lt;?&gt;[] getDeclaredConstructors();</span></span><br><span class="line"><span class="comment">      * Constructor&lt;T&gt;[] getDeclaredConstructor(类&lt;?&gt;... parameterTypes);</span></span><br><span class="line"><span class="comment">      **/</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">//获取构造器Constructor&lt;T&gt; getConstructor（类&lt;?&gt;.... parameterTypes）  创建对象的</span></span><br><span class="line">      Constructor constructor = personClass.get<span class="constructor">Constructor(String.<span class="params">class</span>,<span class="params">int</span>.<span class="params">class</span>)</span>;</span><br><span class="line">      <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(constructor);</span><br><span class="line"></span><br><span class="line">      <span class="comment">//创建对象.newInstance("莉莉",23);</span></span><br><span class="line">      Object person  = constructor.<span class="keyword">new</span><span class="constructor">Instance(<span class="string">"莉莉"</span>,23)</span>;</span><br><span class="line">      <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(person);</span><br><span class="line"></span><br><span class="line">      <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(<span class="string">"======================="</span>);</span><br><span class="line">      <span class="comment">//空参的构造方法</span></span><br><span class="line">      Constructor constructor1 = personClass.get<span class="constructor">Constructor()</span>;</span><br><span class="line">      <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(constructor1);</span><br><span class="line">      <span class="comment">//创建对象</span></span><br><span class="line">      Object person1  = constructor1.<span class="keyword">new</span><span class="constructor">Instance()</span>;</span><br><span class="line">      <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(person1);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Class类创建对象方法,一般使用此方法比较简单</span></span><br><span class="line">      Object o = personClass.<span class="keyword">new</span><span class="constructor">Instance()</span>;</span><br><span class="line">      <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(o);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取成员方法</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">public static void main(String<span class="literal">[]</span> args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException &#123;</span><br><span class="line">        <span class="comment">//0.获取Person的class对象</span></span><br><span class="line">        Class personClass = <span class="module-access"><span class="module"><span class="identifier">Person</span>.</span></span><span class="keyword">class</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*3. 获取成员方法们</span></span><br><span class="line"><span class="comment">         * Method[] getMethod()</span></span><br><span class="line"><span class="comment">         * Method getMethod(String name,类&lt;?&gt;... parameterTypes)</span></span><br><span class="line"><span class="comment">         * Method[] getDeclaredMethod()</span></span><br><span class="line"><span class="comment">         * Method getDeclaredMethod(String name,类&lt;?&gt;... parameterTypes)</span></span><br><span class="line"><span class="comment">         **/</span></span><br><span class="line">        <span class="comment">//获取指定名称的方法  无参</span></span><br><span class="line">        Method eat = personClass.get<span class="constructor">Method(<span class="string">"eat"</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//执行方法 Object invoke(Object);</span></span><br><span class="line">        Person person = <span class="keyword">new</span> <span class="constructor">Person()</span>;</span><br><span class="line">        eat.invoke(person);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取指定名称的方法  有参</span></span><br><span class="line">        Method eat_method = personClass.get<span class="constructor">Method(<span class="string">"eat"</span>,String.<span class="params">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//执行方法 Object invoke(Object);</span></span><br><span class="line">        Person person1 = <span class="keyword">new</span> <span class="constructor">Person()</span>;</span><br><span class="line">        eat_method.invoke(person1,<span class="string">"好吃的"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(<span class="string">"+++++++++++++++++++++++++++++++++++++"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取所有public修饰的方法</span></span><br><span class="line">        Method<span class="literal">[]</span> methods = personClass.get<span class="constructor">Methods()</span>;</span><br><span class="line">        for (Method <span class="keyword">method</span> : methods)&#123;</span><br><span class="line">            <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(<span class="keyword">method</span>);</span><br><span class="line">            <span class="comment">//获取方法名称</span></span><br><span class="line">            String name = <span class="keyword">method</span>.get<span class="constructor">Name()</span>;</span><br><span class="line">            <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(name);</span><br><span class="line">            <span class="comment">//method.setAccessible(true);</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取全限定类名 4. 获取类名 String getName()</span></span><br><span class="line">        String classname = personClass.get<span class="constructor">Name()</span>;</span><br><span class="line">        <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>out.println(classname);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="应用案例"><a href="#应用案例" class="headerlink" title="应用案例"></a>应用案例</h3></li>
+<li><p>需求：写一个”框架”,可以帮我们 创建任意类的对象，并且执行其中任意方法</p>
+</li>
+<li><p>不改变类的任何代码，可以创建任意类的对象，可以执行任意方法</p>
+</li>
+<li><p>pro.properties配置文件</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="comment">#全部限定类名</span></span><br><span class="line"><span class="attr">className</span> = Test.Person</span><br><span class="line"><span class="comment">#方法名</span></span><br><span class="line"><span class="attr">methodName</span> = eat</span><br><span class="line"></span><br><span class="line"><span class="comment">#className = Test.Student</span></span><br><span class="line"><span class="comment">#methodName = sleep</span></span><br></pre></td></tr></table></figure></li>
+<li><p>测试类</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">public static void main(String<span class="literal">[]</span> args) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException &#123;</span><br><span class="line">      <span class="comment">//可以执行创建任意类的对象，可以执行任意方法</span></span><br><span class="line">      <span class="comment">//不改变类的任何代码，可以创建任意类的对象，可以执行任意方法</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">//Person person = new Person();</span></span><br><span class="line">      <span class="comment">//person.eat();</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">//加载配置文件</span></span><br><span class="line">      <span class="comment">//1.创建properties对象</span></span><br><span class="line">      Properties pro = <span class="keyword">new</span> <span class="constructor">Properties()</span>;</span><br><span class="line">      <span class="comment">//2.加载配置文件，转换为一个集合</span></span><br><span class="line">      <span class="comment">//2.1获取Class目录下的配置文件</span></span><br><span class="line">      ClassLoader classLoader = <span class="module-access"><span class="module"><span class="identifier">Refleat</span>.</span></span><span class="keyword">class</span>.get<span class="constructor">ClassLoader()</span>;</span><br><span class="line">      InputStream is = classLoader.get<span class="constructor">ResourceAsStream(<span class="string">"pro.properties"</span>)</span>;</span><br><span class="line">      pro.load(is);</span><br><span class="line"></span><br><span class="line">      <span class="comment">//3.获取配置文件中定义的数据</span></span><br><span class="line">      String classname = pro.get<span class="constructor">Property(<span class="string">"className"</span>)</span>;</span><br><span class="line">      String <span class="keyword">method</span> = pro.get<span class="constructor">Property(<span class="string">"methodName"</span>)</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//4.加载该类进内存</span></span><br><span class="line">      Class cls = <span class="module-access"><span class="module"><span class="identifier">Class</span>.</span></span>for<span class="constructor">Name(<span class="params">classname</span>)</span>;</span><br><span class="line">      <span class="comment">//5.创建对象</span></span><br><span class="line">      Object obj = cls.<span class="keyword">new</span><span class="constructor">Instance()</span>;</span><br><span class="line">      <span class="comment">//6.获取方法对象</span></span><br><span class="line">      Method method1 = cls.get<span class="constructor">Method(<span class="params">method</span>)</span>;</span><br><span class="line">      <span class="comment">//7.执行方法</span></span><br><span class="line">      method1.invoke(obj);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Struts2 框架(三)</title>
     <url>/2019/11/30/Struts2-%E6%A1%86%E6%9E%B6-%E4%B8%89/</url>
     <content><![CDATA[<h4 id="OGNL表达式"><a href="#OGNL表达式" class="headerlink" title="OGNL表达式"></a>OGNL表达式</h4><figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span> <span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span></span></span></span><br><span class="line"><span class="xml">    pageEncoding="UTF-8"%&gt;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%@taglib</span> <span class="attr">uri</span>=<span class="string">"/struts-tags"</span> <span class="attr">prefix</span>=<span class="string">"s"</span> %&gt;</span></span></span><br><span class="line"><span class="xml"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">title</span>&gt;</span>ognl表达式<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- ognl表达式</span></span></span><br><span class="line"><span class="xml">	1.s:property表示从作用域取值 有‘’号表示字符串 </span></span><br><span class="line"><span class="xml">	2.可调用方法</span></span><br><span class="line"><span class="xml">	3.访问静态属性</span></span><br><span class="line"><span class="xml">	默认情况下，struts2把静态属性访问禁止，如果使用需要打开</span></span><br><span class="line"><span class="xml">	4.封装list数据，数组  Map集合#</span><span class="template-variable">&#123;key:value&#125;</span><span class="xml">--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">" 'java struts' "</span>/&gt;</span>的长度</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">" 'java struts'.length() "</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">int的最大值<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"@java.lang.Integer@MAX_VALUE"</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">随机数：<span class="tag">&lt;<span class="name">s:property</span> <span class="attr">value</span>=<span class="string">"@java.lang.Math@random()*10"</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="xml">数组：<span class="tag">&lt;<span class="name">s:radio</span> <span class="attr">list</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;'男','女'&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> <span class="attr">name</span>=<span class="string">"Sex"</span> <span class="attr">label</span>=<span class="string">"性别"</span>&gt;</span><span class="tag">&lt;/<span class="name">s:radio</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">Map集合:<span class="tag">&lt;<span class="name">s:radio</span> <span class="attr">list</span>=<span class="string">"#</span></span></span><span class="template-variable">&#123;'nan':'男','nv':'女'&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> <span class="attr">name</span>=<span class="string">"Sex"</span> <span class="attr">label</span>=<span class="string">"性别"</span>&gt;</span><span class="tag">&lt;/<span class="name">s:radio</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
