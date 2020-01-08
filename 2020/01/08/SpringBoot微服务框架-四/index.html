@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="SpringBoot," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="如何修改SpringBoot的默认配置 模式：  1.SpringBoot在自动配置很多组件的时候，先看容器中有没有用户自己配置的（@Bean ， @Component），如果有就用用户配置的，如果没有，才自动配置；如果有些组件偶多个(viewResolver)将用户配置的和默认的组合起来； 2.SpringBoot中会有非常多的XXXConfigurer帮助我们进行扩展配置; 3.在Spring">
+<meta name="keywords" content="SpringBoot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot微服务框架(四)">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;08&#x2F;SpringBoot%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6-%E5%9B%9B&#x2F;index.html">
+<meta property="og:site_name" content="卓尔不凡">
+<meta property="og:description" content="如何修改SpringBoot的默认配置 模式：  1.SpringBoot在自动配置很多组件的时候，先看容器中有没有用户自己配置的（@Bean ， @Component），如果有就用用户配置的，如果没有，才自动配置；如果有些组件偶多个(viewResolver)将用户配置的和默认的组合起来； 2.SpringBoot中会有非常多的XXXConfigurer帮助我们进行扩展配置; 3.在Spring">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-01-08T12:14:30.990Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/01/08/SpringBoot微服务框架-四/"/>
+
+
+
+
+
+  <title>SpringBoot微服务框架(四) | 卓尔不凡</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/botbotji" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卓尔不凡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">师夷长技以制夷</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/08/SpringBoot%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6-%E5%9B%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卓尔不凡">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卓尔不凡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringBoot微服务框架(四)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-08T20:13:17+08:00">
+                2020-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/08/SpringBoot%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6-%E5%9B%9B/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/01/08/SpringBoot%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6-%E5%9B%9B/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="如何修改SpringBoot的默认配置"><a href="#如何修改SpringBoot的默认配置" class="headerlink" title="如何修改SpringBoot的默认配置"></a>如何修改SpringBoot的默认配置</h3><ul>
+<li><p>模式：</p>
+<ul>
+<li>1.SpringBoot在自动配置很多组件的时候，先看容器中有没有用户自己配置的（@Bean ， @Component），如果有就用用户配置的，如果没有，才自动配置；<br>如果有些组件偶多个(viewResolver)将用户配置的和默认的组合起来；</li>
+<li>2.SpringBoot中会有非常多的XXXConfigurer帮助我们进行扩展配置;</li>
+<li>3.在SpringBoot中会有很多的XXXCustomizer帮助我们进行定制配置;<h3 id="SpringBoot默认使用（Tomcat）作为嵌入式的Servlet容器："><a href="#SpringBoot默认使用（Tomcat）作为嵌入式的Servlet容器：" class="headerlink" title="SpringBoot默认使用（Tomcat）作为嵌入式的Servlet容器："></a>SpringBoot默认使用（Tomcat）作为嵌入式的Servlet容器：</h3></li>
+</ul>
+</li>
+<li><p>1.如何定制和修改Tomcat容器的相关配置</p>
+<ul>
+<li>a.第一种方式：修改和server有关的配置(ServerProperties)<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server<span class="selector-class">.servlet</span>.context-path=/crud</span><br><span class="line"></span><br><span class="line"><span class="comment">//通用的Servlet容器设置</span></span><br><span class="line">server.xxx</span><br><span class="line"><span class="comment">//Tomcat的设置</span></span><br><span class="line">server<span class="selector-class">.tomcat</span>.xxx</span><br><span class="line">server<span class="selector-class">.tomcat</span>.uri-encoding=UTF-<span class="number">8</span></span><br></pre></td></tr></table></figure></li>
+<li>b.第二种方式：编写一个 WebServerFactoryCustomizer<TomcatServletWebServerFactory>：嵌入式的Servlet容器的定制器；来修改Servlet容器的配置<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//编写一个 WebServerFactoryCustomizer：嵌入式的Servlet容器的定制器；来修改Servlet容器的配置</span></span><br><span class="line">  <span class="comment">// 向IoC容器中添加servlet容器工厂定制器 WebServerFactoryCustomizer</span></span><br><span class="line">  <span class="comment">//向IoC容器中添加servlet容器工厂定制器</span></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> WebServerFactoryCustomizer&lt;TomcatServletWebServerFactory&gt; <span class="title">myWebServerFactoryCustomizer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> WebServerFactoryCustomizer&lt;TomcatServletWebServerFactory&gt;() &#123;</span><br><span class="line"></span><br><span class="line">          <span class="comment">//定制嵌入式的Sevlet容器相关规则</span></span><br><span class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">customize</span><span class="params">(TomcatServletWebServerFactory factory)</span> </span>&#123;</span><br><span class="line">              <span class="comment">//设置相关配置</span></span><br><span class="line">              factory.setPort(<span class="number">8082</span>);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></li>
+<li>c.第三种方式：向IoC容器中添加可配置的servlet容器工厂 ConfigurableServletWebServerFactory<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">MyServerConfigurer</span> </span>&#123;</span><br><span class="line">  <span class="comment">//向IoC容器中添加servlet容器工厂</span></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  public ConfigurableServletWebServerFactory  myConfigurableServletWebServerFactory() &#123;</span><br><span class="line">    TomcatServletWebServerFactory <span class="keyword">factory</span> = <span class="keyword">new</span> TomcatServletWebServerFactory(); </span><br><span class="line">    <span class="keyword">factory</span>.setPort(<span class="number">8083</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">factory</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Web开发-注册Servlert三大组件"><a href="#Web开发-注册Servlert三大组件" class="headerlink" title="Web开发 注册Servlert三大组件"></a>Web开发 注册Servlert三大组件</h3></li>
+</ul>
+</li>
+<li><p>注册Servlet，Filter，Listener</p>
+</li>
+<li><p>ServletRegisterationBear</p>
+<ol>
+<li>创建Servlet<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">MyServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//处理Get请求</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> void doGet(<span class="type">HttpServletRequest</span> req, <span class="type">HttpServletResponse</span> resp) <span class="keyword">throws</span> <span class="type">ServletException</span>, <span class="type">IOException</span> &#123;</span><br><span class="line">      doPost(req,resp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//处理Post请求</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> void doPost(<span class="type">HttpServletRequest</span> req, <span class="type">HttpServletResponse</span> resp) <span class="keyword">throws</span> <span class="type">ServletException</span>, <span class="type">IOException</span> &#123;</span><br><span class="line">        resp.getWriter().write(<span class="string">"Hello MyServlet!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>创建配置类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyservletConfig</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注册三大组件</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletRegistrationBean <span class="title">myServlet</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ServletRegistrationBean servletRegistrationBean = <span class="keyword">new</span> ServletRegistrationBean(<span class="keyword">new</span> MyServlet(),<span class="string">"/myservletr"</span>);</span><br><span class="line">        <span class="keyword">return</span> servletRegistrationBean;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>FilterRegisterationBean</p>
+<ol>
+<li>创建Filter过滤器实现javax.servlet.*;包下Filter接口<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//过滤</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"MyFilter process......"</span>);</span><br><span class="line">        filterChain.doFilter(servletRequest,servletResponse);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//销毁</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>创建配置类将其加载到容器中<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">  public FilterRegistrationBean my<span class="constructor">Filter()</span>&#123;</span><br><span class="line">      FilterRegistrationBean filterRegistrationBean = <span class="keyword">new</span> <span class="constructor">FilterRegistrationBean()</span>;</span><br><span class="line">      filterRegistrationBean.set<span class="constructor">Filter(<span class="params">new</span> MyFilter()</span>);</span><br><span class="line">      filterRegistrationBean.set<span class="constructor">UrlPatterns(Arrays.<span class="params">asList</span>(<span class="string">"/hello"</span>,<span class="string">"/myservlet"</span>)</span>);</span><br><span class="line">      return filterRegistrationBean;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>ServletListenerRegisterationBean</p>
+<ol>
+<li>创建监听器<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//监听器</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyListener</span> <span class="keyword">implements</span> <span class="title">ServletContextListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Servlet启动</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextInitialized</span><span class="params">(ServletContextEvent sce)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">" contextInitialized web应用启动了"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Servlet销毁</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextDestroyed</span><span class="params">(ServletContextEvent sce)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"contextDestroyed web应用销毁了"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在配置类中将其添加到容器中<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">ServletListenerRegistrationBean <span class="title">myListener</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ServletListenerRegistrationBean listenerRegistrationBean = <span class="keyword">new</span> ServletListenerRegistrationBean(<span class="keyword">new</span> MyListener());</span><br><span class="line">        <span class="keyword">return</span> listenerRegistrationBean;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="SpringBoot帮我们在自动配置SpringMvc的时候，自动的注册了SpringMvc的前端控制器；DispatcherServlet；-自动配置类DispatcherServletAutoConfiguration"><a href="#SpringBoot帮我们在自动配置SpringMvc的时候，自动的注册了SpringMvc的前端控制器；DispatcherServlet；-自动配置类DispatcherServletAutoConfiguration" class="headerlink" title="SpringBoot帮我们在自动配置SpringMvc的时候，自动的注册了SpringMvc的前端控制器；DispatcherServlet；(自动配置类DispatcherServletAutoConfiguration)"></a>SpringBoot帮我们在自动配置SpringMvc的时候，自动的注册了SpringMvc的前端控制器；DispatcherServlet；(自动配置类DispatcherServletAutoConfiguration)</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span>(</span><br><span class="line">        proxyBeanMethods = <span class="literal">false</span></span><br><span class="line">    )</span><br><span class="line">    <span class="meta">@Conditional</span>(&#123;<span class="type">DispatcherServletAutoConfiguration</span>.<span class="type">DispatcherServletRegistrationCondition</span><span class="class">.<span class="keyword">class</span>&#125;)</span></span><br><span class="line"><span class="class">    <span class="title">@ConditionalOnClass</span>(<span class="params">&#123;<span class="type">ServletRegistration</span>.class&#125;</span>)</span></span><br><span class="line"><span class="class">    <span class="title">@EnableConfigurationProperties</span>(<span class="params">&#123;<span class="type">WebMvcProperties</span>.class&#125;</span>)</span></span><br><span class="line"><span class="class">    <span class="title">@Import</span>(<span class="params">&#123;<span class="type">DispatcherServletAutoConfiguration</span>.<span class="type">DispatcherServletConfiguration</span>.class&#125;</span>)</span></span><br><span class="line"><span class="class">    <span class="title">protected</span> <span class="title">static</span> <span class="title">class</span> <span class="title">DispatcherServletRegistrationConfiguration</span> </span>&#123;</span><br><span class="line">        <span class="keyword">protected</span> <span class="type">DispatcherServletRegistrationConfiguration</span>() &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Bean</span>(</span><br><span class="line">            name = &#123;<span class="string">"dispatcherServletRegistration"</span>&#125;</span><br><span class="line">        )</span><br><span class="line">        <span class="meta">@ConditionalOnBean</span>(</span><br><span class="line">            value = &#123;<span class="type">DispatcherServlet</span><span class="class">.<span class="keyword">class</span>&#125;,</span></span><br><span class="line"><span class="class">            <span class="title">name</span> </span>= &#123;<span class="string">"dispatcherServlet"</span>&#125;</span><br><span class="line">        )</span><br><span class="line">        public <span class="type">DispatcherServletRegistrationBean</span> dispatcherServletRegistration(<span class="type">DispatcherServlet</span> dispatcherServlet, <span class="type">WebMvcProperties</span> webMvcProperties, <span class="type">ObjectProvider</span>&lt;<span class="type">MultipartConfigElement</span>&gt; multipartConfig) &#123;</span><br><span class="line">            <span class="type">DispatcherServletRegistrationBean</span> registration = <span class="keyword">new</span> <span class="type">DispatcherServletRegistrationBean</span>(dispatcherServlet, webMvcProperties.getServlet().getPath());</span><br><span class="line">            <span class="comment">//确认拦截：/ 所有请求：包括静态资源文件，但不拦截jsp请求，以前/*拦截所有包括jsp请求</span></span><br><span class="line">            <span class="comment">//可通过server.servletPath来修改SpringMvc前端控制器默认拦截的请求</span></span><br><span class="line">            registration.setName(<span class="string">"dispatcherServlet"</span>);</span><br><span class="line">            registration.setLoadOnStartup(webMvcProperties.getServlet().getLoadOnStartup());</span><br><span class="line">            multipartConfig.ifAvailable(registration::setMultipartConfig);</span><br><span class="line">            <span class="keyword">return</span> registration;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="SpringBoot切换其他Servlet容器"><a href="#SpringBoot切换其他Servlet容器" class="headerlink" title="SpringBoot切换其他Servlet容器"></a>SpringBoot切换其他Servlet容器</h3></li>
+</ol>
+</li>
+<li><p>2.SpringBoot能不能支持其他的Servlet容器；</p>
+</li>
+<li><p>SpringBoot默认支持：</p>
+<ul>
+<li>Tomcat（默认使用）<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!--引入web模块--&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">     //引入web模块默认使用嵌入式的Tomcat做为Servlet容器；</span><br><span class="line"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>Jetty（长连接）</li>
+<li>Undertow(不支持JSP)特点：高性能非阻塞,并发性能高<br>案例切换Jetty（Undertow一样的方式）<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--引入web模块--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--排除Tomcat容器--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--引入其他Servlet容器--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jetty<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="快捷键-ctrl-h-打开继承树"><a href="#快捷键-ctrl-h-打开继承树" class="headerlink" title="快捷键 ctrl+h 打开继承树"></a>快捷键 ctrl+h 打开继承树</h3><h3 id="嵌入式Servlet容器自动配置原理"><a href="#嵌入式Servlet容器自动配置原理" class="headerlink" title="嵌入式Servlet容器自动配置原理;"></a>嵌入式Servlet容器自动配置原理;</h3></li>
+</ul>
+</li>
+<li><p>在Spring Boot的自动配置包下，找到web模块中的servlet文件夹下的ServletWebServerFactoryConfiguration类* </p>
+</li>
+<li><p>ServletWebServerFactoryConfiguration:嵌入式的servlet容器自动配置</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">@<span class="type">Configuration</span>(</span><br><span class="line">    proxyBeanMethods = false</span><br><span class="line">)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">ServletWebServerFactoryConfiguration</span> &#123;</span></span><br><span class="line"><span class="class">    <span class="type">ServletWebServerFactoryConfiguration</span>() &#123;</span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    @<span class="type">Configuration</span>(</span></span><br><span class="line"><span class="class">        <span class="title">proxyBeanMethods</span> = <span class="title">false</span></span></span><br><span class="line"><span class="class">    )</span></span><br><span class="line"><span class="class">    @<span class="type">ConditionalOnClass</span>(&#123;<span class="type">Servlet</span>.<span class="title">class</span>, <span class="type">Undertow</span>.<span class="title">class</span>, <span class="type">SslClientAuthMode</span>.<span class="title">class</span>&#125;)</span></span><br><span class="line"><span class="class">    @<span class="type">ConditionalOnMissingBean</span>(</span></span><br><span class="line"><span class="class">        <span class="title">value</span> = &#123;<span class="type">ServletWebServerFactory</span>.<span class="title">class</span>&#125;,</span></span><br><span class="line"><span class="class">        <span class="title">search</span> = <span class="type">SearchStrategy</span>.<span class="type">CURRENT</span></span></span><br><span class="line"><span class="class">    )</span></span><br><span class="line"><span class="class">    public static <span class="keyword">class</span> <span class="type">EmbeddedUndertow</span> &#123;</span></span><br><span class="line"><span class="class">        public <span class="type">EmbeddedUndertow</span>() &#123;</span></span><br><span class="line"><span class="class">        &#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">        @<span class="type">Bean</span></span></span><br><span class="line"><span class="class">        public <span class="type">UndertowServletWebServerFactory</span> undertowServletWebServerFactory(<span class="type">ObjectProvider</span>&lt;<span class="type">UndertowDeploymentInfoCustomizer</span>&gt; <span class="title">deploymentInfoCustomizers</span>, <span class="type">ObjectProvider</span>&lt;<span class="type">UndertowBuilderCustomizer</span>&gt; <span class="title">builderCustomizers</span>) &#123;</span></span><br><span class="line"><span class="class">            <span class="type">UndertowServletWebServerFactory</span> factory = new <span class="type">UndertowServletWebServerFactory</span>();</span></span><br><span class="line"><span class="class">            factory.getDeploymentInfoCustomizers().addAll((<span class="type">Collection</span>)deploymentInfoCustomizers.orderedStream().collect(<span class="type">Collectors</span>.<span class="title">toList</span>()));</span></span><br><span class="line"><span class="class">            factory.getBuilderCustomizers().addAll((<span class="type">Collection</span>)builderCustomizers.orderedStream().collect(<span class="type">Collectors</span>.<span class="title">toList</span>()));</span></span><br><span class="line"><span class="class">            return factory;</span></span><br><span class="line"><span class="class">        &#125;</span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    @<span class="type">Configuration</span>(</span></span><br><span class="line"><span class="class">        <span class="title">proxyBeanMethods</span> = <span class="title">false</span></span></span><br><span class="line"><span class="class">    )</span></span><br><span class="line"><span class="class">    @<span class="type">ConditionalOnClass</span>(&#123;<span class="type">Servlet</span>.<span class="title">class</span>, <span class="type">Server</span>.<span class="title">class</span>, <span class="type">Loader</span>.<span class="title">class</span>, <span class="type">WebAppContext</span>.<span class="title">class</span>&#125;)</span></span><br><span class="line"><span class="class">    @<span class="type">ConditionalOnMissingBean</span>(</span></span><br><span class="line"><span class="class">        <span class="title">value</span> = &#123;<span class="type">ServletWebServerFactory</span>.<span class="title">class</span>&#125;,</span></span><br><span class="line"><span class="class">        <span class="title">search</span> = <span class="type">SearchStrategy</span>.<span class="type">CURRENT</span></span></span><br><span class="line"><span class="class">    )</span></span><br><span class="line"><span class="class">    public static <span class="keyword">class</span> <span class="type">EmbeddedJetty</span> &#123;</span></span><br><span class="line"><span class="class">        public <span class="type">EmbeddedJetty</span>() &#123;</span></span><br><span class="line"><span class="class">        &#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">        @<span class="type">Bean</span></span></span><br><span class="line"><span class="class">        public <span class="type">JettyServletWebServerFactory</span> <span class="type">JettyServletWebServerFactory</span>(<span class="type">ObjectProvider</span>&lt;<span class="type">JettyServerCustomizer</span>&gt; <span class="title">serverCustomizers</span>) &#123;</span></span><br><span class="line"><span class="class">            <span class="type">JettyServletWebServerFactory</span> factory = new <span class="type">JettyServletWebServerFactory</span>();</span></span><br><span class="line"><span class="class">            factory.getServerCustomizers().addAll((<span class="type">Collection</span>)serverCustomizers.orderedStream().collect(<span class="type">Collectors</span>.<span class="title">toList</span>()));</span></span><br><span class="line"><span class="class">            return factory;</span></span><br><span class="line"><span class="class">        &#125;</span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    @<span class="type">Configuration</span>(</span></span><br><span class="line"><span class="class">        <span class="title">proxyBeanMethods</span> = <span class="title">false</span></span></span><br><span class="line"><span class="class">    )</span></span><br><span class="line"><span class="class">    @<span class="type">ConditionalOnClass</span>(&#123;<span class="type">Servlet</span>.<span class="title">class</span>, <span class="type">Tomcat</span>.<span class="title">class</span>, <span class="type">UpgradeProtocol</span>.<span class="title">class</span>&#125;)</span></span><br><span class="line"><span class="class">    //判断当前是否引入了<span class="type">Tomcat</span>依赖</span></span><br><span class="line"><span class="class">    @<span class="type">ConditionalOnMissingBean</span>(</span></span><br><span class="line"><span class="class">        <span class="title">value</span> = &#123;<span class="type">ServletWebServerFactory</span>.<span class="title">class</span>&#125;,</span></span><br><span class="line"><span class="class">        <span class="title">search</span> = <span class="type">SearchStrategy</span>.<span class="type">CURRENT</span></span></span><br><span class="line"><span class="class">    )</span></span><br><span class="line"><span class="class">    //判断当前容器没有用户自己定义<span class="type">ServletWebServerFactory</span>：嵌入式servlet容器工厂 作用：创建嵌入式的<span class="type">Servlet</span>容器</span></span><br><span class="line"><span class="class">    public static <span class="keyword">class</span> <span class="type">EmbeddedTomcat</span> &#123;</span></span><br><span class="line"><span class="class">        public <span class="type">EmbeddedTomcat</span>() &#123;</span></span><br><span class="line"><span class="class">        &#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">        //<span class="type">TomcatServletWebServerFactory</span> <span class="type">Tomcat</span>容器工厂</span></span><br><span class="line"><span class="class">        @<span class="type">Bean</span></span></span><br><span class="line"><span class="class">        public <span class="type">TomcatServletWebServerFactory</span> tomcatServletWebServerFactory(<span class="type">ObjectProvider</span>&lt;<span class="type">TomcatConnectorCustomizer</span>&gt; <span class="title">connectorCustomizers</span>, <span class="type">ObjectProvider</span>&lt;<span class="type">TomcatContextCustomizer</span>&gt; <span class="title">contextCustomizers</span>, <span class="type">ObjectProvider</span>&lt;<span class="type">TomcatProtocolHandlerCustomizer</span>&lt;?&gt;&gt; <span class="title">protocolHandlerCustomizers</span>) &#123;</span></span><br><span class="line"><span class="class">            <span class="type">TomcatServletWebServerFactory</span> factory = new <span class="type">TomcatServletWebServerFactory</span>();</span></span><br><span class="line"><span class="class">            factory.getTomcatConnectorCustomizers().addAll((<span class="type">Collection</span>)connectorCustomizers.orderedStream().collect(<span class="type">Collectors</span>.<span class="title">toList</span>()));</span></span><br><span class="line"><span class="class">            factory.getTomcatContextCustomizers().addAll((<span class="type">Collection</span>)contextCustomizers.orderedStream().collect(<span class="type">Collectors</span>.<span class="title">toList</span>()));</span></span><br><span class="line"><span class="class">            factory.getTomcatProtocolHandlerCustomizers().addAll((<span class="type">Collection</span>)protocolHandlerCustomizers.orderedStream().collect(<span class="type">Collectors</span>.<span class="title">toList</span>()));</span></span><br><span class="line"><span class="class">            return factory;</span></span><br><span class="line"><span class="class">        &#125;</span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>一、嵌入式Servlet容器默认的配置原理<br>1、该类中有三个静态内部类（都是配置类）：<br>EmbeddedUndertow、EmbeddedJetty、EmbeddedTomcat<br>这里拿EmbeddedTomcat来举例说明<br>@ConditionalOnClass({Servlet.class, Tomcat.class, UpgradeProtocol.class})<br>判断classpath下有没有Servlet, Tomcat, UpgradeProtocol这三个类，也就是看maven有没有引入对应的依赖，如果引入了对应的依赖，下面的配置就生效。<br>2、@ConditionalOnMissingBean(<br>value = {ServletWebServerFactory.class},<br>search = SearchStrategy.CURRENT<br>)<br>如果容器中没有ServletWebServerFactory这个组件下面的配置就生效<br>点进ServletWebServerFactory看，该接口只有一个方法，前面只判断这个类型的组件有没有在容器中，而该类型又只有一个方法，说明最终Spring Boot会调用该接口实现类中的getWebServer方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取嵌入式Servlet工厂</span></span><br><span class="line">  <span class="meta">@FunctionalInterface</span></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ServletWebServerFactory</span> </span>&#123;</span><br><span class="line">      <span class="function">WebServer <span class="title">getWebServer</span><span class="params">(ServletContextInitializer... initializers)</span></span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>tomcat</li>
+<li>Jetty（长连接）</li>
+<li>Undertow(不支持JSP)特点：高性能非阻塞,并发性能高 </li>
+</ul>
+<p>3、查看ServletWebServerFactory接口的实现，有三个很面熟的实现类，就是上面ServletWebServerFactoryConfiguration类中要往容器中添加的组件<br>4、进入TomcatServletWebServerFactory类中查看getWebServer方法。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public WebServer get<span class="constructor">WebServer(ServletContextInitializer<span class="operator">...</span> <span class="params">initializers</span>)</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (this.disableMBeanRegistry) &#123;</span><br><span class="line">          <span class="module-access"><span class="module"><span class="identifier">Registry</span>.</span></span>disable<span class="constructor">Registry()</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//创建一个Tomcat</span></span><br><span class="line">      Tomcat tomcat = <span class="keyword">new</span> <span class="constructor">Tomcat()</span>;</span><br><span class="line">      File baseDir = this.baseDirectory != null ? this.baseDirectory : this.create<span class="constructor">TempDir(<span class="string">"tomcat"</span>)</span>;</span><br><span class="line">      <span class="comment">//配置Tomcat环节</span></span><br><span class="line">      tomcat.set<span class="constructor">BaseDir(<span class="params">baseDir</span>.<span class="params">getAbsolutePath</span>()</span>);</span><br><span class="line">      Connector connector = <span class="keyword">new</span> <span class="constructor">Connector(<span class="params">this</span>.<span class="params">protocol</span>)</span>;</span><br><span class="line">      connector.set<span class="constructor">ThrowOnFailure(<span class="params">true</span>)</span>;</span><br><span class="line">      tomcat.get<span class="constructor">Service()</span>.add<span class="constructor">Connector(<span class="params">connector</span>)</span>;</span><br><span class="line">      this.customize<span class="constructor">Connector(<span class="params">connector</span>)</span>;</span><br><span class="line">      tomcat.set<span class="constructor">Connector(<span class="params">connector</span>)</span>;</span><br><span class="line">      tomcat.get<span class="constructor">Host()</span>.set<span class="constructor">AutoDeploy(<span class="params">false</span>)</span>;</span><br><span class="line">      this.configure<span class="constructor">Engine(<span class="params">tomcat</span>.<span class="params">getEngine</span>()</span>);</span><br><span class="line">      Iterator var5 = this.additionalTomcatConnectors.iterator<span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">while</span>(var5.has<span class="constructor">Next()</span>) &#123;</span><br><span class="line">          Connector additionalConnector = (Connector)var5.next<span class="literal">()</span>;</span><br><span class="line">          tomcat.get<span class="constructor">Service()</span>.add<span class="constructor">Connector(<span class="params">additionalConnector</span>)</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      this.prepare<span class="constructor">Context(<span class="params">tomcat</span>.<span class="params">getHost</span>()</span>, initializers);</span><br><span class="line">      <span class="comment">//将配置好的Tomcat传入进来,并且启动Tomcat服务器 返回TomcatWebServer</span></span><br><span class="line">      return this.get<span class="constructor">TomcatWebServer(<span class="params">tomcat</span>)</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>首先会创建一个Tomcat对象，给其设置连接器等一些配置<br>最终还会调用getTomcatWebServer方法<br>this.getTomcatWebServer(tomcat);<br>–&gt;return new TomcatWebServer(tomcat, this.getPort() &gt;= 0);<br>端口号默认是8080所以上面传过去的是true，进入TomcatWebServer的构造方法TomcatWebServer中，在构造方法中又调用了this.initialize();进入initialize方法，该方法就会启动tomcat。(所以这一切都是建立在创建好嵌入式Servlet容器之后)</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  protected TomcatWebServer get<span class="constructor">TomcatWebServer(Tomcat <span class="params">tomcat</span>)</span> &#123;</span><br><span class="line">    return <span class="keyword">new</span> <span class="constructor">TomcatWebServer(<span class="params">tomcat</span>, <span class="params">this</span>.<span class="params">getPort</span>()</span> &gt;= <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>对嵌入式容器的修改</p>
+<ul>
+<li><p>方法1：修改application配置<br>从官方文档可以看出支持的配置有如下所示，所以要修改servlet容器配置，直接在application配置文件修改即可：</p>
+<p>网络设置: 监听端口(server.port)、服务器地址(server.address)等等<br>Session设置: 会话是否持久 (server.servlet.session.persistent),会话超时(server.servlet.session.timeout), 会话数据的位置 (server.servlet.session.store-dir), 会话对应的cookie配置 (server.servlet.session.cookie.*) 等等<br>错误管理: 错误页面位置 (server.error.path)等等<br>SSL设置：具体参考Configure SSL<br>HTTP compression：具体参考Enable HTTP Response Compression<br>application文件</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ServerProperties</span> ， TomcatWebServer</span><br></pre></td></tr></table></figure></li>
+<li><p>方法2：自定义WebServerFactoryCustomizer定制器类<br>从文档里还找到了通过新建自定义的WebServerFactoryCustomizer类来实现属性配置修改，WebServerFactoryCustomizer也就是一种定制器类：</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>ServerProperties也是定制器</li>
+<li>注册后置处理器webServerFactoryCustomizerBeanPostProcessor<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span>(proxyBeanMethods = <span class="keyword">false</span>)</span><br><span class="line"><span class="meta">@AutoConfigureOrder</span>(Ordered.HIGHEST_PRECEDENCE)</span><br><span class="line"><span class="meta">@ConditionalOnClass</span>(ServletRequest<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">@<span class="title">ConditionalOnWebApplication</span>(<span class="title">type</span> </span>= Type.SERVLET)</span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(ServerProperties<span class="class">.<span class="keyword">class</span>)//使<span class="title">ServerProperties</span>配置类起效</span></span><br><span class="line"><span class="class">@<span class="title">Import</span>(</span>&#123; ServletWebServerFactoryAutoConfiguration.BeanPostProcessorsRegistrar<span class="class">.<span class="keyword">class</span>,</span></span><br><span class="line"><span class="class">    <span class="title">ServletWebServerFactoryConfiguration</span>.<span class="title">EmbeddedTomcat</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">    <span class="title">ServletWebServerFactoryConfiguration</span>.<span class="title">EmbeddedJetty</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">    <span class="title">ServletWebServerFactoryConfiguration</span>.<span class="title">EmbeddedUndertow</span>.<span class="title">class</span> &#125;)//@<span class="title">Import</span>是<span class="title">Spring</span>框架的注解，作用是将对应组件加载到容器，这里关键的是<span class="title">BeanPostProcessorsRegistrar</span>，一个后置处理类</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">class</span> <span class="title">ServletWebServerFactoryAutoConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> ServletWebServerFactoryCustomizer <span class="title">servletWebServerFactoryCustomizer</span><span class="params">(ServerProperties serverProperties)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ServletWebServerFactoryCustomizer(serverProperties);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Tomcat的定制器类，起作用的条件是有Tomcat对应jar有引入项目的情况，默认是引入的，所以会执行Tomcat的servletWeb工厂定制类</span></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="meta">@ConditionalOnClass</span>(name = <span class="string">"org.apache.catalina.startup.Tomcat"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> TomcatServletWebServerFactoryCustomizer <span class="title">tomcatServletWebServerFactoryCustomizer</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">      ServerProperties serverProperties)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> TomcatServletWebServerFactoryCustomizer(serverProperties);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ....</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//注册重要的后置处理器类WebServerFactoryCustomizerBeanPostProcessor，在ioc容器启动的时候会调用后置处理器</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanPostProcessorsRegistrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span>, <span class="title">BeanFactoryAware</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ConfigurableListableBeanFactory beanFactory;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置ConfigurableListableBeanFactory</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBeanFactory</span><span class="params">(BeanFactory beanFactory)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (beanFactory <span class="keyword">instanceof</span> ConfigurableListableBeanFactory) &#123;</span><br><span class="line">        <span class="keyword">this</span>.beanFactory = (ConfigurableListableBeanFactory) beanFactory;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata,</span></span></span><br><span class="line"><span class="function"><span class="params">        BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.beanFactory == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      registerSyntheticBeanIfMissing(registry, <span class="string">"webServerFactoryCustomizerBeanPostProcessor"</span>,</span><br><span class="line">          WebServerFactoryCustomizerBeanPostProcessor<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">      registerSyntheticBeanIfMissing(registry, <span class="string">"errorPageRegistrarBeanPostProcessor"</span>,</span><br><span class="line">          ErrorPageRegistrarBeanPostProcessor<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">registerSyntheticBeanIfMissing</span><span class="params">(BeanDefinitionRegistry registry, String name, Class&lt;?&gt; beanClass)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (ObjectUtils.isEmpty(<span class="keyword">this</span>.beanFactory.getBeanNamesForType(beanClass, <span class="keyword">true</span>, <span class="keyword">false</span>))) &#123;</span><br><span class="line">        RootBeanDefinition beanDefinition = <span class="keyword">new</span> RootBeanDefinition(beanClass);</span><br><span class="line">        beanDefinition.setSynthetic(<span class="keyword">true</span>);</span><br><span class="line">        registry.registerBeanDefinition(name, beanDefinition);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Springboot的ServletWebServerFactoryAutoConfiguration是嵌入式Servlet容器的自动配置类，这个类的主要作用是创建TomcatServletWebServerFactory工厂类，创建定制器类TomcatServletWebServerFactoryCustomizer，创建FilterRegistrationBean类，同时很关键的一步是注册后置处理器webServerFactoryCustomizerBeanPostProcessor，然后Springboot的Application类一启动，就会执行run方法，run经过一系列调用会通过ServletWebServerApplicationContext的onRefresh方法创建ioc容器，然后通过createWebServer方法，createWebServer方法会去ioc容器里扫描是否有对应的ServletWebServerFactory工厂类(TomcatServletWebServerFactory是其中一种)，扫描得到，就会触发webServerFactoryCustomizerBeanPostProcessor后置处理器类，这个处理器类会获取TomcatServletWebServerFactoryCustomizer定制器，并调用customize方法进行定制，这时候工厂类起作用，调用getWebServer方法进行Tomcat属性配置和引擎设置等等，再创建TomcatWebServer启动Tomcat容器</li>
+</ul>
+<ul>
+<li>步骤：<ul>
+<li>SpringBoot根据导入的后依赖情况该容器中添加相应的组件<br>ServletWebServerFactoryConfiguration【TomcatServletWebServerFactory】</li>
+<li>容器中某个组件要创建对象就会惊动后处理器；(ServletWebServerFactoryAutoConfiguration类中)<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public static <span class="keyword">class</span> BeanPostProcessorsRegistrar implements ImportBeanDefinitionRegistrar, BeanFactoryAware &#123;</span><br><span class="line">    <span class="keyword">private</span> ConfigurableListableBeanFactory beanFactory;</span><br><span class="line"></span><br><span class="line">    public <span class="constructor">BeanPostProcessorsRegistrar()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void set<span class="constructor">BeanFactory(BeanFactory <span class="params">beanFactory</span>)</span> throws BeansException &#123;</span><br><span class="line">        <span class="keyword">if</span> (beanFactory instanceof ConfigurableListableBeanFactory) &#123;</span><br><span class="line">            this.beanFactory = (ConfigurableListableBeanFactory)beanFactory;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void register<span class="constructor">BeanDefinitions(AnnotationMetadata <span class="params">importingClassMetadata</span>, BeanDefinitionRegistry <span class="params">registry</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (this.beanFactory != null) &#123;</span><br><span class="line">            this.register<span class="constructor">SyntheticBeanIfMissing(<span class="params">registry</span>, <span class="string">"webServerFactoryCustomizerBeanPostProcessor"</span>, WebServerFactoryCustomizerBeanPostProcessor.<span class="params">class</span>)</span>;</span><br><span class="line">            this.register<span class="constructor">SyntheticBeanIfMissing(<span class="params">registry</span>, <span class="string">"errorPageRegistrarBeanPostProcessor"</span>, ErrorPageRegistrarBeanPostProcessor.<span class="params">class</span>)</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> void register<span class="constructor">SyntheticBeanIfMissing(BeanDefinitionRegistry <span class="params">registry</span>, String <span class="params">name</span>, Class&lt;?&gt; <span class="params">beanClass</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="module-access"><span class="module"><span class="identifier">ObjectUtils</span>.</span></span>is<span class="constructor">Empty(<span class="params">this</span>.<span class="params">beanFactory</span>.<span class="params">getBeanNamesForType</span>(<span class="params">beanClass</span>, <span class="params">true</span>, <span class="params">false</span>)</span>)) &#123;</span><br><span class="line">            RootBeanDefinition beanDefinition = <span class="keyword">new</span> <span class="constructor">RootBeanDefinition(<span class="params">beanClass</span>)</span>;</span><br><span class="line">            beanDefinition.set<span class="constructor">Synthetic(<span class="params">true</span>)</span>;</span><br><span class="line">            registry.register<span class="constructor">BeanDefinition(<span class="params">name</span>, <span class="params">beanDefinition</span>)</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>只要是嵌入式的Servlet容器工厂，后置处理器就工作</li>
+<li>后置处理器，从容器中获取所有的定制器</li>
+</ul>
+</li>
+</ul>
+<h3 id="嵌入式Servlet启动原理；"><a href="#嵌入式Servlet启动原理；" class="headerlink" title="嵌入式Servlet启动原理；"></a>嵌入式Servlet启动原理；</h3><ul>
+<li>什么时候创建嵌入式的servlet容器工厂？什么时候获取嵌入式的servlet容器并启动Tomcat;</li>
+<li>获取嵌入式的Servlet容器工厂</li>
+</ul>
+<ol>
+<li>SpringBoot应用启动运行run方法</li>
+<li>refreshContext(context);SpringBoot刷新Ioc容器【创建IOC容器，并初始化容器，创建容器中的每一个组件】；如果是web应用创建  AnnotaionConfigEmbeddedWebApplicationContext;否则创建AnnotationConfigApplicationContext</li>
+<li>refresh(context);刷新刚才创建好的IOC容器；</li>
+<li>onRefresh();webIOC容器重写onRefresh()方法</li>
+<li>webioc容器会创建嵌入式的Servlet容器；createServletContainer(); </li>
+<li>获取嵌入式容器工厂    TomcatServletContainerFactory 创建对象，后置处理器一看是这个对象，就获取所有的的定制器来先定制servlet容器的相关配置</li>
+<li>使用容器工厂获取嵌入式的Servlet容器 触发后处理器BeanPostProcessorsRegistrar</li>
+<li>嵌入式的Servlet容器创建对象并启动Servlet容器<br>先启动嵌入式的Servlet容器，再将IOC容器中剩下没有创建出的对象获取出来；<br>Ioc容器启动创建嵌入式的Servlet容器<h3 id="使用外置的Servlet容器"><a href="#使用外置的Servlet容器" class="headerlink" title="使用外置的Servlet容器"></a>使用外置的Servlet容器</h3></li>
+</ol>
+<ul>
+<li>外置的Servlet容器：外面安装的Tomcat–应用war包方式打包<ul>
+<li>创建步骤：<ol>
+<li>必须创建一个war项目(利用idea创建好目录结构)</li>
+<li>在pom文件中将嵌入式的Tomcat指定为provided；<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>必须编写一个SpringBootServletInitializer的子类，并调用configure()方法<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">ServletInitializer</span> <span class="keyword">extends</span> <span class="title">SpringBootServletInitializer</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> <span class="type">SpringApplicationBuilder</span> configure(<span class="type">SpringApplicationBuilder</span> application) &#123;</span><br><span class="line">    <span class="comment">//传入SpringBoot应用的主程序</span></span><br><span class="line">    <span class="keyword">return</span> application.sources(<span class="type">DemoWarApplication</span><span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>启动服务器就可以使用<h4 id="使用SpringBoot创建向导快速创建（外置的Servlet容器）"><a href="#使用SpringBoot创建向导快速创建（外置的Servlet容器）" class="headerlink" title="使用SpringBoot创建向导快速创建（外置的Servlet容器）"></a>使用SpringBoot创建向导快速创建（外置的Servlet容器）</h4></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>File –》project–》Spring initializr</li>
+<li>在packing中选择war包方式（默认jar）下一步创建项目</li>
+<li>在Project structure下选择Models–》选中此项目–》web–》<ol start="4">
+<li>在web Resource Directories下添加路径如“G:\IDEA\Maven-SpringBoot\demo-war\src\main\webapp” 自动创建此文件夹</li>
+<li>创建web.xml文件 在Demployment Descriptors 下添加web.xml文件 路径“G:\IDEA\Maven-SpringBoot\demo-war\src\main\webapp\WEB-INF\web.xml”即可；</li>
+</ol>
+</li>
+</ol>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>jar包:执行SpringBoot主类的main方法，启动IOC容器，创建嵌入式的Servlet容器；<br>war包；启动服务器，服务器启动SpringBoot应用【SpringBootServletinitializer】，启动IOC容器；</p>
+<ul>
+<li><p>规则</p>
+<ul>
+<li><p>1.服务器启动(web应用启动)会创建当前web应用里面每一个jar包里面ServletContainerIntialiservlet.Servletzer实例；</p>
+</li>
+<li><p>2.ServletContainitializer的实现类放在jar包的META-INF/services文件夹下，有一个名为javax.servlet.ServletContainitializer的文件，内容是ServletContainitializer的实现类全类名</p>
+</li>
+<li><p>3.还可以使用@HandlesTypes，在应用启动类的时候加载我们感兴趣的类；</p>
+</li>
+<li><p>流程：</p>
+<ul>
+<li>1.启动Tomcat</li>
+<li>2.org\springframework\spring-web\5.2.2.RELEASE\spring-web-5.2.2.RELEASE.jar!\META-INF\services\javax.servlet.ServletContainerInitializer<br>Spring的web模块里面有这个文件，其内容就是“org.springframework.web.SpringServletContainerInitializer”</li>
+<li>3.SpringServletContainerInitializer将@HandlesTypes({WebApplicationInitializer.class})标注的所有这个类型的类都是传入到onStarup方法 Set&lt;Class&lt;?&gt;&gt;集合里面（不是接口类，不是抽象类），为WebApplicationInitializer这个类型的类创建实例<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">@<span class="constructor">HandlesTypes(&#123;WebApplicationInitializer.<span class="params">class</span>&#125;)</span></span><br><span class="line">public <span class="keyword">class</span> SpringServletContainerInitializer implements ServletContainerInitializer &#123;</span><br><span class="line">    public <span class="constructor">SpringServletContainerInitializer()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void on<span class="constructor">Startup(@Nullable Set&lt;Class&lt;?&gt;&gt; <span class="params">webAppInitializerClasses</span>, ServletContext <span class="params">servletContext</span>)</span> throws ServletException &#123;</span><br><span class="line">        List&lt;WebApplicationInitializer&gt; initializers = <span class="keyword">new</span> <span class="constructor">LinkedList()</span>;</span><br><span class="line">        Iterator var4;</span><br><span class="line">        <span class="keyword">if</span> (webAppInitializerClasses != null) &#123;</span><br><span class="line">            var4 = webAppInitializerClasses.iterator<span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(var4.has<span class="constructor">Next()</span>) &#123;</span><br><span class="line">                Class&lt;?&gt; waiClass = (Class)var4.next<span class="literal">()</span>;</span><br><span class="line">                <span class="keyword">if</span> (!waiClass.is<span class="constructor">Interface()</span><span class="operator"> &amp;&amp; </span>!<span class="module-access"><span class="module"><span class="identifier">Modifier</span>.</span></span>is<span class="constructor">Abstract(<span class="params">waiClass</span>.<span class="params">getModifiers</span>()</span>)<span class="operator"> &amp;&amp; </span><span class="module-access"><span class="module"><span class="identifier">WebApplicationInitializer</span>.</span></span><span class="keyword">class</span>.is<span class="constructor">AssignableFrom(<span class="params">waiClass</span>)</span>) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        initializers.add((WebApplicationInitializer)<span class="module-access"><span class="module"><span class="identifier">ReflectionUtils</span>.</span></span>accessible<span class="constructor">Constructor(<span class="params">waiClass</span>, <span class="params">new</span> Class[0])</span>.<span class="keyword">new</span><span class="constructor">Instance()</span>);</span><br><span class="line">                    &#125; catch (Throwable var7) &#123;</span><br><span class="line">                        throw <span class="keyword">new</span> <span class="constructor">ServletException(<span class="string">"Failed to instantiate WebApplicationInitializer class"</span>, <span class="params">var7</span>)</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (initializers.is<span class="constructor">Empty()</span>) &#123;</span><br><span class="line">            servletContext.log(<span class="string">"No Spring WebApplicationInitializer types detected on classpath"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            servletContext.log(initializers.size<span class="literal">()</span> + <span class="string">" Spring WebApplicationInitializers detected on classpath"</span>);</span><br><span class="line">            <span class="module-access"><span class="module"><span class="identifier">AnnotationAwareOrderComparator</span>.</span></span>sort(initializers);</span><br><span class="line">            var4 = initializers.iterator<span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(var4.has<span class="constructor">Next()</span>) &#123;</span><br><span class="line">                WebApplicationInitializer initializer = (WebApplicationInitializer)var4.next<span class="literal">()</span>;</span><br><span class="line">                initializer.on<span class="constructor">Startup(<span class="params">servletContext</span>)</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>4.每一个 WebApplicationInitializer都调用自己的onStartup()方法<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public<span class="built_in"> interface </span>WebApplicationInitializer &#123;</span><br><span class="line">    void onStartup(ServletContext var1) throws ServletException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>5.相当于我们的SpringBootServletInitializer(WebApplicationInitializer的实现类)的类会被创建对象，并执行onStartup方法 .</li>
+<li>6.SpringBootServletInitializer实例 执行onStartup的时候会createRootApplicationContext；创建容器<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootServletInitializer</span> <span class="keyword">implements</span> <span class="title">WebApplicationInitializer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStartup</span><span class="params">(ServletContext servletContext)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.logger = LogFactory.getLog(<span class="keyword">this</span>.getClass());</span><br><span class="line">    WebApplicationContext rootAppContext = <span class="keyword">this</span>.createRootApplicationContext(servletContext);</span><br><span class="line">    <span class="keyword">if</span> (rootAppContext != <span class="keyword">null</span>) &#123;</span><br><span class="line">        servletContext.addListener(<span class="keyword">new</span> ContextLoaderListener(rootAppContext) &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextInitialized</span><span class="params">(ServletContextEvent event)</span> </span>&#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.logger.debug(<span class="string">"No ContextLoaderListener registered, as createRootApplicationContext() did not return an application context"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>7.创建容器方法<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">public abstract <span class="keyword">class</span> SpringBootServletInitializer implements WebApplicationInitializer &#123;</span><br><span class="line"></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> protected WebApplicationContext create<span class="constructor">RootApplicationContext(ServletContext <span class="params">servletContext</span>)</span> &#123;</span><br><span class="line">   <span class="comment">//创建SpringApplicationBuilder(Spring应用的构建器)</span></span><br><span class="line">     SpringApplicationBuilder builder = this.create<span class="constructor">SpringApplicationBuilder()</span>;</span><br><span class="line">     builder.main(this.get<span class="constructor">Class()</span>);</span><br><span class="line">     ApplicationContext parent = this.get<span class="constructor">ExistingRootWebApplicationContext(<span class="params">servletContext</span>)</span>;</span><br><span class="line">     <span class="keyword">if</span> (parent != null) &#123;</span><br><span class="line">         this.logger.info(<span class="string">"Root context already created (using as parent)."</span>);</span><br><span class="line">         servletContext.set<span class="constructor">Attribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, (Object)</span>null);</span><br><span class="line">         builder.initializers(<span class="keyword">new</span> ApplicationContextInitializer<span class="literal">[]</span>&#123;<span class="keyword">new</span> <span class="constructor">ParentContextApplicationContextInitializer(<span class="params">parent</span>)</span>&#125;);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     builder.initializers(<span class="keyword">new</span> ApplicationContextInitializer<span class="literal">[]</span>&#123;<span class="keyword">new</span> <span class="constructor">ServletContextApplicationContextInitializer(<span class="params">servletContext</span>)</span>&#125;);</span><br><span class="line">     builder.context<span class="constructor">Class(AnnotationConfigServletWebServerApplicationContext.<span class="params">class</span>)</span>;</span><br><span class="line">     <span class="comment">//调用configure方法，子类重写了这个方法，将springBoot的主程序类传了进来</span></span><br><span class="line">     builder = this.configure(builder);</span><br><span class="line">     builder.listeners(<span class="keyword">new</span> ApplicationListener<span class="literal">[]</span>&#123;<span class="keyword">new</span> SpringBootServletInitializer.<span class="constructor">WebEnvironmentPropertySourceInitializer(<span class="params">servletContext</span>)</span>&#125;);</span><br><span class="line">     <span class="comment">//使用builder创建一个Spring应用</span></span><br><span class="line">     SpringApplication application = builder.build<span class="literal">()</span>;</span><br><span class="line">     <span class="keyword">if</span> (application.get<span class="constructor">AllSources()</span>.is<span class="constructor">Empty()</span><span class="operator"> &amp;&amp; </span><span class="module-access"><span class="module"><span class="identifier">MergedAnnotations</span>.</span></span>from(this.get<span class="constructor">Class()</span>, SearchStrategy.TYPE_HIERARCHY).is<span class="constructor">Present(Configuration.<span class="params">class</span>)</span>) &#123;</span><br><span class="line">         application.add<span class="constructor">PrimarySources(Collections.<span class="params">singleton</span>(<span class="params">this</span>.<span class="params">getClass</span>()</span>));</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="module-access"><span class="module"><span class="identifier">Assert</span>.</span></span>state(!application.get<span class="constructor">AllSources()</span>.is<span class="constructor">Empty()</span>, <span class="string">"No SpringApplication sources have been defined. Either override the configure method or add an @Configuration annotation"</span>);</span><br><span class="line">     <span class="keyword">if</span> (this.registerErrorPageFilter) &#123;</span><br><span class="line">         application.add<span class="constructor">PrimarySources(Collections.<span class="params">singleton</span>(ErrorPageFilterConfiguration.<span class="params">class</span>)</span>);</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">//启动Spring应用</span></span><br><span class="line">     return this.run(application);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) &#123;</span><br><span class="line">   return builder;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.boot.builder.<span class="type">SpringApplicationBuilder</span>;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.support.<span class="type">SpringBootServletInitializer</span>;</span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">ServletInitializer</span> <span class="keyword">extends</span> <span class="title">SpringBootServletInitializer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//重写了Configure方法，把SpringBoot的主程序类加了进去</span></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> <span class="type">SpringApplicationBuilder</span> configure(<span class="type">SpringApplicationBuilder</span> application) &#123;</span><br><span class="line">    <span class="keyword">return</span> application.sources(<span class="type">DemoWarApplication</span><span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>8.Spring的应用就启动并创建IOC容器<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">public ConfigurableApplicationContext run(String... args) &#123;</span><br><span class="line">    StopWatch stopWatch = <span class="keyword">new</span> <span class="constructor">StopWatch()</span>;</span><br><span class="line">    stopWatch.start<span class="literal">()</span>;</span><br><span class="line">    ConfigurableApplicationContext context = null;</span><br><span class="line">    Collection&lt;SpringBootExceptionReporter&gt; exceptionReporters = <span class="keyword">new</span> <span class="constructor">ArrayList()</span>;</span><br><span class="line">    this.configure<span class="constructor">HeadlessProperty()</span>;</span><br><span class="line">    SpringApplicationRunListeners listeners = this.get<span class="constructor">RunListeners(<span class="params">args</span>)</span>;</span><br><span class="line">    listeners.starting<span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line">    Collection exceptionReporters;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        ApplicationArguments applicationArguments = <span class="keyword">new</span> <span class="constructor">DefaultApplicationArguments(<span class="params">args</span>)</span>;</span><br><span class="line">        ConfigurableEnvironment environment = this.prepare<span class="constructor">Environment(<span class="params">listeners</span>, <span class="params">applicationArguments</span>)</span>;</span><br><span class="line">        this.configure<span class="constructor">IgnoreBeanInfo(<span class="params">environment</span>)</span>;</span><br><span class="line">        Banner printedBanner = this.print<span class="constructor">Banner(<span class="params">environment</span>)</span>;</span><br><span class="line">        context = this.create<span class="constructor">ApplicationContext()</span>;</span><br><span class="line">        exceptionReporters = this.get<span class="constructor">SpringFactoriesInstances(SpringBootExceptionReporter.<span class="params">class</span>, <span class="params">new</span> Class[]&#123;ConfigurableApplicationContext.<span class="params">class</span>&#125;, <span class="params">context</span>)</span>;</span><br><span class="line">        this.prepare<span class="constructor">Context(<span class="params">context</span>, <span class="params">environment</span>, <span class="params">listeners</span>, <span class="params">applicationArguments</span>, <span class="params">printedBanner</span>)</span>;</span><br><span class="line">        <span class="comment">//刷新IOC容器</span></span><br><span class="line">        this.refresh<span class="constructor">Context(<span class="params">context</span>)</span>;</span><br><span class="line">        this.after<span class="constructor">Refresh(<span class="params">context</span>, <span class="params">applicationArguments</span>)</span>;</span><br><span class="line">        stopWatch.stop<span class="literal">()</span>;</span><br><span class="line">        <span class="keyword">if</span> (this.logStartupInfo) &#123;</span><br><span class="line">            (<span class="keyword">new</span> <span class="constructor">StartupInfoLogger(<span class="params">this</span>.<span class="params">mainApplicationClass</span>)</span>).log<span class="constructor">Started(<span class="params">this</span>.<span class="params">getApplicationLog</span>()</span>, stopWatch);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        listeners.started(context);</span><br><span class="line">        this.call<span class="constructor">Runners(<span class="params">context</span>, <span class="params">applicationArguments</span>)</span>;</span><br><span class="line">    &#125; catch (Throwable var10) &#123;</span><br><span class="line">        this.handle<span class="constructor">RunFailure(<span class="params">context</span>, <span class="params">var10</span>, <span class="params">exceptionReporters</span>, <span class="params">listeners</span>)</span>;</span><br><span class="line">        throw <span class="keyword">new</span> <span class="constructor">IllegalStateException(<span class="params">var10</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        listeners.running(context);</span><br><span class="line">        return context;</span><br><span class="line">    &#125; catch (Throwable var9) &#123;</span><br><span class="line">        this.handle<span class="constructor">RunFailure(<span class="params">context</span>, <span class="params">var9</span>, <span class="params">exceptionReporters</span>, (SpringApplicationRunListeners)</span>null);</span><br><span class="line">        throw <span class="keyword">new</span> <span class="constructor">IllegalStateException(<span class="params">var9</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>先启动Sevlet容器，在启动SpringBoot应用(与之相反)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢关顾！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/qrcode.png" alt="卓尔不凡 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zgub.jpg" alt="卓尔不凡 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringBoot/" rel="tag"><i class="fab fa-behance-square"></i> SpringBoot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/04/SpringBoot%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6-%E4%B8%89/" rel="next" title="SpringBoot微服务框架(三)">
+                <i class="fa fa-chevron-left"></i> SpringBoot微服务框架(三)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="卓尔不凡" />
+            
+              <p class="site-author-name" itemprop="name">卓尔不凡</p>
+              <p class="site-description motion-element" itemprop="description">你我暮年，闲坐庭院， 云卷云舒听雨声，星密星稀赏月影， 花开花落忆江南， 你话往时，我画往事， 愿有岁月可回首，且以深情共白头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/botbotji" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何修改SpringBoot的默认配置"><span class="nav-number">1.</span> <span class="nav-text">如何修改SpringBoot的默认配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringBoot默认使用（Tomcat）作为嵌入式的Servlet容器："><span class="nav-number">2.</span> <span class="nav-text">SpringBoot默认使用（Tomcat）作为嵌入式的Servlet容器：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web开发-注册Servlert三大组件"><span class="nav-number">3.</span> <span class="nav-text">Web开发 注册Servlert三大组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringBoot帮我们在自动配置SpringMvc的时候，自动的注册了SpringMvc的前端控制器；DispatcherServlet；-自动配置类DispatcherServletAutoConfiguration"><span class="nav-number">4.</span> <span class="nav-text">SpringBoot帮我们在自动配置SpringMvc的时候，自动的注册了SpringMvc的前端控制器；DispatcherServlet；(自动配置类DispatcherServletAutoConfiguration)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringBoot切换其他Servlet容器"><span class="nav-number">5.</span> <span class="nav-text">SpringBoot切换其他Servlet容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快捷键-ctrl-h-打开继承树"><span class="nav-number">6.</span> <span class="nav-text">快捷键 ctrl+h 打开继承树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌入式Servlet容器自动配置原理"><span class="nav-number">7.</span> <span class="nav-text">嵌入式Servlet容器自动配置原理;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌入式Servlet启动原理；"><span class="nav-number">8.</span> <span class="nav-text">嵌入式Servlet启动原理；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用外置的Servlet容器"><span class="nav-number">9.</span> <span class="nav-text">使用外置的Servlet容器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用SpringBoot创建向导快速创建（外置的Servlet容器）"><span class="nav-number">9.1.</span> <span class="nav-text">使用SpringBoot创建向导快速创建（外置的Servlet容器）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理"><span class="nav-number">9.2.</span> <span class="nav-text">原理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓尔不凡</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+</body>
+</html>
