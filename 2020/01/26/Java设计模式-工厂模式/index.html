@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="Java设计模式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简单工厂模式 传统方式 应用案例1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283 &#x2F;&#x2F;将Pizze类做成抽象的public abstr">
+<meta name="keywords" content="Java设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java设计模式+工厂模式">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;26&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F&#x2F;index.html">
+<meta property="og:site_name" content="卓尔不凡">
+<meta property="og:description" content="简单工厂模式 传统方式 应用案例1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283 &#x2F;&#x2F;将Pizze类做成抽象的public abstr">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;26&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F&#x2F;images%5Cpizzastore.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;26&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F&#x2F;images%5C180000.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;26&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F&#x2F;images%5Cpizzastore1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;26&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F&#x2F;images%5Cfactorymethod.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;26&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F&#x2F;images%5CabsFactory.png">
+<meta property="og:updated_time" content="2020-01-26T10:45:23.735Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;26&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F&#x2F;images%5Cpizzastore.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/01/26/Java设计模式-工厂模式/"/>
+
+
+
+
+
+  <title>Java设计模式+工厂模式 | 卓尔不凡</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/botbotji" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卓尔不凡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">师夷长技以制夷</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/26/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卓尔不凡">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卓尔不凡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java设计模式+工厂模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-26T18:43:15+08:00">
+                2020-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/26/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/01/26/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><ul>
+<li>传统方式 应用案例<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//将Pizze类做成抽象的</span></span><br><span class="line"><span class="keyword">public</span> abstract <span class="class"><span class="keyword">class</span> <span class="title">pizze</span> &#123;</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">String</span> name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> abstract <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bake</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(name+<span class="string">"baking"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cut</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(name+<span class="string">"cut"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">box</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(name+<span class="string">"boxing"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(<span class="keyword">String</span> name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheesePizze</span> <span class="title">extends</span> <span class="title">pizze</span>&#123;</span></span><br><span class="line">    @Override</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"制作奶酪披萨 准备原材料"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GreekPizze</span> <span class="title">extends</span> <span class="title">pizze</span> &#123;</span></span><br><span class="line">    @Override</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"希腊披萨准备原材料"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//订单类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderPizze</span> &#123;</span></span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OrderPizze</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        pizze pizze = null;</span><br><span class="line">        <span class="keyword">String</span> orderType;<span class="comment">//订购披萨的类型</span></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line"></span><br><span class="line">            orderType = getType();</span><br><span class="line">            <span class="keyword">if</span>(orderType.equals(<span class="string">"greek"</span>))&#123;</span><br><span class="line">                pizze = <span class="keyword">new</span> GreekPizze();</span><br><span class="line">                pizze.setName(<span class="string">"希腊"</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (orderType.equals(<span class="string">"cheese"</span>))&#123;</span><br><span class="line">                pizze = <span class="keyword">new</span> CheesePizze();</span><br><span class="line">                pizze.setName(<span class="string">"奶昔"</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//输出pizze，的制作过程</span></span><br><span class="line">            pizze.<span class="built_in">prepare</span>();</span><br><span class="line">            pizze.bake();</span><br><span class="line">            pizze.cut();</span><br><span class="line">            pizze.box();</span><br><span class="line">        &#125;<span class="keyword">while</span>(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//写一个方法，可以动态的使用，获取客户希望订购的披萨</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">String</span> <span class="title">getType</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            BufferedReader strin = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">            System.out.<span class="built_in">println</span>(<span class="string">"input pizza 种类："</span>);</span><br><span class="line">            <span class="keyword">String</span> str = strin.readLine();</span><br><span class="line">            <span class="keyword">return</span> str;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//相当于一个客户端，发出订购</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PizzaStore</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">String</span>[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> OrderPizze();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>类图<br><img src="images%5Cpizzastore.png" alt=""><h5 id="传统方式的优缺点："><a href="#传统方式的优缺点：" class="headerlink" title="传统方式的优缺点："></a>传统方式的优缺点：</h5></li>
+<li>1.优点是比较好理解，简单易操作。</li>
+<li>2.缺点是违反了设计模式的ocp原则，即对扩展开放，对修改关闭。即但我们该类增加新的功能是，尽量不修改代码，或者尽可能少修改代码。</li>
+<li>3.比如我们这时要增加一个Pizze的种类(Pepper披萨)，我们需要做如下修改：<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">pepperPizze</span> <span class="keyword">extends</span> <span class="title">pizze</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public void prepare() &#123;</span><br><span class="line">        <span class="type">System</span>.out.println(<span class="string">"给胡椒披萨准配原材料"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>订单代码修改<br><img src="images%5C180000.png" alt="订单代码截图" title="订单代码截图"></li>
+</ul>
+<h5 id="改进代码思路分析"><a href="#改进代码思路分析" class="headerlink" title="改进代码思路分析"></a>改进代码思路分析</h5><ul>
+<li>分析：<ul>
+<li>修改代码可以接受，但是如果我们在其他的地方也有创建Pizze的代码，就意味着，也需要修改，而创建Pizza的代码，往往有多处</li>
+</ul>
+</li>
+<li>思路：把创建Pizze的对象封装到一个类中，这样我们有新的Pizze种类是，只需要修改该类就可，其他创建到Pizze对象的代码就不需要修改了 —》简单工厂模式</li>
+<li>改进类图：<br><img src="images%5Cpizzastore1.png" alt=""><h3 id="简单-静态-工厂模式-–概述："><a href="#简单-静态-工厂模式-–概述：" class="headerlink" title="简单(静态)工厂模式 –概述："></a>简单(静态)工厂模式 –概述：</h3></li>
+<li>1.简单工厂模式是属于创建型模式，是工厂模式的一种。简单工厂模式是由决定创建出哪一一个工厂对象种产品类的实例。简单工厂模式是工厂模式家族中最简单使用的模式</li>
+<li>2.简单工厂模式：定义了一个创建对象的类,由这个类来封装实例化对象的行为(代码)</li>
+<li>3.在软件开发中，当我们会用到大量的创建某种，某类或者某批对象时，就会使用到工厂模式</li>
+<li>订单类<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderPizze</span> &#123;</span></span><br><span class="line">    <span class="comment">//定义一个简单工厂对象</span></span><br><span class="line">    SimpleFactory simpleFactory;</span><br><span class="line">    pizze pizze = null;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OrderPizze</span><span class="params">(SimpleFactory simpleFactory)</span></span>&#123;</span><br><span class="line">        setFactory(simpleFactory);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFactory</span><span class="params">(SimpleFactory simpleFactory)</span></span>&#123;</span><br><span class="line">        <span class="keyword">String</span> orderType = <span class="string">""</span>;<span class="comment">//用户输入的</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.simpleFactory = simpleFactory;<span class="comment">//设置简单工厂对象</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            orderType = getType();</span><br><span class="line">            pizze = <span class="keyword">this</span>.simpleFactory.createPizze(orderType);</span><br><span class="line">            <span class="comment">//输出pizze</span></span><br><span class="line">            <span class="keyword">if</span>(pizze != null)&#123;<span class="comment">//订购成功</span></span><br><span class="line">                pizze.<span class="built_in">prepare</span>();</span><br><span class="line">                pizze.bake();</span><br><span class="line">                pizze.cut();</span><br><span class="line">                pizze.box();</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                System.out.<span class="built_in">println</span>(<span class="string">"订购披萨失败！"</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">while</span>(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//写一个方法，可以动态的使用，获取客户希望订购的披萨</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">String</span> <span class="title">getType</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            BufferedReader strin = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">            System.out.<span class="built_in">println</span>(<span class="string">"input pizza 种类："</span>);</span><br><span class="line">            <span class="keyword">String</span> str = strin.readLine();</span><br><span class="line">            <span class="keyword">return</span> str;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>简单工厂类(定义一个可以实例化pizze对象的类，封装创建对象的代码<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//简单工厂类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SimpleFactory</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//根据orderType，返回对应的pizze对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> pizze <span class="title">createPizze</span>(<span class="params">String orderType</span>)</span> &#123;</span><br><span class="line">        pizze pizze = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"使用简单工厂模式"</span>);</span><br><span class="line">        <span class="keyword">if</span> (orderType.<span class="keyword">equals</span>(<span class="string">"greek"</span>)) &#123;</span><br><span class="line">            pizze = <span class="keyword">new</span> GreekPizze();</span><br><span class="line">            pizze.setName(<span class="string">"希腊"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (orderType.<span class="keyword">equals</span>(<span class="string">"cheese"</span>)) &#123;</span><br><span class="line">            pizze = <span class="keyword">new</span> CheesePizze();</span><br><span class="line">            pizze.setName(<span class="string">"奶昔"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (orderType.<span class="keyword">equals</span>(<span class="string">"pepper"</span>)) &#123;</span><br><span class="line">            pizze = <span class="keyword">new</span> pepperPizze();</span><br><span class="line">            pizze.setName(<span class="string">"胡椒"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pizze;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>测试<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//相当于一个客户端，发出订购</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PizzaStore</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">String</span>[] args)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//使用简单工厂模式</span></span><br><span class="line">        <span class="keyword">new</span> OrderPizze(<span class="keyword">new</span> SimpleFactory());</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"----退出程序-----"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3></li>
+<li>使用简单工厂模式，创建不同的简单工厂类，但是考虑到项目的规模以及软件的可维护性，可扩展性并不是特别好。</li>
+<li>工厂方法模式基本概念：<ul>
+<li>工厂方法模式：定义一个创建对象的抽象方法，由子类决定要实例化的类。工厂方法模式将对象的实例化推迟到子类。</li>
+</ul>
+</li>
+<li>类图<br><img src="images%5Cfactorymethod.png" alt="工厂方法模式" title="工厂方法模式"></li>
+<li>应用案例<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">paizeeStore</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// new BJorderPizze();</span></span><br><span class="line">        <span class="keyword">new</span> LDorderPizze();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LDorderPizze</span> <span class="title">extends</span> <span class="title">OrderPizze</span> &#123;</span><br><span class="line">    @Override</span><br><span class="line">    <span class="function">pizze <span class="title">createPizze</span>(<span class="params">String orderType</span>)</span> &#123;</span><br><span class="line"></span><br><span class="line">        pizze pizze1 =<span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (orderType.<span class="keyword">equals</span>(<span class="string">"cheese"</span>))&#123;</span><br><span class="line">            pizze1 = <span class="keyword">new</span> LDCheesePizze();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (orderType.<span class="keyword">equals</span>(<span class="string">"pepper"</span>))&#123;</span><br><span class="line">            pizze1 = <span class="keyword">new</span> LDGreekPizze();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pizze1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BJorderPizze</span> <span class="title">extends</span> <span class="title">OrderPizze</span> &#123;</span><br><span class="line">    @Override</span><br><span class="line">    <span class="function">pizze <span class="title">createPizze</span>(<span class="params">String orderType</span>)</span> &#123;</span><br><span class="line"></span><br><span class="line">        pizze pizze1 =<span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (orderType.<span class="keyword">equals</span>(<span class="string">"cheese"</span>))&#123;</span><br><span class="line">            pizze1 = <span class="keyword">new</span> BJCheesePizze();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (orderType.<span class="keyword">equals</span>(<span class="string">"pepper"</span>))&#123;</span><br><span class="line">            pizze1 = <span class="keyword">new</span> BJGreekPizze();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pizze1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">OrderPizze</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义一个抽象方法，createPizze，让各个工厂子类自己实现</span></span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> pizze <span class="title">createPizze</span>(<span class="params">String orderType</span>)</span>;  <span class="comment">//抽象方法由工厂子类实现</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OrderPizze</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        pizze pizze = <span class="literal">null</span>;</span><br><span class="line">        String orderType;<span class="comment">//订购披萨的类型</span></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line"></span><br><span class="line">            orderType = getType();</span><br><span class="line">            pizze pizze1 = createPizze(orderType); <span class="comment">//抽象方法由工厂子类实现</span></span><br><span class="line">            <span class="comment">//输出pizze，的制作过程</span></span><br><span class="line">            pizze1.prepare();</span><br><span class="line">            pizze1.bake();</span><br><span class="line">            pizze1.cut();</span><br><span class="line">            pizze1.box();</span><br><span class="line">        &#125;<span class="keyword">while</span>(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//写一个方法，可以动态的使用，获取客户希望订购的披萨</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getType</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            BufferedReader strin = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.<span class="keyword">in</span>));</span><br><span class="line">            System.<span class="keyword">out</span>.println(<span class="string">"input pizza 种类："</span>);</span><br><span class="line">            String str = strin.readLine();</span><br><span class="line">            <span class="keyword">return</span> str;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将Pizze类做成抽象的</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">pizze</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">prepare</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bake</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(name+<span class="string">"baking"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cut</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(name+<span class="string">"cut"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">box</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(name+<span class="string">"boxing"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">setName</span>(<span class="params">String name</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BJCheesePizze</span> <span class="title">extends</span> <span class="title">pizze</span> &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        setName(<span class="string">"北京。。。。。。"</span>);</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"北京，制作奶酪披萨 准备原材料"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">其他<span class="number">3</span>个类与BJCheesePizze相似省略....</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h3><ul>
+<li>基本接受</li>
+<li>1.抽象工厂模式：定义了一个interface用于创建相关或有依赖关系的对象簇，而无需指明具体的类</li>
+<li>2.抽象工厂模式可以将简单工厂模式和工厂方法模式进行整合。</li>
+<li>3.从设计层面看，抽象工厂模式就是对简单工厂模式的改进(或者称为进一步的抽象)。</li>
+<li>4.将工厂抽象成两层，AbsFactory(抽象工厂)和具体实现的工厂子类。程序员可以更具创建的对象类型使用对应的工厂子类。这样就将单个的简单工厂类变成工厂簇，更利用代码的维护和扩展。</li>
+<li>类图<br><img src="images%5CabsFactory.png" alt="抽象工厂模式" title="抽象工厂模式"></li>
+<li>应用案例<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将Pizze类做成抽象的</span></span><br><span class="line"><span class="keyword">public</span> abstract <span class="class"><span class="keyword">class</span> <span class="title">pizze</span> &#123;</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">String</span> name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> abstract <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bake</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(name+<span class="string">"baking"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cut</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(name+<span class="string">"cut"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">box</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(name+<span class="string">"boxing"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">setName</span><span class="params">(<span class="keyword">String</span> name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BJCheesePizze</span> <span class="title">extends</span> <span class="title">pizze</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        setName(<span class="string">"北京。。。。。。"</span>);</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"北京，制作奶酪披萨 准备原材料"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">其他<span class="number">3</span>个类与BJCheesePizze相似省略....</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象工厂模式的抽象层 接口</span></span><br><span class="line"><span class="keyword">public</span> interface absFactory&lt;Pizze&gt; &#123;</span><br><span class="line">    <span class="comment">//让下面的工厂子类来 具体实现</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> pizze <span class="title">createPizze</span><span class="params">(<span class="keyword">String</span> orderType)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//工厂子类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BJFactory</span> <span class="title">implements</span> <span class="title">absFactory</span> &#123;</span></span><br><span class="line">    @Override</span><br><span class="line">    <span class="function"><span class="keyword">public</span> pizze <span class="title">createPizze</span><span class="params">(<span class="keyword">String</span> orderType)</span> </span>&#123;</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"使用的是抽象工厂模式...."</span>);</span><br><span class="line">        pizze pizze = null;</span><br><span class="line">        <span class="keyword">if</span> (orderType.equals(<span class="string">"cheese"</span>))&#123;</span><br><span class="line">            pizze = <span class="keyword">new</span> BJCheesePizze();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(orderType.equals(<span class="string">"geek"</span>))&#123;</span><br><span class="line">            pizze = <span class="keyword">new</span> BJGreekPizze();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pizze;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">LDFactory于BJFactory同理此处省略......</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//OrderPizze聚合 absFactory工厂</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderPizze</span> &#123;</span></span><br><span class="line">    absFactory Factory;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//构造方法</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OrderPizze</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OrderPizze</span><span class="params">(absFactory factory)</span> </span>&#123;</span><br><span class="line">       setFactory(factory);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//set方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setFactory</span><span class="params">(absFactory Factory)</span></span>&#123;</span><br><span class="line">        pizze pizze = null;</span><br><span class="line">        <span class="keyword">String</span> orderType=<span class="string">""</span>;<span class="comment">//用户输入</span></span><br><span class="line">        <span class="keyword">this</span>.Factory = Factory;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            orderType = getType();</span><br><span class="line">            <span class="comment">//Factory可能是BJ的工厂子类也可能是LD</span></span><br><span class="line">            pizze = Factory.createPizze(orderType);</span><br><span class="line">            <span class="keyword">if</span>(pizze != null)&#123;<span class="comment">//订购成功</span></span><br><span class="line">                pizze.<span class="built_in">prepare</span>();</span><br><span class="line">                pizze.bake();</span><br><span class="line">                pizze.cut();</span><br><span class="line">                pizze.box();</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                System.out.<span class="built_in">println</span>(<span class="string">"订购失败！"</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">while</span>(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//写一个方法，可以动态的使用，获取客户希望订购的披萨</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">String</span> <span class="title">getType</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            BufferedReader strin = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">            System.out.<span class="built_in">println</span>(<span class="string">"input pizza 种类："</span>);</span><br><span class="line">            <span class="keyword">String</span> str = strin.readLine();</span><br><span class="line">            <span class="keyword">return</span> str;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//测试</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">pizzeStore</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">String</span>[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> OrderPizze(<span class="keyword">new</span> BJFactory());</span><br><span class="line">        <span class="comment">//new OrderPizze(new LDFactory());</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="工厂模式在JDK-Calendar-日历类-应用源码分析"><a href="#工厂模式在JDK-Calendar-日历类-应用源码分析" class="headerlink" title="工厂模式在JDK-Calendar(日历类)应用源码分析"></a>工厂模式在JDK-Calendar(日历类)应用源码分析</h3></li>
+<li>源码 java.util包下Calendar使用简单工厂模式<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Calendar getInstance(TimeZone zone,</span><br><span class="line">                                     Locale aLocale)</span><br><span class="line">  &#123;</span><br><span class="line">      <span class="keyword">return</span> createCalendar(zone, aLocale);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> Calendar createCalendar(TimeZone zone,</span><br><span class="line">                                         Locale aLocale)</span><br><span class="line">  &#123;</span><br><span class="line">      CalendarProvider provider =</span><br><span class="line">          LocaleProviderAdapter.getAdapter(CalendarProvider.class, aLocale)</span><br><span class="line">                               .getCalendarProvider();</span><br><span class="line">      <span class="keyword">if</span> (provider != <span class="literal">null</span>) &#123;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">              <span class="keyword">return</span> provider.getInstance(zone, aLocale);</span><br><span class="line">          &#125; <span class="keyword">catch</span> (IllegalArgumentException iae) &#123;</span><br><span class="line">              <span class="comment">// fall back to the default instantiation</span></span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      Calendar cal = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (aLocale.hasExtensions()) &#123;</span><br><span class="line">          <span class="keyword">String</span> caltype = aLocale.getUnicodeLocaleType(<span class="string">"ca"</span>);</span><br><span class="line">          <span class="keyword">if</span> (caltype != <span class="literal">null</span>) &#123;</span><br><span class="line">              <span class="keyword">switch</span> (caltype) &#123;</span><br><span class="line">              <span class="keyword">case</span> <span class="string">"buddhist"</span>:<span class="type"></span></span><br><span class="line"><span class="type">              cal </span>= <span class="keyword">new</span> <span class="type">BuddhistCalendar</span>(zone, aLocale);</span><br><span class="line">                  <span class="keyword">break</span>;</span><br><span class="line">              <span class="keyword">case</span> <span class="string">"japanese"</span>:<span class="type"></span></span><br><span class="line"><span class="type">                  cal </span>= <span class="keyword">new</span> <span class="type">JapaneseImperialCalendar</span>(zone, aLocale);</span><br><span class="line">                  <span class="keyword">break</span>;</span><br><span class="line">              <span class="keyword">case</span> <span class="string">"gregory"</span>:<span class="type"></span></span><br><span class="line"><span class="type">                  cal </span>= <span class="keyword">new</span> <span class="type">GregorianCalendar</span>(zone, aLocale);</span><br><span class="line">                  <span class="keyword">break</span>;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (cal == <span class="literal">null</span>) &#123;</span><br><span class="line">          <span class="comment">// If no known calendar type is explicitly specified,</span></span><br><span class="line">          <span class="comment">// perform the traditional way to create a Calendar:</span></span><br><span class="line">          <span class="comment">// create a BuddhistCalendar for th_TH locale,</span></span><br><span class="line">          <span class="comment">// a JapaneseImperialCalendar for ja_JP_JP locale, or</span></span><br><span class="line">          <span class="comment">// a GregorianCalendar for any other locales.</span></span><br><span class="line">          <span class="comment">// <span class="doctag">NOTE:</span> The language, country and variant strings are interned.</span></span><br><span class="line">          <span class="keyword">if</span> (aLocale.getLanguage() == <span class="string">"th"</span> &amp;&amp; aLocale.getCountry() == <span class="string">"TH"</span>) &#123;</span><br><span class="line">              cal = <span class="keyword">new</span> <span class="type">BuddhistCalendar</span>(zone, aLocale);</span><br><span class="line">          &#125; <span class="keyword">else</span> <span class="keyword">if</span> (aLocale.getVariant() == <span class="string">"JP"</span> &amp;&amp; aLocale.getLanguage() == <span class="string">"ja"</span></span><br><span class="line">                     &amp;&amp; aLocale.getCountry() == <span class="string">"JP"</span>) &#123;</span><br><span class="line">              cal = <span class="keyword">new</span> <span class="type">JapaneseImperialCalendar</span>(zone, aLocale);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              cal = <span class="keyword">new</span> <span class="type">GregorianCalendar</span>(zone, aLocale);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> cal;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="工厂模式小结："><a href="#工厂模式小结：" class="headerlink" title="工厂模式小结："></a>工厂模式小结：</h3></li>
+<li>工厂模式意义：<br>将实例化对象的代码提取出来，放到一个类中统一管理和维护，达到和主项目的依赖关系的解耦，从而提高项目的扩展和维护性。</li>
+<li>三种工厂模式 简单(静态)工厂模式，工厂方法模式，抽象工厂模式</li>
+<li>设计模式的依赖原则：<ol>
+<li>创建对象实例时，不要直接new类，而是把这个new的动作放在一个工厂的方法中，并返回。有的书上说，变量不要直接持有具体类的引用。</li>
+<li>不要让类继承具体的类，而是继承抽象的类或者是实现interface(接口)</li>
+<li>不要覆盖基类中已经实现的方法。</li>
+</ol>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢关顾！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/qrcode.png" alt="卓尔不凡 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zgub.jpg" alt="卓尔不凡 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fab fa-behance-square"></i> Java设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/26/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="next" title="Java设计模式+原型模式">
+                <i class="fa fa-chevron-left"></i> Java设计模式+原型模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/26/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="prev" title="Java设计模式+建造者模式">
+                Java设计模式+建造者模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="卓尔不凡" />
+            
+              <p class="site-author-name" itemprop="name">卓尔不凡</p>
+              <p class="site-description motion-element" itemprop="description">你我暮年，闲坐庭院， 云卷云舒听雨声，星密星稀赏月影， 花开花落忆江南， 你话往时，我画往事， 愿有岁月可回首，且以深情共白头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/botbotji" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单工厂模式"><span class="nav-number">1.</span> <span class="nav-text">简单工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#传统方式的优缺点："><span class="nav-number">1.0.1.</span> <span class="nav-text">传统方式的优缺点：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#改进代码思路分析"><span class="nav-number">1.0.2.</span> <span class="nav-text">改进代码思路分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单-静态-工厂模式-–概述："><span class="nav-number">2.</span> <span class="nav-text">简单(静态)工厂模式 –概述：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂方法模式"><span class="nav-number">3.</span> <span class="nav-text">工厂方法模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象工厂模式"><span class="nav-number">4.</span> <span class="nav-text">抽象工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂模式在JDK-Calendar-日历类-应用源码分析"><span class="nav-number">5.</span> <span class="nav-text">工厂模式在JDK-Calendar(日历类)应用源码分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂模式小结："><span class="nav-number">6.</span> <span class="nav-text">工厂模式小结：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓尔不凡</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+</body>
+</html>
