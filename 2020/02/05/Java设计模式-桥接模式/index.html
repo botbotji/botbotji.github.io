@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="Mysql," />
+  <meta name="keywords" content="Java设计模式," />
 
 
 
@@ -90,16 +90,19 @@
 
 
 
-<meta name="description" content="关联mysql 报错：Server returns invalid timezone. Go to ‘Advanced’ tab and set ‘serverTimezon’  时区错误，MySQL默认的时区是UTC时区，比北京时间晚8个小时。  所以要修改mysql的时长  方式一：在mysql的命令模式下，输入：   set global time_zone=’+8:00’;   再次连接成">
-<meta name="keywords" content="Mysql">
+<meta name="description" content="桥接模式 基本介绍： 1.桥接模式(Bridge模式)是指：将实现与抽象放在两个不同的类层次，使两个层次可以独立改变。 2.是一种结构型设计模式 3.Bridge模式基于类的最小设计原则，通过使用封装，聚合及继承等行为让不同的类承担不同的职责。他的主要特点是把抽象(Abstraction)与行为实现(Implememtation)分离开来，从而可以保持各部分的独立性以及应对他们的功能扩展 类图 远">
+<meta name="keywords" content="Java设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mysql笔记">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;06&#x2F;Mysql%E7%AC%94%E8%AE%B0&#x2F;index.html">
+<meta property="og:title" content="Java设计模式+桥接模式">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;05&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F&#x2F;index.html">
 <meta property="og:site_name" content="卓尔不凡">
-<meta property="og:description" content="关联mysql 报错：Server returns invalid timezone. Go to ‘Advanced’ tab and set ‘serverTimezon’  时区错误，MySQL默认的时区是UTC时区，比北京时间晚8个小时。  所以要修改mysql的时长  方式一：在mysql的命令模式下，输入：   set global time_zone=’+8:00’;   再次连接成">
+<meta property="og:description" content="桥接模式 基本介绍： 1.桥接模式(Bridge模式)是指：将实现与抽象放在两个不同的类层次，使两个层次可以独立改变。 2.是一种结构型设计模式 3.Bridge模式基于类的最小设计原则，通过使用封装，聚合及继承等行为让不同的类承担不同的职责。他的主要特点是把抽象(Abstraction)与行为实现(Implememtation)分离开来，从而可以保持各部分的独立性以及应对他们的功能扩展 类图 远">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-06T09:23:03.692Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;05&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F&#x2F;images%5Cbridge.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;05&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F&#x2F;images%5Cbeidge001.png">
+<meta property="og:updated_time" content="2020-02-05T05:42:16.727Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;05&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F&#x2F;images%5Cbridge.png">
 
 
 
@@ -129,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/11/06/Mysql笔记/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/02/05/Java设计模式-桥接模式/"/>
 
 
 
 
 
-  <title>Mysql笔记 | 卓尔不凡</title>
+  <title>Java设计模式+桥接模式 | 卓尔不凡</title>
   
 
 
@@ -307,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/Mysql%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/05/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="卓尔不凡">
@@ -324,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Mysql笔记</h1>
+          <h1 class="post-title" itemprop="name headline">Java设计模式+桥接模式</h1>
         
 
         <div class="post-meta">
@@ -336,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-06T17:11:44+08:00">
-                2019-11-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-05T13:38:00+08:00">
+                2020-02-05
               </time>
             
 
@@ -355,8 +358,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/11/06/Mysql%E7%AC%94%E8%AE%B0/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/11/06/Mysql%E7%AC%94%E8%AE%B0/" itemprop="commentsCount"></span>
+                <a href="/2020/02/05/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/02/05/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -378,7 +381,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  93
+                  1.1k
                 </span>
               
 
@@ -394,7 +397,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  4
                 </span>
               
             </div>
@@ -415,20 +418,34 @@
       
 
       
-        <h3 id="关联mysql"><a href="#关联mysql" class="headerlink" title="关联mysql"></a>关联mysql</h3><ul>
-<li><p>报错：Server returns invalid timezone. Go to ‘Advanced’ tab and set ‘serverTimezon’</p>
+        <h3 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h3><ul>
+<li>基本介绍：</li>
+<li>1.桥接模式(Bridge模式)是指：将实现与抽象放在两个不同的类层次，使两个层次可以独立改变。</li>
+<li>2.是一种结构型设计模式</li>
+<li>3.Bridge模式基于类的最小设计原则，通过使用封装，聚合及继承等行为让不同的类承担不同的职责。他的主要特点是把抽象(Abstraction)与行为实现(Implememtation)分离开来，从而可以保持各部分的独立性以及应对他们的功能扩展</li>
+<li>类图<br><img src="images%5Cbridge.png" alt="" title="桥接模式类图"><ul>
+<li>远离类图说明：</li>
+</ul>
+<ol>
+<li>Client类：桥接模式的调用者</li>
+<li>抽象类(Abstraction):维护了Implemention/即他的实现子类，而这时聚合关系，Abstraction充当了桥接类。</li>
+<li>RefinedAbstraction：是Abstraction抽象类的子类</li>
+<li>Implemention：行为实现类的接口</li>
+<li>ConcreationImpA/B：行为的具体实现类</li>
+<li>从UML类图：可以看出这里的抽象类和接口是聚合的关系，其实就是调用和被调用的关系<h4 id="应用案例—-手机"><a href="#应用案例—-手机" class="headerlink" title="应用案例—-手机"></a>应用案例—-手机</h4></li>
+</ol>
 </li>
-<li><p>时区错误，MySQL默认的时区是UTC时区，比北京时间晚8个小时。</p>
-</li>
-<li><p>所以要修改mysql的时长</p>
-</li>
-<li><p>方式一：在mysql的命令模式下，输入：</p>
-<p>  set global time_zone=’+8:00’;</p>
-<p>  再次连接成功</p>
-</li>
-<li><p>方式二：</p>
-<p>spring.datasource.url=jdbc:mysql://localhost:3306/secondskill?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai</p>
-</li>
+<li>类图<br><img src="images%5Cbeidge001.png" alt="" title="手机桥接模式"></li>
+<li>代码实现<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Brand</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">open</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">close</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">call</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Vivo</span> <span class="keyword">implements</span> <span class="title">Brand</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">open</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"vivo手机开机了"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"vivo手机关机了"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"vivo手机打电话"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XiaoMI</span> <span class="keyword">implements</span> <span class="title">Brand</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">open</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"小米手机开机了"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"小米手机关机了"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"小米手机打电话"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//Phone相当于桥</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Phone</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//组合品牌</span></span><br><span class="line">    <span class="keyword">private</span> Brand brand;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Phone</span><span class="params">(Brand brand)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.brand = brand;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">open</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.brand.open();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span>  <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.brand.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.brand.call();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UpRegistPhone</span> <span class="keyword">extends</span> <span class="title">Phone</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UpRegistPhone</span><span class="params">(Brand brand)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(brand);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">open</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.open();</span><br><span class="line">        System.out.println(<span class="string">"平板手机"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.close();</span><br><span class="line">        System.out.println(<span class="string">"平板手机"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.call();</span><br><span class="line">        System.out.println(<span class="string">"平板手机"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//折叠式手机类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FolendPhone</span> <span class="keyword">extends</span> <span class="title">Phone</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FolendPhone</span><span class="params">(Brand brand)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(brand);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">open</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.open();</span><br><span class="line">        System.out.println(<span class="string">"折叠样式手机"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.close();</span><br><span class="line">        System.out.println(<span class="string">"折叠样式手机"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.call();</span><br><span class="line">        System.out.println(<span class="string">"折叠样式手机"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//获取折叠式手机(样式加品牌)</span></span><br><span class="line">        Phone folendPhone = <span class="keyword">new</span> FolendPhone(<span class="keyword">new</span> XiaoMI());</span><br><span class="line"></span><br><span class="line">        folendPhone.open();</span><br><span class="line">        folendPhone.close();</span><br><span class="line">        folendPhone.call();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"================="</span>);</span><br><span class="line">        Phone VPhone = <span class="keyword">new</span> FolendPhone(<span class="keyword">new</span> Vivo());</span><br><span class="line"></span><br><span class="line">        VPhone.open();</span><br><span class="line">        VPhone.close();</span><br><span class="line">        VPhone.call();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"================="</span>);</span><br><span class="line">        <span class="comment">//获得平板手机</span></span><br><span class="line">        Phone upRegistPhone = <span class="keyword">new</span> UpRegistPhone(<span class="keyword">new</span> XiaoMI());</span><br><span class="line"></span><br><span class="line">        upRegistPhone.open();</span><br><span class="line">        upRegistPhone.call();</span><br><span class="line">        upRegistPhone.close();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"================="</span>);</span><br><span class="line">        Phone VuPhone = <span class="keyword">new</span> UpRegistPhone(<span class="keyword">new</span> Vivo());</span><br><span class="line"></span><br><span class="line">        VuPhone.open();</span><br><span class="line">        VuPhone.call();</span><br><span class="line">        VuPhone.close();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="桥接模式在JDBC的源码分析"><a href="#桥接模式在JDBC的源码分析" class="headerlink" title="桥接模式在JDBC的源码分析"></a>桥接模式在JDBC的源码分析</h3></li>
+<li>1.JDBC的Driver接口，如果从桥接模式来看，Driver就是一个接口，下面可以有MySQL的Driver，Oracle的驱动，这些就可以当作实现接口类<h4 id="桥接模式小结："><a href="#桥接模式小结：" class="headerlink" title="桥接模式小结："></a>桥接模式小结：</h4></li>
+<li>1.实现抽象和实现部分的分离，从而极大的提供了系统的灵活性，让抽象部分和实现部分独立开来，这有助于系统分层设计，从而产生更好的结构化系统。</li>
+<li>2.对于系统的高层部分，只需要知道抽象部分和实现部分的接口就可以了，其他的部分有具体的业务来完成</li>
+<li>3.桥接模式替代多层继承方案，可以以减少子类的个数，降低系统的管理和维护成本。</li>
+<li>4.桥接模式的引入增加了系统的理解和设计难度，由于聚合关联关系建立在抽象层，要求开发者针对抽象进行设计和编程。</li>
+<li>5.桥接模式要求正常识别出系统中两个独立变化的维度，因此其使用范围有一定的局限性，即需要有这样的应用场景。<h4 id="桥接模式的应用场景"><a href="#桥接模式的应用场景" class="headerlink" title="桥接模式的应用场景"></a>桥接模式的应用场景</h4></li>
+<li>1.对于我们那些不希望使用继承或因为多层次继承导致系统类的个数急剧增加的系统，桥接模式尤为适用。</li>
+<li>2.常见的应用场景：<br>JDBC驱动程序<br>银行转账系统<br>转账分类：网上转账，柜台转帐，AMT转帐<br>转账用户类型：普通用户，银行用户，金卡用户<br>消息管理<br>消息类型：即时消息，延时消息<br>消息分类：手机短信，邮件消息，QQ消息。。。。</li>
 </ul>
 
       
@@ -476,7 +493,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Mysql/" rel="tag"><i class="fab fa-behance-square"></i> Mysql</a>
+            <a href="/tags/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fab fa-behance-square"></i> Java设计模式</a>
           
         </div>
       
@@ -489,8 +506,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/06/Hibernate%E6%A1%86%E6%9E%B6%EF%BC%88%E4%B8%80%EF%BC%89/" rel="next" title="Hibernate框架（一）">
-                <i class="fa fa-chevron-left"></i> Hibernate框架（一）
+              <a href="/2020/02/05/Java%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6-ActiveMQ%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE-%E5%9B%9B/" rel="next" title="Java消息中间件+ActiveMQ传输协议(四)">
+                <i class="fa fa-chevron-left"></i> Java消息中间件+ActiveMQ传输协议(四)
               </a>
             
           </div>
@@ -499,8 +516,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/11/13/Hibernate%E6%A1%86%E6%9E%B6-%E4%BA%8C/" rel="prev" title="Hibernate框架(二)">
-                Hibernate框架(二) <i class="fa fa-chevron-right"></i>
+              <a href="/2020/02/05/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="prev" title="Java设计模式+装饰者模式">
+                Java设计模式+装饰者模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -652,7 +669,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关联mysql"><span class="nav-number">1.</span> <span class="nav-text">关联mysql</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#桥接模式"><span class="nav-number">1.</span> <span class="nav-text">桥接模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#应用案例—-手机"><span class="nav-number">1.1.</span> <span class="nav-text">应用案例—-手机</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#桥接模式在JDBC的源码分析"><span class="nav-number">2.</span> <span class="nav-text">桥接模式在JDBC的源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#桥接模式小结："><span class="nav-number">2.1.</span> <span class="nav-text">桥接模式小结：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#桥接模式的应用场景"><span class="nav-number">2.2.</span> <span class="nav-text">桥接模式的应用场景</span></a></li></ol></li></ol></div>
             
 
           </div>
