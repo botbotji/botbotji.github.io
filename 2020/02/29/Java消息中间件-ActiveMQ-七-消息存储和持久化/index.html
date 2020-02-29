@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="Java消息中间件," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="消息存储 MQ的高可用：事务，持久，签收，可持久化 事务，持久，签收是MQ自带的，而可持久化是未界 可持久化： Replicated LevelDB Store (带复制功能的LevelDB)； KahaDB (可汗DB)   说明： 可持久化就是数据高可用的保障手段，若MQ服务器挂了，消息不会丢失的机制。 为了避免意外司机以后丢失信息，需要做到重启后可以恢复消息队列，消息系统一般都会采用持久化机">
+<meta name="keywords" content="Java消息中间件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java消息中间件+ActiveMQ(七)消息存储和持久化">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;29&#x2F;Java%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6-ActiveMQ-%E4%B8%83-%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96&#x2F;index.html">
+<meta property="og:site_name" content="卓尔不凡">
+<meta property="og:description" content="消息存储 MQ的高可用：事务，持久，签收，可持久化 事务，持久，签收是MQ自带的，而可持久化是未界 可持久化： Replicated LevelDB Store (带复制功能的LevelDB)； KahaDB (可汗DB)   说明： 可持久化就是数据高可用的保障手段，若MQ服务器挂了，消息不会丢失的机制。 为了避免意外司机以后丢失信息，需要做到重启后可以恢复消息队列，消息系统一般都会采用持久化机">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;29&#x2F;Java%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6-ActiveMQ-%E4%B8%83-%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96&#x2F;images%5Clog.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;29&#x2F;Java%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6-ActiveMQ-%E4%B8%83-%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96&#x2F;images%5CkahaDB.png">
+<meta property="og:updated_time" content="2020-02-29T10:35:50.342Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;29&#x2F;Java%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6-ActiveMQ-%E4%B8%83-%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96&#x2F;images%5Clog.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/29/Java消息中间件-ActiveMQ-七-消息存储和持久化/"/>
+
+
+
+
+
+  <title>Java消息中间件+ActiveMQ(七)消息存储和持久化 | 卓尔不凡</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/botbotji" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卓尔不凡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">师夷长技以制夷</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/Java%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6-ActiveMQ-%E4%B8%83-%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卓尔不凡">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卓尔不凡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java消息中间件+ActiveMQ(七)消息存储和持久化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-29T18:33:06+08:00">
+                2020-02-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/02/29/Java%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6-ActiveMQ-%E4%B8%83-%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/02/29/Java%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6-ActiveMQ-%E4%B8%83-%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="消息存储"><a href="#消息存储" class="headerlink" title="消息存储"></a>消息存储</h3><ul>
+<li>MQ的高可用：事务，持久，签收，可持久化</li>
+<li>事务，持久，签收是MQ自带的，而可持久化是未界</li>
+<li>可持久化：<ol>
+<li>Replicated LevelDB Store (带复制功能的LevelDB)；</li>
+<li>KahaDB (可汗DB)</li>
+</ol>
+<ul>
+<li>说明：<ol>
+<li>可持久化就是数据高可用的保障手段，若MQ服务器挂了，消息不会丢失的机制。</li>
+<li>为了避免意外司机以后丢失信息，需要做到重启后可以恢复消息队列，消息系统一般都会采用持久化机制。</li>
+<li>ActiveMQ的消息持久化机制有JDBC，AMO，KahaDB和LevelDB，无论使用哪种持久化方式，消息的存储逻辑都是保持一致的。</li>
+<li>就是在发送者将消息发送出去后，消息中心首先将消息存储到本地数据文件，内存数据库或者远程数据库等在试图将消息发送给接收者，成功则将消息从存储中删除，失败则继续尝试发送。</li>
+<li>消息中心启动以后首先要检查指定的存储位置，如果有未发送成功的消息，则需要把消息发送出去。<h4 id="KahaDB消息存储-默认-文件系统存储在本地硬盘"><a href="#KahaDB消息存储-默认-文件系统存储在本地硬盘" class="headerlink" title="KahaDB消息存储(默认 文件系统存储在本地硬盘)"></a>KahaDB消息存储(默认 文件系统存储在本地硬盘)</h4></li>
+</ol>
+</li>
+</ul>
+</li>
+<li>基于日志，从ActiveMQ5.4开始默认使用的持久化插件    </li>
+<li>说明：<ol>
+<li>KahaDB是目前默认的存储方式，可用于任何场景，提高了性能和恢复能力</li>
+<li>消息存储用一个事务日志和仅仅用一个索引文件来存储他所有的地址。(比如，字典 的目录就是索引文件 正文就是事务日志)</li>
+<li>KahaDB是一个专门针对消息持久化的解决方案，它对典型的消息使用模式进行了优化。</li>
+<li>数据被追加到data logs中。当不再需要log文件中的数据时，log文件会被丢弃(删除/归档)。<br><img src="images%5Clog.png" alt=""><br><img src="images%5CkahaDB.png" alt=""></li>
+</ol>
+</li>
+<li>存储原理<ol>
+<li>kahaDB在消息保存目录中只有4类文件和一个lock，跟ActiveMQ的其他几种文件存储引擎相比这就非常简介了。</li>
+<li>db-<number>.log kahaDB存储消息到预定义大小(32兆)的数据记录文件中，文件命名为db-<number>.log。当数据已满是，一个新的文件随之创建，number数值也会随之递增，它随着消息数量的增多，如每32M一个文件，文件名按照数字进行编号，如db-1.log，db-2.log……。当不在有引用到数据文件中的任何消息时，文件被删除或归档。</li>
+<li>db.data该文件包含了支持的BTree索引,索引了消息记录中的消息，它是消息的索引文件，本质是B-Tree(B树)，使用B-Tree作为索引指向db-<Number>.log里面存储的消息。</li>
+<li>db.free 当前db.data文件里那个是空闲的，文件具体内容是所有空闲页的ID。</li>
+<li>db.redo 用于进行消息恢复，如果KahaDB消息存储在强制退出后启动，用于回复BTree索引。(相当于备份2和3)</li>
+<li>lock 文件锁，表示但前获取kahadb读取写权限的broker。<h4 id="LevelDB消息存储-了解"><a href="#LevelDB消息存储-了解" class="headerlink" title="LevelDB消息存储(了解)"></a>LevelDB消息存储(了解)</h4></li>
+</ol>
+</li>
+<li>这种文件系统是从ActiveMQ5.8之后引进的，它和kahaDB非常相似，也是基于文件的本地数据库存储的形式，但是它提供比kahaDB更快的持久性。</li>
+<li>但它不使用自定义BTree实现来索引预写日志，而是使用基于LevelDB的索引</li>
+<li>默认配置如下：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">persistenceAdapter</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">levelDBdirectory</span> = <span class="string">"activemq-data"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">persistenceAdapter</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="JDBC消息存储-重点"><a href="#JDBC消息存储-重点" class="headerlink" title="JDBC消息存储(重点)"></a>JDBC消息存储(重点)</h4></li>
+<li>1.将MySql的驱动jar包放到ActiveMQ的lib目录下</li>
+<li>2.jdbcPersistenceAdapter配置(jdbc持久化配置)<br>  activemq.xml修改配置(默认kahaDB)  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">persistenceAdapter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jdbcPersistenceAdapter</span> <span class="attr">dataSource</span> =<span class="string">"#mysql-ds"</span> <span class="attr">createTablesOnstartup</span> =<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">persistenceAdapter</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>说明：<br>dataSource指定将要引用的持久化数据库的bean名称，createTablesOnstartup是否在启动的时候创建数据表，默认true这样每次都会去创建数据表(是一套表)了，一般是第一次启动的时候设置为true之后改成false。</li>
+</ul>
+</li>
+<li>3.配置数据源(位置</brokers>之后<import>之前)<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">id</span>=<span class="string">"mysql-ds"</span> <span class="built_in">class</span>=<span class="string">"org.apache.commons.dbcp2.BasicDataSource"</span> destory-method=<span class="string">"close"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"driverClassName"</span> value=<span class="string">"com.mysql.jdbc.Driver"</span>/&gt;</span><br><span class="line">    &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"url"</span> value=<span class="string">"jdbc:mysql://自己数据库的IP:3306/activemq?relaxAutoCommit=true"</span>/&gt;</span><br><span class="line">    &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"username"</span> value=<span class="string">"用户名"</span>/&gt;</span><br><span class="line">    &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"password"</span> value=<span class="string">"密码"</span>/&gt;</span><br><span class="line">    &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"maxTotal"</span> value=<span class="string">"200"</span>/&gt;</span><br><span class="line">    &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"poolPreparedStatements"</span> value=<span class="string">"true"</span>/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></li>
+<li>4.建仓SQL和建表说明：<ul>
+<li>建一个名为activemq的数据库 create database activemq</li>
+<li>ActiveMQ重启会自动创建三张表<ul>
+<li>ACTIVEMQ_MSGS(消息)<ul>
+<li>表中的字段<br>ID：自增数据库主键<br>CONTAINER:消息的Destination(目的地即队列/主题)<br>MSGID_PROD:消息发送者的主键<br>MSG_SEQ:是发送消息的顺序，MSGID_PROD+MSG_SEQ可以组成JMS的MessageID<br>EXPIRATION:消息的过期时间，存储的是1970-01-01到现在的毫秒数<br>MSG:消息本体的Java序列化对象的二进制数据<br>PRIORITY:优先级，从0-9，数值越大优先级越高</li>
+</ul>
+</li>
+<li>ACTIVEMQ_ACKS(签收)<ul>
+<li>表中的字段<ul>
+<li>activemq_acks:用于存储订阅关系。如果是持久化Topic，订阅者和服务器的订阅关系在这个表中保存。</li>
+<li>数据库的字段如下：<br>CONTAINER:消息的Destination(目的地即队列/主题)<br>SUB_DEST:如果是使用Static集群，这个字段会有集群其他系统消息<br>CLIENT_ID:每个订阅者都必须有一个唯一的客户端ID用于区分<br>SUB_NAME:订阅者名称<br>SELECTOR:选择器，可以选择只消费满足条件的消息。条件可以用自定义属性实现，可支持多属性AND和OR操作<br>LAST_ACKED_ID：记录消费过的消息的ID</li>
+</ul>
+</li>
+<li>表存储持久化订阅的信息和最后一个持久订阅接收消息ID</li>
+</ul>
+</li>
+<li>ACTIVEMQ_LOCK(锁定)<ul>
+<li>在集群环境中才能有用，只有一个Broker可以获得消息，称为Master Broker(主Broker)，其他的只能作为备份等待Master Broker不可用，才可能成为下一个Master Broker。这个表用于记录那个Broker是当前的MaSter Broker</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>activemq.xml文件<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!--</span></span></span><br><span class="line"><span class="xml">    Licensed to the Apache Software Foundation (ASF) under one or more</span></span><br><span class="line"><span class="xml">    contributor license agreements.  See the NOTICE file distributed with</span></span><br><span class="line"><span class="xml">    this work for additional information regarding copyright ownership.</span></span><br><span class="line"><span class="xml">    The ASF licenses this file to You under the Apache License, Version 2.0</span></span><br><span class="line"><span class="xml">    (the "License"); you may not use this file except in compliance with</span></span><br><span class="line"><span class="xml">    the License.  You may obtain a copy of the License at</span></span><br><span class="line"></span><br><span class="line"><span class="xml">    http://www.apache.org/licenses/LICENSE-2.0</span></span><br><span class="line"></span><br><span class="line"><span class="xml">    Unless required by applicable law or agreed to in writing, software</span></span><br><span class="line"><span class="xml">    distributed under the License is distributed on an "AS IS" BASIS,</span></span><br><span class="line"><span class="xml">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></span><br><span class="line"><span class="xml">    See the License for the specific language governing permissions and</span></span><br><span class="line"><span class="xml">    limitations under the License.</span></span><br><span class="line"><span class="xml">--&gt;</span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- START SNIPPET: example --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">beans</span></span></span></span><br><span class="line"><span class="xml">  xmlns="http://www.springframework.org/schema/beans"</span></span><br><span class="line"><span class="xml">  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line"><span class="xml">  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></span><br><span class="line"><span class="xml">  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd"&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="xml">    <span class="comment">&lt;!-- Allows us to use system properties as variables in this configuration file --&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"locations"</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:$</span><span class="template-variable">&#123;activemq.conf&#125;</span><span class="xml">/credentials.properties<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">   <span class="comment">&lt;!-- Allows accessing the server log --&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"logQuery"</span> <span class="attr">class</span>=<span class="string">"io.fabric8.insight.log.log4j.Log4jLogQuery"</span></span></span></span><br><span class="line"><span class="xml">          lazy-init="false" scope="singleton"</span></span><br><span class="line"><span class="xml">          init-method="start" destroy-method="stop"&gt;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">    <span class="comment">&lt;!--</span></span></span><br><span class="line"><span class="xml">        The <span class="tag">&lt;<span class="name">broker</span>&gt;</span> element is used to configure the ActiveMQ broker.</span></span><br><span class="line"><span class="xml">    --&gt;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">broker</span> <span class="attr">xmlns</span>=<span class="string">"http://activemq.apache.org/schema/core"</span> <span class="attr">brokerName</span>=<span class="string">"localhost"</span> <span class="attr">dataDirectory</span>=<span class="string">"$</span></span></span><span class="template-variable">&#123;activemq.data&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">destinationPolicy</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">policyMap</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">policyEntries</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">policyEntry</span> <span class="attr">topic</span>=<span class="string">"&gt;"</span> &gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="comment">&lt;!-- The constantPendingMessageLimitStrategy is used to prevent</span></span></span><br><span class="line"><span class="xml">                         slow topic consumers to block producers and affect other consumers</span></span><br><span class="line"><span class="xml">                         by limiting the number of messages that are retained</span></span><br><span class="line"><span class="xml">                         For more information, see:</span></span><br><span class="line"></span><br><span class="line"><span class="xml">                         http://activemq.apache.org/slow-consumer-handling.html</span></span><br><span class="line"></span><br><span class="line"><span class="xml">                    --&gt;</span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;<span class="name">pendingMessageLimitStrategy</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">constantPendingMessageLimitStrategy</span> <span class="attr">limit</span>=<span class="string">"1000"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;/<span class="name">pendingMessageLimitStrategy</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">policyEntry</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;/<span class="name">policyEntries</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">policyMap</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">destinationPolicy</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">policyEntries</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">policyEntry</span> <span class="attr">topic</span>=<span class="string">"&gt;"</span> &gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="comment">&lt;!-- The constantPendingMessageLimitStrategy is used to prevent</span></span></span><br><span class="line"><span class="xml">                         slow topic consumers to block producers and affect other consumers</span></span><br><span class="line"><span class="xml">                         by limiting the number of messages that are retained</span></span><br><span class="line"><span class="xml">                         For more information, see:</span></span><br><span class="line"></span><br><span class="line"><span class="xml">                         http://activemq.apache.org/slow-consumer-handling.html</span></span><br><span class="line"></span><br><span class="line"><span class="xml">                    --&gt;</span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;<span class="name">pendingMessageLimitStrategy</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">constantPendingMessageLimitStrategy</span> <span class="attr">limit</span>=<span class="string">"1000"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;/<span class="name">pendingMessageLimitStrategy</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">policyEntry</span>&gt;</span></span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;/<span class="name">policyEntries</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">policyMap</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">destinationPolicy</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="xml">        <span class="comment">&lt;!--</span></span></span><br><span class="line"><span class="xml">            The managementContext is used to configure how ActiveMQ is exposed in</span></span><br><span class="line"><span class="xml">            JMX. By default, ActiveMQ uses the MBean server that is started by</span></span><br><span class="line"><span class="xml">            the JVM. For more information, see:</span></span><br><span class="line"></span><br><span class="line"><span class="xml">            http://activemq.apache.org/jmx.html</span></span><br><span class="line"><span class="xml">        --&gt;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">managementContext</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">managementContext</span> <span class="attr">createConnector</span>=<span class="string">"false"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">managementContext</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">        <span class="comment">&lt;!--</span></span></span><br><span class="line"><span class="xml">            Configure message persistence for the broker. The default persistence</span></span><br><span class="line"><span class="xml">            mechanism is the KahaDB store (identified by the kahaDB tag).</span></span><br><span class="line"><span class="xml">            For more information, see:</span></span><br><span class="line"></span><br><span class="line"><span class="xml">            http://activemq.apache.org/persistence.html</span></span><br><span class="line"><span class="xml">        --&gt;</span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!--</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">persistenceAdapter</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">kahaDB</span> <span class="attr">directory</span>=<span class="string">"$</span></span></span><span class="template-variable">&#123;activemq.data&#125;</span><span class="xml"><span class="tag"><span class="string">/kahadb"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">persistenceAdapter</span>&gt;</span></span></span><br><span class="line"><span class="xml">--&gt;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">persistenceAdapter</span>&gt;</span></span></span><br><span class="line"><span class="xml">                  <span class="tag">&lt;<span class="name">jdbcPersistenceAdapter</span> <span class="attr">dataSource</span>=<span class="string">"#mysql-ds"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">persistenceAdapter</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!--</span></span></span><br><span class="line"><span class="xml">            The systemUsage controls the maximum amount of space the broker will</span></span><br><span class="line"><span class="xml">            use before disabling caching and/or slowing down producers. For more information, see:</span></span><br><span class="line"><span class="xml">            http://activemq.apache.org/producer-flow-control.html</span></span><br><span class="line"><span class="xml">          --&gt;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">systemUsage</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">systemUsage</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">memoryUsage</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">memoryUsage</span> <span class="attr">percentOfJvmHeap</span>=<span class="string">"70"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">memoryUsage</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">storeUsage</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">storeUsage</span> <span class="attr">limit</span>=<span class="string">"100 gb"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">storeUsage</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">tempUsage</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">tempUsage</span> <span class="attr">limit</span>=<span class="string">"50 gb"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">tempUsage</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">systemUsage</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">systemUsage</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">        <span class="comment">&lt;!--</span></span></span><br><span class="line"><span class="xml">            The transport connectors expose ActiveMQ over a given protocol to</span></span><br><span class="line"><span class="xml">            clients and other brokers. For more information, see:</span></span><br><span class="line"></span><br><span class="line"><span class="xml">            http://activemq.apache.org/configuring-transports.html</span></span><br><span class="line"><span class="xml">        --&gt;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">transportConnectors</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="comment">&lt;!-- DOS protection, limit concurrent connections to 1000 and frame size to 100MB --&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">transportConnector</span> <span class="attr">name</span>=<span class="string">"openwire"</span> <span class="attr">uri</span>=<span class="string">"tcp://0.0.0.0:61616?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">transportConnector</span> <span class="attr">name</span>=<span class="string">"amqp"</span> <span class="attr">uri</span>=<span class="string">"amqp://0.0.0.0:5672?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">transportConnector</span> <span class="attr">name</span>=<span class="string">"stomp"</span> <span class="attr">uri</span>=<span class="string">"stomp://0.0.0.0:61613?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">transportConnector</span> <span class="attr">name</span>=<span class="string">"mqtt"</span> <span class="attr">uri</span>=<span class="string">"mqtt://0.0.0.0:1883?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">transportConnector</span> <span class="attr">name</span>=<span class="string">"ws"</span> <span class="attr">uri</span>=<span class="string">"ws://0.0.0.0:61614?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">transportConnectors</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">        <span class="comment">&lt;!-- destroy the spring context on shutdown to stop jetty --&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">shutdownHooks</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">bean</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span> <span class="attr">class</span>=<span class="string">"org.apache.activemq.hooks.SpringContextHook"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">shutdownHooks</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">   <span class="tag">&lt;/<span class="name">broker</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mysql-ds"</span> <span class="attr">class</span>=<span class="string">"org.apache.commons.dbcp2.BasicDataSource"</span> <span class="attr">destroy-method</span>=<span class="string">"close"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://192.168.1.101:3306/activemq?relaxAutoCommit=true;serverTimezone=Asia/Shanghai"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"zhao1314520"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxTotal"</span> <span class="attr">value</span>=<span class="string">"200"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"poolPreparedStatements"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">    <span class="comment">&lt;!--</span></span></span><br><span class="line"><span class="xml">        Enable web consoles, REST and Ajax APIs and demos</span></span><br><span class="line"><span class="xml">        The web consoles requires by default login, you can disable this in the jetty.xml file</span></span><br><span class="line"></span><br><span class="line"><span class="xml">        Take a look at $</span><span class="template-variable">&#123;ACTIVEMQ_HOME&#125;</span><span class="xml">/conf/jetty.xml for more details</span></span><br><span class="line"><span class="xml">    --&gt;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">import</span> <span class="attr">resource</span>=<span class="string">"jetty.xml"</span>/&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- END SNIPPET: example --&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="Windows本地安装ActiveMQ"><a href="#Windows本地安装ActiveMQ" class="headerlink" title="Windows本地安装ActiveMQ"></a>Windows本地安装ActiveMQ</h4></li>
+<li>启动命令：cd bin   activemq.bat start</li>
+<li>注意配置数据源: 如阿里Druid(德鲁伊)<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mysql-ds"</span> <span class="attr">class</span>=<span class="string">""</span> <span class="attr">destroy-method</span>=<span class="string">"close"</span>&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"url"</span> <span class="attr">value</span> = <span class="string">"jdbc:mysql://192.168.1.101:3306/activemq?relaxAutoCommit=true;serverTimezone=Asia/Shanghai"</span>/&gt;</span>  </span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"username"</span> <span class="attr">value</span> = <span class="string">"$</span></span></span><span class="template-variable">&#123;username&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span>  </span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"password"</span> <span class="attr">value</span> = <span class="string">"$</span></span></span><span class="template-variable">&#123;password&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span>  </span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"driverClassName"</span> <span class="attr">value</span> = <span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span>  </span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"filters"</span> <span class="attr">value</span> = <span class="string">"stat"</span>/&gt;</span>  </span></span><br><span class="line"></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- 最大并发连接数 --&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"maxActive"</span> <span class="attr">value</span> = <span class="string">"$</span></span></span><span class="template-variable">&#123;maxActive&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">         <span class="comment">&lt;!-- 初始化连接数量 --&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">         <span class="tag">&lt; <span class="attr">property</span> <span class="attr">name</span> = <span class="string">"initialSize"</span> <span class="attr">value</span> = <span class="string">"$</span></span></span><span class="template-variable">&#123;initialSize&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="comment">&lt;!-- 配置获取连接等待超时的时间 --&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"maxWait"</span> <span class="attr">value</span> = <span class="string">"$</span></span></span><span class="template-variable">&#123;maxWait&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="comment">&lt;!-- 最小空闲连接数 --</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"minIdle"</span> <span class="attr">value</span> = <span class="string">"$</span></span></span><span class="template-variable">&#123;minIdle&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span>  </span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 --&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt; <span class="attr">property</span> <span class="attr">name</span> = <span class="string">"timeBetweenEvictionRunsMillis"</span> <span class="attr">value</span> =<span class="string">"$</span></span></span><span class="template-variable">&#123;timeBetweenEvictionRunsMillis&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="comment">&lt;!-- 配置一个连接在池中最小生存的时间，单位是毫秒 --&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"minEvictableIdleTimeMillis"</span> <span class="attr">value</span> =<span class="string">"$</span></span></span><span class="template-variable">&#123;minEvictableIdleTimeMillis&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span>  </span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"validationQuery"</span> <span class="attr">value</span> = <span class="string">"$</span></span></span><span class="template-variable">&#123;validationQuery&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span>  </span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"testWhileIdle"</span> <span class="attr">value</span> = <span class="string">"$</span></span></span><span class="template-variable">&#123;testWhileIdle&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span>  </span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"testOnBorrow"</span> <span class="attr">value</span> = <span class="string">"$</span></span></span><span class="template-variable">&#123;testOnBorrow&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span>  </span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"testOnReturn"</span> <span class="attr">value</span> = <span class="string">"$</span></span></span><span class="template-variable">&#123;testOnReturn&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span>  </span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"maxOpenPreparedStatements"</span> <span class="attr">value</span> =<span class="string">"$</span></span></span><span class="template-variable">&#123;maxOpenPreparedStatements&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="comment">&lt;!-- 打开 removeAbandoned 功能 --&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"removeAbandoned"</span> <span class="attr">value</span> = <span class="string">"$</span></span></span><span class="template-variable">&#123;removeAbandoned&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="comment">&lt;!-- 1800 秒，也就是 30 分钟 --&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"removeAbandonedTimeout"</span> <span class="attr">value</span> =<span class="string">"$</span></span></span><span class="template-variable">&#123;removeAbandonedTimeout&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="comment">&lt;!-- 关闭 abanded 连接时输出错误日志 --&gt;</span>   </span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"logAbandoned"</span> <span class="attr">value</span> = <span class="string">"$</span></span></span><span class="template-variable">&#123;logAbandoned&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></span><br></pre></td></tr></table></figure></li>
+<li>打开数据库会自动创建3张表<h4 id="代码运行验证："><a href="#代码运行验证：" class="headerlink" title="代码运行验证："></a>代码运行验证：</h4></li>
+<li>一定要开启持久化：messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);</li>
+<li>在点对点的类型中:<ul>
+<li>当DeliveryMode设置为NON_PERSISTENCE(非持久化)时，消息被保存在内存中；</li>
+<li>当DeliveryMode设置为PERSISTENCE(持久化)时，消息被保存在broker的相应的文件或者数据库中；</li>
+<li>而且点对点类型中消息一旦被Consumer就从broker中删除(broker就是ActiveMQ的一个实例)</li>
+</ul>
+</li>
+<li>在主题订阅/发布类型中：<ul>
+<li>数据不会被删除，<h4 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h4></li>
+</ul>
+</li>
+<li>如果是队列Queue：<ul>
+<li>在没有消费者消费的情况下会将消息保存到activemq_msgs表中，只要有任意一个消费者已经消费过了，消费之后这些消息将会立刻被删除</li>
+</ul>
+</li>
+<li>如果是主题Topic：<ul>
+<li>一般是先启动消费订阅然后在生产的情况下会将消息保存到activemq_acks里；<h4 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h4></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>java.lang.IIIegalStateException:BeanFactory not initialized or already closed+ </li>
+<li>这是因为你的操作系统的机器名中有”_”符号，请更改机器名称并且重启即可解决问题。</li>
+</ul>
+<h3 id="JDBC-Message-store-with-ActiveMQ-Journal-（JDBC消息存储增强带高速缓存日志）"><a href="#JDBC-Message-store-with-ActiveMQ-Journal-（JDBC消息存储增强带高速缓存日志）" class="headerlink" title="JDBC Message store with ActiveMQ Journal （JDBC消息存储增强带高速缓存日志）"></a>JDBC Message store with ActiveMQ Journal （JDBC消息存储增强带高速缓存日志）</h3><ul>
+<li>这种方式克服了JDBC Store的不足，JDBC每次消息过来，都需要去写库和读库。</li>
+<li>ActiveMQ Journal，使用高速缓存技术，大大提高了性能。</li>
+<li>当消费者的消费速度能够及时跟上生产者消息的生产速度时，journal文件能够大大减少需要写入的DB中的消息。</li>
+<li>举例子说明：<ul>
+<li>生产者生产了1000条消息，这1000条消息会保存到journal文件，如果消费者的消费速度很快的情况下，在journal文件还没有同步到DB之前，消费者已经消费了90%的以上的消息，那么这个时候只需要同步剩余的10%的消息到DB。</li>
+<li>如果消费者的消费速度很慢，这个时候journal文件可以使消息以批量方式写到DB。</li>
+</ul>
+</li>
+<li>配置 在/myactivemq/apache-activemq-5.15.11/conf路径下修改activemq.xml的配置<ul>
+<li>修改前：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">persistenceAdapter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jdbcPersisenceAdapter</span> <span class="attr">dataSource</span>=<span class="string">"$mysql-ds"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">persistenceAdapter</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>修改后：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">persistenceFactory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">journalPersisenceFactory</span></span></span><br><span class="line"><span class="tag">      <span class="attr">journalLogFiles</span>=<span class="string">"4"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">journalLogSize</span>=<span class="string">"32768"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">useJournal</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">useQurickJournal</span>=<span class="string">"#mysql-ds"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">dataDirectory</span>=<span class="string">"activemq-data"</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">persistenceFactory</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3></li>
+<li>持久化消息主要指：<br>MQ所在的服务down(挂掉)了消息不会丢失的机制</li>
+<li>ActiveMQ的消息持久化机制有：<br>AMQ：基于日志文件<br>KahaDB：基于日志文件，从ActiveMQ5.4开始默认的持久化插件<br>JDBC：基于第三方数据库<br>LevelDB:基于文件的数据库存储，从ActiveMQ5.8之后推出的LevelDB的持久化引擎性能高于KahaDB<br>Replicated LevelDB Store ：从ActiveMQ5.9提供了LevelDB和Zookeeper的数据复制方式，用于Master-slave方式的首选数据复制方案。</li>
+<li>无论哪种持久化机制，消息的存储逻辑都一致的。 </li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢关顾！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/qrcode.png" alt="卓尔不凡 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zgub.jpg" alt="卓尔不凡 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag"><i class="fab fa-behance-square"></i> Java消息中间件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/05/Java%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6-SpringBoot%E6%95%B4%E5%90%88ActiveMQ(%E5%85%AD)/" rel="next" title="Java消息中间件+SpringBoot整合ActiveMQ">
+                <i class="fa fa-chevron-left"></i> Java消息中间件+SpringBoot整合ActiveMQ
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/29/Java%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6-ActiveMQ-%E5%85%AB-%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" rel="prev" title="Java消息中间件+ActiveMQ(八)高级特性">
+                Java消息中间件+ActiveMQ(八)高级特性 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="卓尔不凡" />
+            
+              <p class="site-author-name" itemprop="name">卓尔不凡</p>
+              <p class="site-description motion-element" itemprop="description">你我暮年，闲坐庭院， 云卷云舒听雨声，星密星稀赏月影， 花开花落忆江南， 你话往时，我画往事， 愿有岁月可回首，且以深情共白头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/botbotji" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#消息存储"><span class="nav-number">1.</span> <span class="nav-text">消息存储</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#KahaDB消息存储-默认-文件系统存储在本地硬盘"><span class="nav-number">1.1.</span> <span class="nav-text">KahaDB消息存储(默认 文件系统存储在本地硬盘)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LevelDB消息存储-了解"><span class="nav-number">1.2.</span> <span class="nav-text">LevelDB消息存储(了解)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JDBC消息存储-重点"><span class="nav-number">1.3.</span> <span class="nav-text">JDBC消息存储(重点)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows本地安装ActiveMQ"><span class="nav-number">1.4.</span> <span class="nav-text">Windows本地安装ActiveMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码运行验证："><span class="nav-number">1.5.</span> <span class="nav-text">代码运行验证：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结："><span class="nav-number">1.6.</span> <span class="nav-text">小结：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遇到的坑"><span class="nav-number">1.7.</span> <span class="nav-text">遇到的坑</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDBC-Message-store-with-ActiveMQ-Journal-（JDBC消息存储增强带高速缓存日志）"><span class="nav-number">2.</span> <span class="nav-text">JDBC Message store with ActiveMQ Journal （JDBC消息存储增强带高速缓存日志）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结："><span class="nav-number">3.</span> <span class="nav-text">总结：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓尔不凡</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+</body>
+</html>
