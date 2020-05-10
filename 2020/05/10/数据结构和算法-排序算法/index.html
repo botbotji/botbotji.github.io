@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="数据结构和算法," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="排序算法介绍： 排序算法(sort Algorrihm),排序是将一组数据，以指定的顺序进行排列的过程。  排序的分类：  内部排序：指将需要处理的所有数据都加载到内部存储器中进行排序； 插入排序：直接插入排序，希尔排序 选择排序：简单选择排序，堆排序 交换排序：冒泡排序，快速排序 归并排序 基数排序   外部排序：使用内存和外存的结合，数据量过大，无法全部加载内存中，需要借助外部存储进行排序。算">
+<meta name="keywords" content="数据结构和算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构和算法+排序算法">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;10&#x2F;%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95&#x2F;index.html">
+<meta property="og:site_name" content="卓尔不凡">
+<meta property="og:description" content="排序算法介绍： 排序算法(sort Algorrihm),排序是将一组数据，以指定的顺序进行排列的过程。  排序的分类：  内部排序：指将需要处理的所有数据都加载到内部存储器中进行排序； 插入排序：直接插入排序，希尔排序 选择排序：简单选择排序，堆排序 交换排序：冒泡排序，快速排序 归并排序 基数排序   外部排序：使用内存和外存的结合，数据量过大，无法全部加载内存中，需要借助外部存储进行排序。算">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-10T14:01:50.227Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/10/数据结构和算法-排序算法/"/>
+
+
+
+
+
+  <title>数据结构和算法+排序算法 | 卓尔不凡</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/botbotji" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卓尔不凡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">师夷长技以制夷</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卓尔不凡">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卓尔不凡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构和算法+排序算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-10T22:01:27+08:00">
+                2020-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/05/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/05/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  31
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="排序算法介绍："><a href="#排序算法介绍：" class="headerlink" title="排序算法介绍："></a>排序算法介绍：</h3><ul>
+<li><p>排序算法(sort Algorrihm),排序是将一组数据，以指定的顺序进行排列的过程。</p>
+</li>
+<li><p>排序的分类：</p>
+<ol>
+<li>内部排序：指将需要处理的所有数据都加载到内部存储器中进行排序；<ul>
+<li>插入排序：直接插入排序，希尔排序</li>
+<li>选择排序：简单选择排序，堆排序</li>
+<li>交换排序：冒泡排序，快速排序</li>
+<li>归并排序</li>
+<li>基数排序</li>
+</ul>
+</li>
+<li>外部排序：使用内存和外存的结合，数据量过大，无法全部加载内存中，需要借助外部存储进行排序。<h3 id="算法的时间复杂度"><a href="#算法的时间复杂度" class="headerlink" title="算法的时间复杂度"></a>算法的时间复杂度</h3></li>
+</ol>
+</li>
+<li><p>度量一个程序（算法）执行的时间：</p>
+<ul>
+<li>事后统计法</li>
+<li>事前估值的方法：通过分析某个算法时间复杂度来判断那个算法更优；</li>
+<li>时间频度T(n)<br>常数项，低次项，系数==可以忽略</li>
+</ul>
+</li>
+<li><p>时间复杂度：</p>
+<ul>
+<li><p>一般情况下，算法中的基本操作语句的重复执行次数是问题规模n的某个函数，用T(n)表示，若有某个辅助函数f(n),使你无限趋近于无穷大时，T(n)/f(n)的极限值为不等于0的常数，则称f(n)是T(n)的同数量级函数,记作T(n)=O(f(n)),称O(f(n))为算法渐进时间复杂度，简称时间复杂度。</p>
+</li>
+<li><p>说明：<br>T(n) = n+1   f(n) = n<br>T(n)/f(n) = 1 即：T(n)=O(n)</p>
+</li>
+<li><p>T(n)不同，但时间复杂度可能相同。</p>
+</li>
+<li><p>计算时间复杂度的方法：</p>
+<ol>
+<li>用常数1代替运行时间中的所有加法常数</li>
+<li>修改后的运行次数函数中，只保留最高级项</li>
+<li>去除最高级项的系数 </li>
+</ol>
+</li>
+<li><p>说明:常见的算法时间复杂度由小到大依次是：O(1) &lt; O(log2n) &lt; O(n) &lt; O(nlog2n) &lt; O(n^2) &lt; O(n^3) &lt; O(n^K) &lt; O(2^n),随着问题规模n不断增大，上述时间复杂度不断增大，算法的执行效率越低</p>
+</li>
+<li><p>常见时间复杂度</p>
+<ol>
+<li><p>常数阶O(1):无论代码执行多少行，只要是没得循环等复杂的结构，那么这代码的时间复杂度就是O(1);如：int i=1, i++等</p>
+</li>
+<li><p>对数阶O(log2n)以2为底n的对数</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(i&lt;n)&#123;</span><br><span class="line">    i = i * <span class="number">2</span>;<span class="comment">//以2为底</span></span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"><span class="number">3.</span> 线性阶O(n)</span><br></pre></td></tr></table></figure>
+<p>for(int i=1;i&lt;=n;i++){<br>j=1;<br>j++;<br>}</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4.</span> 线性对数阶<span class="constructor">O(<span class="params">nlog</span>?N)</span>:就是将时间复杂度为<span class="constructor">O(<span class="params">log2n</span>)</span>的代码循环N遍</span><br></pre></td></tr></table></figure>
+<p>for(int m=1;m&lt;=n;m++){<br>int i = 1;<br>while(i&lt;n){<br>   i = i * 2;//以2为底<br>}<br>}</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5.</span> 平方阶O(n^<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>for(int j=1;j&lt;=n;j++){<br>for(int i=1;i&lt;=n;i++){<br>j=1;<br>j++;<br>}<br>}</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>平均时间复杂度和最坏时间复杂度</span><br><span class="line"><span class="bullet">  1. </span>平均时间复杂度是指所有可能的输入实例均以等概率出现的情况下，该算法的运行时间</span><br><span class="line"><span class="bullet">  2. </span>最坏时间复杂度，最坏情况下，一般讨论都是它；原因：最坏情况下的时间复杂度是算法在任何输出实例上运行时间的界限，这就保证了算法的运行时间不会比最坏情况最长。</span><br><span class="line"><span class="bullet">  3. </span>平均时间复杂度和最坏时间复杂度是否一致与算法有关</span><br><span class="line"><span class="section">#### 冒泡排序</span></span><br><span class="line"><span class="bullet">* </span>基本介绍：</span><br><span class="line"><span class="bullet">  1. </span>冒泡排序(Bubble Sorting)的基本思想是：通过对待排序序列从前向后(从下标较小的元素开始)，依次比较相邻元素的值，若发现逆序则交换，使值较大的元素逐渐从前移向后部，就像水底的气泡逐渐向上冒。</span><br><span class="line"><span class="bullet">  2. </span>因为排序的过程中，各元素不断接近自己的位置，如果一趟比较下来没有进行过交换，就说明序列有序，因此要在排序过程中设置一个标志flag判断元素是否进行过交换。从而减少不必要的比较。</span><br><span class="line"><span class="bullet">  * </span>代码实现：</span><br></pre></td></tr></table></figure>
+<p>import java.util.Arrays;<br>public class MaoPao {<br>public static void main(String[] args) {<br>   int[] arr = {3,9,-1,10,-2};</p>
+<p>   //冒泡的演变过程<br>   //第一趟就是把最大的数排在最后面<br>   int temp = 0;<br>   for (int j = 0; j &lt; arr.length-1; j++) {</p>
+<pre><code>for (int i = 0; i &lt; arr.length-1-j; i++) {
+    //如果前面的数比后面的数大就交换
+    if (arr[i] &gt; arr[i+1]){
+        temp = arr[i];
+        arr[i] = arr[i+1];
+        arr[i+1] =temp;
+    }
+}
+System.out.println(&quot;第&quot;+j+1+&quot;趟:&quot;);
+System.out.println(Arrays.toString(arr));</code></pre><p>   }<br>}<br>}</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>优化：没有进行过交换，就说明序列有序，因此要在排序过程中设置一个标志flag判断元素是否进行过交换。从而减少不必要的比较。</span><br></pre></td></tr></table></figure>
+<p>public class MaoPao {<br>public static void main(String[] args) {<br>   int[] arr = {3,9,-1,10,20};</p>
+<p>   //冒泡的演变过程<br>   //第一趟就是把最大的数排在最后面<br>   int temp = 0;<br>   boolean flag = false; //标识符，表示是否进行过交换<br>   for (int j = 0; j &lt; arr.length-1; j++) {</p>
+<pre><code>for (int i = 0; i &lt; arr.length-1-j; i++) {
+    //如果前面的数比后面的数大就交换
+    if (arr[i] &gt; arr[i+1]){
+        flag = true;
+        temp = arr[i];
+        arr[i] = arr[i+1];
+        arr[i+1] =temp;
+    }
+}
+System.out.println(&quot;第&quot;+(j+1)+&quot;趟:&quot;);
+System.out.println(Arrays.toString(arr));
+if (!flag){//在一次排序中，一次交换都没有发生过
+    break;
+}else{
+flag = false;//重置flag，进行下次判断
+}</code></pre><p>   }<br>}<br>}</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>事后统计法</span><br></pre></td></tr></table></figure>
+<p>package com.zhao.sort;<br>import java.text.SimpleDateFormat;<br>import java.util.Arrays;<br>import java.util.Date;</p>
+</li>
+</ol>
+</li>
+</ul>
+<p>public class MaoPao {</p>
+<pre><code>public static void main(String[] args) {
+    int[] arr = new int[8000000];
+    for (int i = 0; i &lt; arr.length-1; i++) {
+        arr[i] = (int)(Math.random() * 8000000);
+    }
+
+    Date date1 = new Date();
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd HH-mm-ss&quot;);
+    String format = simpleDateFormat.format(date1);
+    System.out.println(&quot;排序前的时间是：&quot;+format);
+
+    //测试冒泡排序
+    bublesort(arr);
+
+    Date date2 = new Date();
+    String format1 = simpleDateFormat.format(date2);
+    System.out.println(&quot;排序前的时间是：&quot;+format1);
+
+}
+public static void bublesort(int[] arr){
+    //冒泡的演变过程
+    //第一趟就是把最大的数排在最后面
+    int temp = 0;
+    boolean flag = false; //标识符，表示是否进行过交换
+    for (int j = 0; j &lt; arr.length-1; j++) {
+
+        for (int i = 0; i &lt; arr.length-1-j; i++) {
+            //如果前面的数比后面的数大就交换
+            if (arr[i] &gt; arr[i+1]){
+                flag = true;
+                temp = arr[i];
+                arr[i] = arr[i+1];
+                arr[i+1] =temp;
+            }
+        }
+        //System.out.println(&quot;第&quot;+(j+1)+&quot;趟:&quot;);
+        //System.out.println(Arrays.toString(arr));
+        if (!flag){//在一次排序中，一次交换都没有发生过
+            break;
+        }else{
+            flag = false;//重置flag，进行下次判断
+        }
+    }
+}</code></pre><p>}</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#### 选择排序</span><br><span class="line">* 基本介绍:</span><br><span class="line">  选择排序也属于内部排序法，是从预排序的数据中，按指定的规则选出某一元素，在依规定交换位置后达到排序的目的。</span><br><span class="line">* 排序思想：</span><br><span class="line">  选择排序(select sorting)也是一种简单的排序方法。它的基本思想是：第一次从arr[<span class="number">0</span>]~arr[n<span class="number">-1</span>]中选取最小值，与arr[<span class="number">0</span>]交换，第二次从arr[<span class="number">1</span>]~arr[n<span class="number">-1</span>]中选取最小值，与arr[<span class="number">1</span>]交换,....,第i次是从arr[i<span class="number">-1</span>]~arr[n<span class="number">-1</span>]中选取最小值，与arr[i-]交换,...,第n<span class="number">-1</span>次是从arr[n<span class="number">-2</span>]~arr[n<span class="number">-1</span>]中选取最小值，与arr[n<span class="number">-2</span>]交换，总共n<span class="number">-1</span>次，得到一个按排序码从小到大排列的有序序列。</span><br><span class="line"> *  逐步推到</span><br></pre></td></tr></table></figure>
+<p> public class XuanZe {</p>
+<pre><code>public static void main(String[] args) {
+    int[] arr = {101,34,119,1};
+
+    selectSort(arr);
+}
+
+//选择排序方法
+public static void selectSort(int[] arr){
+
+    //使用逐步推到的方式
+    //第一轮
+    int minIndex = 0;
+    int min = arr[minIndex]; //假设最小数的缩影为0
+
+    for (int i = 0 + 1; i &lt; arr.length; i++) {
+        if(min &gt; arr[i]){//即假设的数不是最小值
+            min = arr[i]; //重置min
+            minIndex = i; //重置minIndex
+        }
+    }
+     if(minIndex != 0) {
+      //交换位置
+      arr[minIndex] = arr[0];
+      arr[0] = min;
+  }
+
+    System.out.println(&quot;第一轮之后：&quot;);
+    System.out.println(Arrays.toString(arr));
+
+    //第二轮
+    minIndex = 1;
+    min = arr[minIndex]; //假设最小数的缩影为0
+
+    for (int i = 1 + 1; i &lt; arr.length; i++) {
+        if(min &gt; arr[i]){//即假设的数不是最小值
+            min = arr[i]; //重置min
+            minIndex = i; //重置minIndex
+        }
+    }
+     if(minIndex != 1) {
+      //交换位置
+      arr[minIndex] = arr[1];
+      arr[1] = min;
+  }
+
+    System.out.println(&quot;第二轮之后：&quot;);
+    System.out.println(Arrays.toString(arr));
+}</code></pre><p>}</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>代码优化：</span><br></pre></td></tr></table></figure>
+<p>public class XuanZe {</p>
+<p>  public static void main(String[] args) {</p>
+<pre><code>int[] arr = {101,34,119,1};
+
+selectSort(arr);</code></pre><p>  }</p>
+<p>  //选择排序方法<br>  public static void selectSort(int[] arr){</p>
+<pre><code>//使用逐步推到的方式
+//第一轮
+for (int j = 0; j &lt; arr.length-1; j++) {
+    int minIndex = j;
+    int min = arr[minIndex]; //假设最小数的缩影为0
+
+    for (int i = j + 1; i &lt; arr.length; i++) {
+        if(min &gt; arr[i]){//即假设的数不是最小值
+            min = arr[i]; //重置min
+            minIndex = i; //重置minIndex
+        }
+    }
+    if(minIndex != j) {
+        //交换位置
+        arr[minIndex] = arr[j];
+        arr[j] = min;
+    }
+    System.out.println(&quot;第&quot;+(j+1)+&quot;轮之后：&quot;);
+    System.out.println(Arrays.toString(arr));
+}</code></pre><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>逆序只需要修改</span><br></pre></td></tr></table></figure>
+<p>  if(max &lt; arr[i]){//即假设的数不是最大值</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  * 选择排序执行时间要比冒泡少，算法更优。</span><br><span class="line">  #### 插入排序</span><br><span class="line">  * 基本介绍：</span><br><span class="line">    插入排序属于内部排序法，是对于排序的元素以插入的方式找寻该元素的适当位置，以达到排序的目的。</span><br><span class="line">  * 插入排序算法思想：</span><br><span class="line">    插入排序(Insertion Sorting)的基本思想是：把n个待排序的元素看成为一个有序表和一个无序表，开始时有序表中只包含一个元素，无序表中包含有n<span class="number">-1</span>个元素，排序过程中每次从无序表中取出第一个元素，把他的排序码依次与有序元素的排序吗进行比较，将它插入到有序表中的适当位置，使之成为新的有序表。</span><br><span class="line">* 代码实现： -- 使用逐步推到</span><br></pre></td></tr></table></figure>
+<p>public class InsertSort {<br>  public static void main(String[] args) {</p>
+<pre><code>int[] arr = {101,34,119,1};
+insertSort(arr);</code></pre><p>  }</p>
+<p>  //插入排序<br>  public static void insertSort(int[] arr) {</p>
+<pre><code>//使用逐步推到
+//第一轮
+
+//定义待插入的数
+int insertVal = arr[1];
+int insertIndex = 1 - 1; //即前面这个数的下标
+
+//给insertVal找到插入的位置
+//insertIndex &gt;= 0 保障在给insertVal 找到插入位置，下标不越界
+//insertVal &lt; arr[insertIndex] 待插入的数，还没有找到插入的位置
+while (insertIndex &gt;= 0 &amp;&amp; insertVal &lt; arr[insertIndex]) {
+    arr[insertIndex + 1] = arr[insertIndex]; //后移
+    insertIndex--;
+}
+//当退出while循环时，说明插入的位置找到，insertIndex+1；
+//就是说如果不满足 insertVal &lt; arr[insertIndex]  34是334时，334&gt;101 就插入到有序列表的后面索引+1
+arr[insertIndex+1] = insertVal;
+System.out.println(&quot;第一轮结果 ：&quot;);
+System.out.println(Arrays.toString(arr));</code></pre></li>
+</ul>
+<pre><code>    //第二轮
+    //定义待插入的数
+    insertVal = arr[2];
+    insertIndex = 2 - 1; //即前面这个数的下标
+
+    //给insertVal找到插入的位置
+    //insertIndex &gt;= 0 保障在给insertVal 找到插入位置，下标不越界
+    //insertVal &lt; arr[insertIndex] 待插入的数，还没有找到插入的位置
+    while (insertIndex &gt;= 0 &amp;&amp; insertVal &lt; arr[insertIndex]) {
+        arr[insertIndex + 1] = arr[insertIndex]; //后移
+        insertIndex--;
+    }
+    //当退出while循环时，说明插入的位置找到，insertIndex+1；
+    //就是说如果不满足 insertVal &lt; arr[insertIndex]  34是334时，334&gt;101 就插入到有序列表的后面索引+1
+    arr[insertIndex+1] = insertVal;
+    System.out.println(&quot;第二轮结果 ：&quot;);
+    System.out.println(Arrays.toString(arr));
+
+    //第三轮
+
+    //定义待插入的数
+    insertVal = arr[3];
+    insertIndex = 3 - 1; //即前面这个数的下标
+
+    //给insertVal找到插入的位置
+    //insertIndex &gt;= 0 保障在给insertVal 找到插入位置，下标不越界
+    //insertVal &lt; arr[insertIndex] 待插入的数，还没有找到插入的位置
+    while (insertIndex &gt;= 0 &amp;&amp; insertVal &lt; arr[insertIndex]) {
+        arr[insertIndex + 1] = arr[insertIndex]; //后移
+        insertIndex--;
+    }
+    //当退出while循环时，说明插入的位置找到，insertIndex+1；
+    //就是说如果不满足 insertVal &lt; arr[insertIndex]  34是334时，334&gt;101 就插入到有序列表的后面索引+1
+    arr[insertIndex+1] = insertVal;
+    System.out.println(&quot;第三轮结果 ：&quot;);
+    System.out.println(Arrays.toString(arr));
+}
+}</code></pre><p>}</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>代码实现：for循环实现</span><br></pre></td></tr></table></figure>
+<p>//使用for循环<br>        for (int i = 0; i &lt; arr.length; i++) {<br>            //定义待插入的数<br>            int insertVal = arr[i];<br>            int insertIndex = i - 1; //即前面这个数的下标</p>
+<pre><code>//给insertVal找到插入的位置
+//insertIndex &gt;= 0 保障在给insertVal 找到插入位置，下标不越界
+//insertVal &lt; arr[insertIndex] 待插入的数，还没有找到插入的位置
+while (insertIndex &gt;= 0 &amp;&amp; insertVal &lt; arr[insertIndex]) {
+    arr[insertIndex + 1] = arr[insertIndex]; //后移
+    insertIndex--;
+}
+//当退出while循环时，说明插入的位置找到，insertIndex+1；
+//就是说如果不满足 insertVal &lt; arr[insertIndex]  34是334时，334&gt;101 就插入到有序列表的后面索引+1
+arr[insertIndex+1] = insertVal;
+System.out.println(&quot;第&quot;+i+&quot;结果 ：&quot;);
+System.out.println(Arrays.toString(arr));</code></pre><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>代码优化：</span><br></pre></td></tr></table></figure>
+<pre><code>//此处添加判断，代码优化
+ if (insertIndex+1 != i) {  //334&gt;101 位置不需要改变 insertIndex+1 == i
+        arr[insertIndex + 1] = insertVal; 
+    }</code></pre><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">#### 希尔排序算法介绍：</span></span><br><span class="line"><span class="bullet">* </span>希尔排序是希尔(Donald Shell)于1959年提出的一种排序算法。排序算法也是一种插入排序，它是简单插入排序经过改进的一个更有效的版本，也称为缩小增量排序。</span><br><span class="line"><span class="bullet">* </span>希尔排序法基本思想</span><br><span class="line"><span class="bullet">  * </span>希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序，随着增量逐渐减少，每组包含的关键词越来越多，当增量减少至1时，整个文件恰被分成一组，算法便终止</span><br><span class="line"><span class="bullet">* </span>代码实现：--希尔交换式(效率低)--逐步推到</span><br></pre></td></tr></table></figure>
+<p>public class ShellSort {</p>
+<pre><code>public static void main(String[] args) {
+    int[] arr = {8,9,1,7,2,3,5,4,6,0};
+    shellsort(arr);
+
+}
+
+//使用逐步推到
+//交换法
+public static void shellsort(int[] arr){
+
+    int temp = 0;
+    //第一轮
+    //是将10个数据分成5组 10/2=5
+    //i 表示步长
+    for (int i = 5; i &lt; arr.length; i++) {
+        //遍历个组中的元素(共5组，每组两个元素)，步长为5
+        for (int j = i - 5; j &gt;= 0 ; j -= 5) {
+            //j -= 5 遍历每组第一个元素后，在遍历第二个元素时会向后移动5步
+            //如果当前元素大于加上步长后的那个元素，说明交换
+            if(arr[j] &gt; arr[j +5]){
+                temp = arr[j];
+                arr[j] = arr[j+5];
+                arr[j+5] = temp;
+            }
+        }
+    }
+    System.out.println(&quot;第一轮结果：&quot;+ Arrays.toString(arr));
+
+    //第二轮
+    //是将10个数据分成2组
+    for (int i = 2; i &lt; arr.length; i++) {
+        //遍历个组中的元素(共2组，每组5个元素)，步长为2
+        for (int j = i - 2; j &gt;= 0 ; j -= 2) {
+            //j -= 5 遍历每组第一个元素后，在遍历第二个元素时会向后移动5步
+            //如果当前元素大于加上步长后的那个元素，说明交换
+            if(arr[j] &gt; arr[j +2]){
+                temp = arr[j];
+                arr[j] = arr[j+2];
+                arr[j+2] = temp;
+            }
+        }
+    }
+    System.out.println(&quot;第二轮结果：&quot;+ Arrays.toString(arr));
+
+
+    //第三轮
+    //是将10个数据分成一组
+    for (int i = 1; i &lt; arr.length; i++) {
+        //遍历个组中的元素(共1组，)，步长为1
+        for (int j = i - 1; j &gt;= 0 ; j -= 1) {
+            //j -= 1 遍历每组第一个元素后，在遍历第二个元素时会向后移动1步
+            //如果当前元素大于加上步长后的那个元素，说明交换
+            if(arr[j] &gt; arr[j +1]){
+                temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+    System.out.println(&quot;第三轮结果：&quot;+ Arrays.toString(arr));
+
+}</code></pre><p>}</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* 优化：<span class="comment">--for循环</span></span><br></pre></td></tr></table></figure>
+<p> int temp = 0;-<br> int count =1;</p>
+<pre><code>//代码优化
+ for (int step = arr.length / 2; step &gt; 0; step /= 2) {
+     for (int i = step; i &lt; arr.length; i++) {
+         //遍历个组中的元素(共2组，每组5个元素)，步长为2
+         for (int j = i - step; j &gt;= 0 ; j -= step) {
+             //j -= 5 遍历每组第一个元素后，在遍历第二个元素时会向后移动5步
+             //如果当前元素大于加上步长后的那个元素，说明交换
+             if(arr[j] &gt; arr[j + step]){
+                 temp = arr[j];
+                 arr[j] = arr[j+step];
+                 arr[j+step] = temp;
+             }
+         }
+     }
+     System.out.println(&quot;第&quot;+ count++ +&quot;轮结果：&quot;+ Arrays.toString(arr));</code></pre><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">*</span> <span class="comment">代码实现：</span>--<span class="comment">希尔移位式(效率高)</span>--<span class="comment">逐步推到</span>  <span class="comment">时间短</span></span><br></pre></td></tr></table></figure>
+<p> //移位式<br>    public static void shellSort2(int[] arr){<br>        int  count = 1;<br>        //增量步长step，并逐步缩小增量<br>        for (int step = arr.length / 2; step &gt; 0; step /= 2) {</p>
+<pre><code>        //从step个元素，逐个对其所在的组进行直接插入排序
+        for (int i = step; i &lt; arr.length; i++) {
+            int j = i;
+            int temp = arr[j];
+            if (arr[j] &lt; arr[j -step]){
+                while(j-step &gt;= 0 &amp;&amp; temp &lt; arr[j - step]){
+                    //移动
+                    arr[j] = arr[j - step];
+                    j -= step;
+                }
+                //退出循环就表示找到位置
+                arr[j] = temp;
+            }
+        }
+       //System.out.println(&quot;第&quot;+ count++ +&quot;轮结果：&quot;+ Arrays.toString(arr));
+    }
+}</code></pre><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#### 快速排序</span><br><span class="line">* 基本介绍：</span><br><span class="line">  * 快速排序(Quicksort)是对冒泡排序的一种改进。基本思想是：通过一趟排序将要排序的数据分割成独立的两部份，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按照此方法对这两部分数据分别进行快速排序，整个排序过程可以是递归进行，以此达到整个数据变成有序序列</span><br><span class="line">  * 代码实现</span><br></pre></td></tr></table></figure>
+<p>  public class QuickSort {<br>    public static void main(String[] args) {<br>        int[] arr ={-9,78,0,23,-567,70,-1,900,4561};<br>        quicksort(arr,0,arr.length-1);</p>
+<pre><code>    System.out.println(Arrays.toString(arr));
+}
+
+//快速排序
+public static void quicksort(int[] arr,int left,int right){
+    int l = left;  //左下标
+    int r = right; //右下标
+
+    int privot = arr[(right + left)/2];  //中轴值
+    int temp = 0; //辅助变量，作为交换时使用
+    //while目的 是让比privot 值小的放到左边  值大放到右边
+    while (r &gt; l){
+        //在privot的左边一直找，找到大于等于privot的值，才退出
+        while(arr[l] &lt; privot){
+            l += 1;
+        }
+
+        //在privot的右边一直找，找到小于等于privot的值，才退出
+        while(arr[r] &gt; privot){
+            r -= 1;
+        }
+        /*
+        * 如果l &gt;= r 说明privot的左右两边的值，已经按照左边全部是小于等于peivot的值
+        * 右边全部是大于等于privot的值
+        * */
+        if (l &gt;= r){
+            break;
+        }
+
+        //交换
+        temp = arr[l];
+        arr[l] = arr[r];
+        arr[r] = temp;
+
+        //如果交换后，发现这个arr[l] == privot值 r--；前移
+        if (arr[l] == privot){
+            r -= 1;
+        }
+        //如果交换后，发现这个arr[r] == privot值 l--；后移
+        if (arr[r] == privot){
+            l += 1;
+        }
+    }
+
+    //如果l==r，必须l++，r--，否则会出现栈溢出
+    if (l==r){
+        l += 1;
+        r -= 1;
+   }
+    //向左递归
+    if (left &lt; r){
+        quicksort(arr,left,r);
+    }
+
+    //向右递归
+    if (right &gt; l){
+        quicksort(arr,l,right);
+    }
+}</code></pre><p>  }<br>  <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#### 归并排序</span><br><span class="line">* 归并排序介绍：</span><br><span class="line">  归并排序(MERGE-SORT)是利用归并的思想实现的排序方法，该算法采用经典的分治(divide-and-conquer)策略(分治法将问题分成一些小的问题然后递归求解，而治的阶段则将分的阶段得到的个答案“修补”在一起，即分而治之)。 </span><br><span class="line">  * 代码实现：</span><br></pre></td></tr></table></figure><br>  package com.zhao.sort;</p>
+<pre><code>import java.util.Arrays;
+
+public class MergetSort {
+    public static void main(String[] args) {
+        int[] arr = {8,4,5,7,1,3,6,2,0,23};
+        int[] temp = new int[arr.length];
+        mergetsort(arr,0,arr.length-1,temp);
+
+        System.out.println(&quot;归并排序：&quot;+ Arrays.toString(arr));
+    }
+
+
+    //分
+    public static void mergetsort(int[] arr,int left,int right,int[] temp){
+        if(left &lt; right){
+            int mid = (left + right)/2;//中间索引
+            //向左递归进行分解
+            mergetsort(arr,left,mid,temp);
+            //向右递归进行分解
+            mergetsort(arr,mid+1,right,temp);
+            //到合并
+            merget(arr,left,mid,right,temp);
+        }
+    }
+
+    //合并，即治的过程
+    /*
+    * int[] arr, 排序的原始数组
+    * int left,  左边的有序序列的初始缩影
+    * int mid,   中间索引
+    * int right,  右边索引
+    * int[] temp  中转，辅助数组
+    * */
+    public static void merget(int[] arr,int left,int mid,int right,int[] temp){
+        for (int m = 1; m &lt; arr.length; m++) {
+            System.out.println(&quot;次数：&quot;+ (m++));
+        }
+        int i = left; //初始化i，左边有序序列的初始索引
+        int j = mid + 1; //初始化j，右边有序序列的初始索引
+        int t = 0; //指向辅助数组的当前索引
+
+        //先把左右两边的数据按规则填充到temp，直到左右有序序列有一边结束
+        while(i &lt;= mid &amp;&amp; j &lt;= right){//表示还没到一边结束
+            if(arr[i] &lt;= arr[j]){
+                temp[t] = arr[i];
+                t++;
+                i++;
+            }else{
+                temp[t] = arr[j];
+                t++;
+                j++;
+            }
+        }
+        //把剩余数据的一边的剩余数据依次全部填充到temp
+        while(i &lt;= mid){
+            temp[t] = arr[i];
+            t++;
+            i++;
+        }
+        while (j &lt;= right){
+            temp[t] = arr[j];
+            t++;
+            j++;
+        }
+        //将temp中元素copy到arr
+        //并不是每次都copy所有的
+        t = 0;
+        int tempLeft = left;
+        //注意：第一次合并tempLeft = 0，right =1
+        //最后一次tempLeft = 0，right = 7；
+        while(tempLeft &lt;= right){
+            arr[tempLeft] = temp[t];
+            t++;
+            tempLeft++;
+        }
+    }
+}</code></pre>  <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">  * 注意：归并排序是线性增长的，时间复杂度线性对数阶O(nlog?N)，速度跟快速排序差不多</span></span><br><span class="line">### 基数排序</span><br><span class="line"><span class="comment">  * 基数排序(桶排序)介绍：</span></span><br><span class="line">    1. 基数排序(radix <span class="keyword">sort</span>)属于<span class="string">"分派式排序"</span>(distribution <span class="keyword">sort</span>),又称<span class="string">"桶子法"</span>(bucket <span class="keyword">sort</span>)或bin <span class="keyword">sort</span>，故名思义，他是通过键值的各个位的值，将要排序的元素分配至某些<span class="string">"桶"</span>中，达到排序作用</span><br><span class="line">    2. 基数排序法是属于稳定性的排序，基数排序法是效率高稳定性的排序法</span><br><span class="line">    3. 基数排序(Radix <span class="keyword">sort</span>)是桶排序的扩展</span><br><span class="line">    4. 基数排序是1887年赫尔曼.何乐礼发明的。他是这样实现的：将整数按位数切成不同的的数字，然后按每个位数分别比较</span><br><span class="line"><span class="comment">  * 基数排序基本思想：</span></span><br><span class="line">    1. 将所有待比较数值统一为同样的数位长度，数位较短的数前面补零，然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后，数列就变成一个有序序列</span><br><span class="line">    2. 有10个桶每个桶就是一个一维数组，整体就是二维数组，第一轮排序个位起按个位数值入桶，然后重新按桶中元素顺序取出入数列，依次迭代，迭代次数位最大数的位数 </span><br><span class="line"><span class="comment">  * 代码实现：逐步推导</span></span><br></pre></td></tr></table></figure>
+<pre><code>import java.lang.reflect.Array;
+import java.util.Arrays;
+
+/*
+* 基数排序
+* */
+public class RadixSort {
+    public static void main(String[] args) {
+        int[] arr = {53,3,542,748,14,214};
+        radixSort(arr);
+    }
+    //基数排序
+    public static void radixSort(int[] arr){
+
+        //逐步推导
+        //第一轮排序
+
+        //定义一个二维数组(包含10个一维数组，即桶)表示桶
+        //防止在放入数的时候，数据溢出，每个桶大小为arr.length,空间换时间
+        int[][] bucket = new int[10][arr.length];
+
+        //为了记录每个桶中，实际存放了多少个数据，我们定义一个一维数组来记录各个桶每次放入的数据个数
+        //可以理解
+        //比如：bucketElementCounts[0],记录的就是bucket[0][0]桶中放入元素的个数
+        int[] bucketElementCounts = new int[10];
+
+        //第一轮(针对每个元素的个位进行排序处理)
+        for (int j = 0; j &lt; arr.length; j++) {
+            //去除每个元素的个数
+            int digitOfDlement = arr[j] % 10;
+            //放入到对应的桶中
+            bucket[digitOfDlement][bucketElementCounts[digitOfDlement]] = arr[j];
+            bucketElementCounts[digitOfDlement]++;
+        }
+        //按照这个桶顺序依次取出数据放入原来的数组。
+        int index = 0;
+        //遍历每一个桶并将桶中的数据 ，放入到原数组
+        for (int k = 0; k &lt; bucket.length; k++) {
+            //如果桶种有数据，我们才放入原数组。
+            if (bucketElementCounts[k] != 0){
+                //循环该桶即第K个桶(即第k个一维数组)
+                for (int l = 0; l &lt; bucketElementCounts[k]; l++) {
+                    //取出元素，放入到arr
+                    arr[index++] = bucket[k][l];
+
+                }
+            }
+            //第一轮处理后，需要将每个bucketElementCounts = 0，至零
+            bucketElementCounts[k] = 0;
+        }
+        System.out.println(&quot;第一轮，对个位数的排序处理arr=&quot;+ Arrays.toString(arr));
+
+
+        //第二轮排序
+
+        //第二轮(针对每个元素的十位进行排序处理)
+        for (int j = 0; j &lt; arr.length; j++) {
+            //去除每个元素的十数
+            int digitOfDlement = arr[j] / 10 % 10;
+            //放入到对应的桶中
+            bucket[digitOfDlement][bucketElementCounts[digitOfDlement]] = arr[j];
+            bucketElementCounts[digitOfDlement]++;
+        }
+        //按照这个桶顺序依次取出数据放入原来的数组。
+        index = 0;
+        //遍历每一个桶并将桶中的数据 ，放入到原数组
+        for (int k = 0; k &lt; bucket.length; k++) {
+            //如果桶种有数据，我们才放入原数组。
+            if (bucketElementCounts[k] != 0){
+                //循环该桶即第K个桶(即第k个一维数组)
+                for (int l = 0; l &lt; bucketElementCounts[k]; l++) {
+                    //取出元素，放入到arr
+                    arr[index++] = bucket[k][l];
+
+                }
+            }
+            //第二轮处理后，需要将每个bucketElementCounts = 0，至零
+            bucketElementCounts[k] = 0;
+        }
+        System.out.println(&quot;第二轮，对个位数的排序处理arr=&quot;+ Arrays.toString(arr));
+
+
+
+
+        //第三轮排序
+
+        //第三轮(针对每个元素的百位进行排序处理)
+        for (int j = 0; j &lt; arr.length; j++) {
+            //去除每个元素的百数
+            int digitOfDlement = arr[j] / 100 % 10;
+            //放入到对应的桶中
+            bucket[digitOfDlement][bucketElementCounts[digitOfDlement]] = arr[j];
+            bucketElementCounts[digitOfDlement]++;
+        }
+        //按照这个桶顺序依次取出数据放入原来的数组。
+        index = 0;
+        //遍历每一个桶并将桶中的数据 ，放入到原数组
+        for (int k = 0; k &lt; bucket.length; k++) {
+            //如果桶种有数据，我们才放入原数组。
+            if (bucketElementCounts[k] != 0){
+                //循环该桶即第K个桶(即第k个一维数组)
+                for (int l = 0; l &lt; bucketElementCounts[k]; l++) {
+                    //取出元素，放入到arr
+                    arr[index++] = bucket[k][l];
+
+                }
+            }
+            //第三轮处理后，需要将每个bucketElementCounts = 0，至零
+            bucketElementCounts[k] = 0;
+        }
+        System.out.println(&quot;第三轮，对个位数的排序处理arr=&quot;+ Arrays.toString(arr));
+    }
+}</code></pre>  <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>代码优化：</span><br></pre></td></tr></table></figure>
+<p>  /*<br>    * 基数排序<br>    * */<br>    public class RadixSort {<br>        public static void main(String[] args) {<br>    //        int[] arr = {53,3,542,748,14,214};<br>            int[] arr = new int[80000000];<br>            for (int i = 0; i &lt; 80000000; i++) {<br>                arr[i] = (int)(Math.random() * 8000000);//生成[0,80000]<br>            }<br>            System.out.println(“排序前：”);<br>            Date date1 = new Date();<br>            SimpleDateFormat dateFormat = new SimpleDateFormat(“yyyy-MM-dd HH:mm:ss”);<br>            String s = dateFormat.format(date1);<br>            System.out.println(“排序前的时间：”+s);</p>
+<pre><code>        radixSort(arr);
+
+        Date date2 = new Date();
+        String s1 = dateFormat.format(date2);
+        System.out.println(&quot;排序后时间：&quot;+s1);
+
+    }
+    //基数排序
+    public static void radixSort(int[] arr){
+        //定义一个二维数组(包含10个一维数组，即桶)表示桶
+        //防止在放入数的时候，数据溢出，每个桶大小为arr.length,空间换时间
+        int[][] bucket = new int[10][arr.length];
+
+        //为了记录每个桶中，实际存放了多少个数据，我们定义一个一维数组来记录各个桶每次放入的数据个数
+        //可以理解
+        //比如：bucketElementCounts[0],记录的就是bucket[0][0]桶中放入元素的个数
+        int[] bucketElementCounts = new int[10];
+
+        //得到数组中最大数的位数
+        int max = arr[0]; //假设第一个数就是最大数
+        for (int i = 0; i &lt; arr.length; i++) {
+            if (arr[i] &gt; max){
+                max = arr[i];
+            }
+        }
+        //得到最大数的位数
+        int maxLength = (max + &quot; &quot;).length()-1;
+
+        //使用循环处理代码
+        for (int m = 0, n =1; m &lt; maxLength; m++,n*=10) {
+
+            //(针对每个元素的位置进行排序处理)
+            for (int j = 0; j &lt; arr.length; j++) {
+                //去除每个元素的对应位置的值
+                int digitOfDlement = arr[j] / n % 10;
+                //放入到对应的桶中
+                bucket[digitOfDlement][bucketElementCounts[digitOfDlement]] = arr[j];
+                bucketElementCounts[digitOfDlement]++;
+            }
+            //按照这个桶顺序依次取出数据放入原来的数组。
+            int index = 0;
+            //遍历每一个桶并将桶中的数据 ，放入到原数组
+            for (int k = 0; k &lt; bucket.length; k++) {
+                //如果桶种有数据，我们才放入原数组。
+                if (bucketElementCounts[k] != 0){
+                    //循环该桶即第K个桶(即第k个一维数组)
+                    for (int l = 0; l &lt; bucketElementCounts[k]; l++) {
+                        //取出元素，放入到arr
+                        arr[index++] = bucket[k][l];
+
+                    }
+                }
+                //第m+1轮处理后，需要将每个bucketElementCounts = 0，至零
+                bucketElementCounts[k] = 0;
+            }
+        // System.out.println(&quot;第&quot;+(m+1)+&quot;轮，排序处理arr=&quot;+ Arrays.toString(arr));
+        }
+    }
+}</code></pre><pre><code>  * 注意：java.lang.OutOfMemoryError: Java heap space 异常内存不够用
+    比如：80000000个数据 * 11数组 * 4字节 /1024/1024/1024 = 3.3G的内存
+* 说明：
+  1. 基数排序是对传统的桶排序的扩展，速度很快
+  2. 基数排序是经典的空间换时间的方式，占用内存大，当对海量数据进行排序时，容易造成OutOfMemoryError。
+  3. 基数排序时稳定的。
+### 堆排序：
+* 
+
+
+
+### 常用排序算法总结和对比
+排序算法|平均时间复杂度|最好情况|最坏情况|空间复杂度|排序方式|稳定性
+---|:--:|---:|---:|---:|---:|---:
+冒泡排序|O(n^2)|O(n)|O(n^2)|O(1)|In-place|稳定
+选择排序|O(n^2)|O(n^2)|O(n^2)|O(1)|In-place|不稳定
+插入排序|O(n^2)|O(n)|O(n^2)|O(1)|In-place|稳定
+希尔排序|O(nlogn)|O(nlog^2n)|O(nlog^2n)|O(1)|In-place|不稳定
+归并排序|O(nlogn)|O(nlogn)|O(nlogn)|O(n)|out-place|稳定
+快速排序|O(nlogn)|O(nlogn)|O(n^2)|O(logn)|In-place|不稳定
+堆排序|O(nlogn)|O(nlogn)|O(nlogn)|O(1)|In-place|不稳定
+计数排序|O(n+k)|O(n+k)|O(n+k)|O(k)|out-place|稳定
+桶排序|O(n+k)|O(n+k)|O(n^2)|O(n+k)|out-place|稳定
+基数排序|O(n*k)|O(n*k)|O(n*k)|O(n+k)|out-place|稳定
+* 相关术语解释： 
+  1. 稳定：如果a原来在b前面，而a=b，排序后a仍然在b前面；
+  2. 不稳定：如果a原来在b前面，而a=b，排序后a可能在b后面；
+  3. 内排序：所有排序都在内存中完成
+  4. 外排序：由于数据太大，因此把数据放在磁盘中，而排序通过磁盘和内存的数据传输才能完成
+  5. 时间复杂度：一个算法执行所消耗的时间
+  6. 空间复杂度：运行完成一个程序所需内存大小
+  7. n：数据模型
+  8. k：&quot;桶&quot;的个数
+  9. In-place：不占用额为内存
+  10. out-place：占用额为内存</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢关顾！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/qrcode.png" alt="卓尔不凡 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zgub.jpg" alt="卓尔不凡 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" rel="tag"><i class="fab fa-behance-square"></i> 数据结构和算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95-%E9%80%92%E5%BD%92/" rel="next" title="数据结构和算法+递归">
+                <i class="fa fa-chevron-left"></i> 数据结构和算法+递归
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95-%E9%93%BE%E8%A1%A8/" rel="prev" title="数据结构和算法+链表">
+                数据结构和算法+链表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="卓尔不凡" />
+            
+              <p class="site-author-name" itemprop="name">卓尔不凡</p>
+              <p class="site-description motion-element" itemprop="description">你我暮年，闲坐庭院， 云卷云舒听雨声，星密星稀赏月影， 花开花落忆江南， 你话往时，我画往事， 愿有岁月可回首，且以深情共白头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/botbotji" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法介绍："><span class="nav-number">1.</span> <span class="nav-text">排序算法介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法的时间复杂度"><span class="nav-number">2.</span> <span class="nav-text">算法的时间复杂度</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓尔不凡</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+</body>
+</html>
