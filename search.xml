@@ -1,6 +1,378 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>微信小程序开发+基础(组件+WXS+自定义组件1)</title>
+    <url>/2020/05/19/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91-%E5%9F%BA%E7%A1%80-%E7%BB%84%E4%BB%B6-WXS-%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B61/</url>
+    <content><![CDATA[<h3 id="组件官网地址："><a href="#组件官网地址：" class="headerlink" title="组件官网地址："></a>组件官网地址：</h3><p><a href="https://developers.weixin.qq.com/miniprogram/dev/component/" target="_blank" rel="noopener">https://developers.weixin.qq.com/miniprogram/dev/component/</a></p>
+<h3 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h3><ul>
+<li>Text组件用于显示文本，类似于span标签，是行内元素</li>
+<li>属性： selecttable 文本是否可选中 默认false， <pre><code>space String类型 显示连续空格 其合法值：ensp-&gt;中文字符空格一半大小，emsp-&gt;中文字符空格大小，nbsp-根据字体设置的空格大小， 
+decode 是否解码</code></pre><figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">view</span>&gt;</span>text组件的使用<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">text</span>&gt;</span>小程序，行内元素<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 2.属性 selecttable：true --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 默认情况下text中的文本长按是不会选中的 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">text</span> <span class="attr">selectable</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123;true&#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span>Hello world<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单写法 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">text</span> <span class="attr">selectable</span> <span class="attr">space</span>=<span class="string">"emsp"</span>&gt;</span>Hello world<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- decode 是否解码 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">text</span> <span class="attr">decode</span>&gt;</span>5 &amp;gt; 3<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="容器scroll-view可以实现局部滚动"><a href="#容器scroll-view可以实现局部滚动" class="headerlink" title="容器scroll-view可以实现局部滚动"></a>容器scroll-view可以实现局部滚动</h3><ul>
+<li>在页面中只要容器的高度高于页面的高度，自动滚动<h4 id="水平滚动-scroll-x"><a href="#水平滚动-scroll-x" class="headerlink" title="水平滚动 scroll-x"></a>水平滚动 scroll-x</h4><figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml">//wxml</span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 水平滚动 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">scroll-view</span> <span class="attr">class</span>=<span class="string">"container"</span> <span class="attr">scroll-x</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">wx:for</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123;10&#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> <span class="attr">class</span>=<span class="string">"item1"</span>&gt;</span></span><span class="template-variable">&#123;&#123;item&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">scroll-view</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">//wxss样式</span></span><br><span class="line"><span class="xml">.container&#123;</span></span><br><span class="line"><span class="xml">background: burlywood;</span></span><br><span class="line"><span class="xml">white-space: nowrap; /* 不换行 */</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml">.item1&#123;</span></span><br><span class="line"><span class="xml">width: 100px;</span></span><br><span class="line"><span class="xml">height: 100px;</span></span><br><span class="line"><span class="xml">background: darkblue;</span></span><br><span class="line"><span class="xml">margin: 10px;</span></span><br><span class="line"><span class="xml">display: inline-block; //块级元素转换为行内元素</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="垂直滚动-scroll-y"><a href="#垂直滚动-scroll-y" class="headerlink" title="垂直滚动 scroll-y"></a>垂直滚动 scroll-y</h4><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">&lt;scroll-view</span> <span class="string">class="container2"</span> <span class="string">scroll-y</span> <span class="string">bindscroll="handleScroll"&gt;</span></span><br><span class="line">    <span class="string">&lt;view</span> <span class="string">wx:for="&#123;&#123;10&#125;&#125;"</span> <span class="string">class="item2"&gt;&#123;&#123;item&#125;&#125;&lt;/view&gt;</span></span><br><span class="line"><span class="string">&lt;/scroll-view&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="string">//wxss</span></span><br><span class="line"><span class="string">.container2&#123;</span></span><br><span class="line"><span class="attr">background:</span> <span class="string">darkgoldenrod;</span></span><br><span class="line"><span class="attr">height:</span> <span class="string">200px;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">.item2&#123;</span></span><br><span class="line"><span class="attr">height:</span> <span class="string">100px;</span></span><br><span class="line"><span class="attr">background:</span> <span class="string">blueviolet;</span></span><br><span class="line"><span class="attr">margin:</span> <span class="string">10px;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="string">//js</span></span><br><span class="line"> <span class="string">handleScroll:function(event)&#123;</span></span><br><span class="line">      <span class="string">console.log(event)</span></span><br><span class="line">  <span class="string">&#125;</span></span><br><span class="line">                                                           <span class="string">a/</span></span><br><span class="line">  <span class="string">event对象包含以下信息</span></span><br><span class="line">  <span class="string">&#123;type:</span> <span class="string">"scroll"</span><span class="string">,</span> <span class="attr">timeStamp:</span> <span class="number">341412</span><span class="string">,</span> <span class="attr">target:</span> <span class="string">&#123;…&#125;,</span> <span class="attr">currentTarget:</span> <span class="string">&#123;…&#125;,</span> <span class="attr">detail:</span> <span class="string">&#123;…&#125;&#125;</span></span><br><span class="line">    <span class="attr">currentTarget:</span> <span class="string">&#123;id:</span> <span class="string">""</span><span class="string">,</span> <span class="attr">offsetLeft:</span> <span class="number">0</span><span class="string">,</span> <span class="attr">offsetTop:</span> <span class="number">325</span><span class="string">,</span> <span class="attr">dataset:</span> <span class="string">&#123;…&#125;&#125;</span></span><br><span class="line">    <span class="attr">detail:</span></span><br><span class="line">    <span class="attr">deltaX:</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">deltaY:</span> <span class="number">-10</span></span><br><span class="line">    <span class="attr">scrollHeight:</span> <span class="number">1110</span></span><br><span class="line">    <span class="attr">scrollLeft:</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">scrollTop:</span> <span class="number">499</span></span><br><span class="line">    <span class="attr">scrollWidth:</span> <span class="number">320</span></span><br></pre></td></tr></table></figure>
+<h3 id="补充知识点wxml权重的修改"><a href="#补充知识点wxml权重的修改" class="headerlink" title="补充知识点wxml权重的修改"></a>补充知识点wxml权重的修改</h3></li>
+<li>!important 将其权重调整到最大</li>
+<li>案例<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.content</span>&#123;</span><br><span class="line">    <span class="attribute">backgroud</span>: red <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="wxss的扩展-尺寸单位"><a href="#wxss的扩展-尺寸单位" class="headerlink" title="wxss的扩展-尺寸单位"></a>wxss的扩展-尺寸单位</h3></li>
+<li>rpc：可以根据屏幕宽度进行自适应。规定屏幕宽度为750rpx。</li>
+<li>如果在ipone6上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx=0.5px=1物理像素<h3 id="样式导入-提取公共的样式到一个目录下在app-wcss中导入"><a href="#样式导入-提取公共的样式到一个目录下在app-wcss中导入" class="headerlink" title="样式导入 提取公共的样式到一个目录下在app.wcss中导入"></a>样式导入 提取公共的样式到一个目录下在app.wcss中导入</h3></li>
+<li>@import ‘./style/content.wxss’  //引号中添加路径即可<h3 id="官方提供样式库"><a href="#官方提供样式库" class="headerlink" title="官方提供样式库"></a>官方提供样式库</h3></li>
+<li>地址：<a href="https://github.com/Tencent/weui-wxss" target="_blank" rel="noopener">https://github.com/Tencent/weui-wxss</a><h3 id="WXS模块"><a href="#WXS模块" class="headerlink" title="WXS模块"></a>WXS模块</h3></li>
+<li>weixin Script 是小程序的一套脚本语言，结合WXML语法，可以构建出页面的结构</li>
+<li>为什么设计WXS语言呢？？？？？<ul>
+<li>在WXML中不能直接调用Page/Component中定义的函数</li>
+<li>但是某些情况，我们希望使用函数来处理Wxml中的数据(类似Vue中的过滤器)，这个时候就使用WXS了<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!--page/wxs/wxs.wxml--&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">text</span>&gt;</span>page/wxs/wxs.wxml<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- wxs定义方式 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 第一种方式，直接在WXML中定义 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 注意代码缩进格式否则会报错 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- &lt;wxs module="info"&gt;</span></span></span><br><span class="line"><span class="xml">//JS代码 ES5的语法</span></span><br><span class="line"><span class="xml">var message = "Hello World";</span></span><br><span class="line"><span class="xml">var name = "coderwhy";</span></span><br><span class="line"></span><br><span class="line"><span class="xml">var sum = function(num1,num2)&#123;</span></span><br><span class="line"><span class="xml">    return num1 + num2;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml">//这里是的wxs中的内容是私有的所以必须提供对外暴露的module.exports()</span></span><br><span class="line"><span class="xml">module.exports = &#123;</span></span><br><span class="line"><span class="xml">    message: message,</span></span><br><span class="line"><span class="xml">    name: name,</span></span><br><span class="line"><span class="xml">    sum: sum</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">wxs</span>&gt;</span> --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 第二种方式：定义在单独的wxs文件，导入方式 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 注意这里必须是相对路径，否则会报错 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">wxs</span> <span class="attr">src</span>=<span class="string">"../../info/info.wxs"</span> <span class="attr">module</span>=<span class="string">"info"</span>/&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">view</span>&gt;</span></span><span class="template-variable">&#123;&#123;info.message&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">view</span>&gt;</span></span><span class="template-variable">&#123;&#123;info.name&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">view</span>&gt;</span></span><span class="template-variable">&#123;&#123;info.sum(20,20)&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3></li>
+</ul>
+</li>
+<li>基本介绍<ul>
+<li>小程序需要经常和用户进行某种交互，比如点击界面上某个按钮或者区域，比如滑动了某个区域；</li>
+<li>这些交互都会产生各种各样的事件；</li>
+</ul>
+</li>
+<li>事件处理？？？？？<ul>
+<li>事件是通过bind/catch这个属性绑定在组件上(和普通的属性写法很相似，以key=”value”的形式);</li>
+<li>key已bind或catch开发，可以在bind/catch后加一个冒号：</li>
+<li>同时在当前页面的Page构造器中定义对应的事件处理处理函数tapName，如果没有对应的函数，触发事件会报错</li>
+<li>当用户点击该button区域时，达到触发条件生成事件tap，该事件处理函数tapName会被执行，同时还会收到一个事件对象event。</li>
+</ul>
+</li>
+<li>回顾事件小案例<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">view</span>&gt;</span>事件处理回顾<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">bindtap</span>=<span class="string">"bindButton"</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 1.5之后的写法 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">bind:tap</span>=<span class="string">"bindButton"</span> <span class="attr">size</span>=<span class="string">"mini"</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">catch:tap</span>=<span class="string">"bindButton"</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">//js</span></span><br><span class="line"><span class="xml">Page(</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">data: &#123;</span></span><br><span class="line"><span class="template-variable">    </span></span><br><span class="line"><span class="template-variable">&#125;</span><span class="xml">,</span></span><br><span class="line"><span class="xml">bindButton:function()</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">    console.log("点击事件发生了")</span></span><br><span class="line"><span class="template-variable">&#125;</span></span><br><span class="line"><span class="xml">&#125;)</span></span><br></pre></td></tr></table></figure>
+<h3 id="常见的事件类型"><a href="#常见的事件类型" class="headerlink" title="常见的事件类型"></a>常见的事件类型</h3></li>
+<li>某些事件会有自己的特性事件类型，<ul>
+<li>比如input有bindinput/bindblur/bindfouces等</li>
+<li>scroll-view有bindscrolltowapper/bindscrolltolower等</li>
+</ul>
+</li>
+<li>几个组件都有比较常见的事件类型</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th align="center">出发条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>touchstart</td>
+<td align="center">手指触摸动作开始</td>
+</tr>
+<tr>
+<td>touchmove</td>
+<td align="center">手指触摸后移动</td>
+</tr>
+<tr>
+<td>touchcancel</td>
+<td align="center">手指触摸动作被打断，如来电提醒，弹窗</td>
+</tr>
+<tr>
+<td>touchend</td>
+<td align="center">手指触摸动作结束</td>
+</tr>
+<tr>
+<td>tap</td>
+<td align="center">手指触摸后马上离开(点击)</td>
+</tr>
+<tr>
+<td>longpress</td>
+<td align="center">手指触摸后，超过350ms在离开，如果指定了事件回调函数并触发了这个事件，tap事件将不被触发</td>
+</tr>
+<tr>
+<td>longtap</td>
+<td align="center">手指触摸后，超过350ms在离开，</td>
+</tr>
+<tr>
+<td>* 案例</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 常见事件 --&gt;</span><br><span class="line">&lt;view <span class="class"><span class="keyword">class</span></span>=<span class="string">"box"</span> </span><br><span class="line">    bind:touchstart=<span class="string">"halderTouchstart"</span></span><br><span class="line">    bindtouchmove=<span class="string">"handlerTouchmove"</span></span><br><span class="line">    bindtouchend=<span class="string">"handlertouchend"</span></span><br><span class="line">    bindtouchcancel=<span class="string">"handlertouchcancel"</span></span><br><span class="line">    bindtap=<span class="string">"handlertap"</span></span><br><span class="line">    bindlongtap=<span class="string">"handlerlongtap"</span></span><br><span class="line">    bindlongpress=<span class="string">"handlerpress"</span>&gt;常见事件类型&lt;<span class="regexp">/view&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/js</span></span><br><span class="line"><span class="regexp">halderTouchstart:function(event)&#123;</span></span><br><span class="line"><span class="regexp">    console.log("手指触摸动作开始",event)</span></span><br><span class="line"><span class="regexp">&#125;,</span></span><br><span class="line"><span class="regexp">handlerTouchmove:function()&#123;</span></span><br><span class="line"><span class="regexp">    console.log("手指触摸后移动")</span></span><br><span class="line"><span class="regexp">&#125;,</span></span><br><span class="line"><span class="regexp">handlertouchend:function()&#123;</span></span><br><span class="line"><span class="regexp">    console.log("手指触摸动作结束")</span></span><br><span class="line"><span class="regexp">&#125;,</span></span><br><span class="line"><span class="regexp">handlertouchcancel:function()&#123;</span></span><br><span class="line"><span class="regexp">    console.log("手指触摸动作被打断，如来电提醒，弹窗")</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&#125;,</span></span><br><span class="line"><span class="regexp">handlertap:function()&#123;</span></span><br><span class="line"><span class="regexp">    console.log("点击事件")</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&#125;,</span></span><br><span class="line"><span class="regexp">handlerlongtap:function()&#123;</span></span><br><span class="line"><span class="regexp">    console.log("手指触摸后，超过350ms在离开，")</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&#125;,</span></span><br><span class="line"><span class="regexp">handlerpress:function()&#123;</span></span><br><span class="line"><span class="regexp">    console.log("手指触摸后，超过350ms在离开，如果指定了事件回调函数并触发了这个事件，tap事件将不被触发")</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>#### 注意：</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* Touchcancle：在某些特定的场景下才会触发(比如来电打断等)</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* tap事件和longpress事件通常只会触发其中一个</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>### 事件对象的介绍</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* 当某个事件触发时，会产生一个事件对象，并且这个对象被传入到回调函数中，事件对象有哪些常见的属性？？？？</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th align="left">类型</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td align="left">String</td>
+<td align="center">事件类型</td>
+</tr>
+<tr>
+<td>timeStamp</td>
+<td align="left">integer</td>
+<td align="center">页面打开到触发事件所经过的毫秒数</td>
+</tr>
+<tr>
+<td>target</td>
+<td align="left">Object</td>
+<td align="center">触发事件的组件的一些属性值集合</td>
+</tr>
+<tr>
+<td>currentTarget</td>
+<td align="left">Object</td>
+<td align="center">当前组件的一些属性值集合</td>
+</tr>
+<tr>
+<td>detail</td>
+<td align="left">Object</td>
+<td align="center">额外的信息对象的坐标距离</td>
+</tr>
+<tr>
+<td>touches</td>
+<td align="left">Array</td>
+<td align="center">触摸事件，当前停留在屏幕中的触发点信息的数组</td>
+</tr>
+<tr>
+<td>changedTouches</td>
+<td align="left">Array</td>
+<td align="center">触发事件，当前变化的触摸点信息的数组</td>
+</tr>
+<tr>
+<td>#### touches和changedTouches的区别</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* touches：用来记录当前有几根手指在小程序中触摸的以及对应的触摸点信息</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* changedTouches：用来记录变化的，比如你用一根手指触摸，然后在加一根手指触摸，那么他会记录第二根手指触摸点的信息</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>1. 在touchend中的不同</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>2. 多手指触摸时不同</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>#### target和currentTarget区别</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* 效果截图</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><img src="%5Cimages%5Ctarger%E4%B8%8Ecurrenttarget%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9A%E5%86%92%E6%B3%A1.png" alt=""></td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* 测试代码</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;view id=<span class="string">"outer"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"outer"</span> bindtap=<span class="string">"handlerOuter"</span>&gt;</span><br><span class="line">  &lt;view id=<span class="string">"inner"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"inner"</span> bindtap=<span class="string">"handlerInner"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/view&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">handlerInner:function(event)&#123;</span></span><br><span class="line"><span class="regexp">    console.log(event)</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  handlerOuter:function(event)&#123;</span></span><br><span class="line"><span class="regexp">    console.log(event)</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br></pre></td></tr></table></figure></td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* 事件区域叠加的时候会产生冒泡效果</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>### 事件的参数传递</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* 补充知识点： <a href="https://www.jianshu.com/p/4290522e1560" target="_blank">flex 布局</a></td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">    titles:[<span class="string">'flex布局'</span>,<span class="string">'组件'</span>,<span class="string">'动力'</span>]</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &lt;view <span class="class"><span class="keyword">class</span></span>=<span class="string">"con"</span>&gt;</span><br><span class="line">  &lt;block wx:<span class="keyword">for</span>=<span class="string">"&#123;&#123;titles&#125;&#125;"</span> wx:key=<span class="string">"&#123;&#123;index&#125;&#125;"</span>&gt;</span><br><span class="line">    &lt;view <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</span><br><span class="line">        &#123;&#123;item&#125;&#125;</span><br><span class="line">    &lt;<span class="regexp">/view&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>block&gt;</span><br><span class="line">&lt;<span class="regexp">/view&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/wxss</span></span><br><span class="line"><span class="regexp">.con&#123;</span></span><br><span class="line"><span class="regexp">  display: flex;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">.item&#123;</span></span><br><span class="line"><span class="regexp">  flex: 1;</span></span><br><span class="line"><span class="regexp">  text-align: center;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* 参数传递案例</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* 当视图发生跳转时，某些情况需要事件携带一些参数到执行函数中，这个时候就可以通过data-属性来完成；</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* 格式：data-属性的名称</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* 获取event.currentTarget.dataset.属性的名称</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;view <span class="class"><span class="keyword">class</span></span>=<span class="string">"con"</span>&gt;</span><br><span class="line">&lt;block wx:<span class="keyword">for</span>=<span class="string">"&#123;&#123;titles&#125;&#125;"</span> wx:key=<span class="string">"&#123;&#123;index&#125;&#125;"</span>&gt;</span><br><span class="line">    &lt;view <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span> </span><br><span class="line">    <span class="comment">//重点 传递属性</span></span><br><span class="line">        data-index=<span class="string">"&#123;&#123;index&#125;&#125;"</span></span><br><span class="line">        data-item=<span class="string">"&#123;&#123;item&#125;&#125;"</span></span><br><span class="line">        bindtap=<span class="string">"handler"</span>&gt;</span><br><span class="line">        &#123;&#123;item&#125;&#125;</span><br><span class="line">    &lt;<span class="regexp">/view&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>block&gt;</span><br><span class="line">&lt;<span class="regexp">/view&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/js</span></span><br><span class="line"><span class="regexp">  handler:function(event)&#123;</span></span><br><span class="line"><span class="regexp">    console.log(event)</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/事件参数传递 wxml组件属性 格式：data-属性名称 </span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/在调试窗口console 输出的event对象中的currentTarget和target中的dataset就可以看到</span></span><br><span class="line"><span class="regexp">    const itemName = event.currentTarget.dataset.item</span></span><br><span class="line"><span class="regexp">    const index = event.currentTarget.dataset.index</span></span><br><span class="line"><span class="regexp">    console.log(itemName,index)</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br></pre></td></tr></table></figure></td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>* 效果图</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><img src="%5Cimages%5C%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92.png" alt=""></td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h3 id="事件捕获和冒泡"><a href="#事件捕获和冒泡" class="headerlink" title="事件捕获和冒泡"></a>事件捕获和冒泡</h3><ul>
+<li><p>当界面产生一个事件时，事件分为了捕获阶段和冒泡阶段。</p>
+</li>
+<li><p>事件捕获是从外向内，事件冒泡是从内向外</p>
+</li>
+<li><p>案例</p>
+<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 事件冒泡bindtap="handlerBindView1"和事件捕获 capture-bind:tap=""--&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- bind: 一层层传递 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- catch：阻止事件一层层传递 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"view1"</span> <span class="attr">capture-bind:tap</span>=<span class="string">"handlerCaptureView1"</span> <span class="attr">bindtap</span>=<span class="string">"handlerBindView1"</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"view2"</span> <span class="attr">capture-bind:tap</span>=<span class="string">"handlerCaptureView2"</span> <span class="attr">bindtap</span>=<span class="string">"handlerBindView2"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"view3"</span> <span class="attr">capture-bind:tap</span>=<span class="string">"handlerCaptureView3"</span> <span class="attr">bindtap</span>=<span class="string">"handlerBindView3"</span>&gt;</span><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">view</span>&gt;</span>阻止事件冒泡 catch<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"view1"</span> <span class="attr">capture-bind:tap</span>=<span class="string">"handlerCaptureView1"</span> <span class="attr">bindtap</span>=<span class="string">"handlerBindView1"</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"view2"</span> <span class="attr">capture-catch:tap</span>=<span class="string">"handlerCaptureView2"</span> <span class="attr">bindtap</span>=<span class="string">"handlerBindView2"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"view3"</span> <span class="attr">capture-bind:tap</span>=<span class="string">"handlerCaptureView3"</span> <span class="attr">bindtap</span>=<span class="string">"handlerBindView3"</span>&gt;</span><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 事件捕获--》冒泡是有顺序的，某一位置用catch就会捕获到其 --&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">//js</span></span><br><span class="line"><span class="xml">handlerCaptureView1:function()</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">  console.log("捕获1")</span></span><br><span class="line"><span class="template-variable">&#125;</span><span class="xml">,</span></span><br><span class="line"><span class="xml">handlerCaptureView2:function()</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">  console.log("捕获2")</span></span><br><span class="line"><span class="template-variable">&#125;</span><span class="xml">,</span></span><br><span class="line"><span class="xml">handlerCaptureView3:function()</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">  console.log("捕获3")</span></span><br><span class="line"><span class="template-variable">&#125;</span><span class="xml">,</span></span><br><span class="line"><span class="xml">handlerBindView1:function()</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">  console.log("冒泡1")</span></span><br><span class="line"><span class="template-variable">&#125;</span><span class="xml">,</span></span><br><span class="line"><span class="xml">handlerBindView2:function()</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">  console.log("冒泡2")</span></span><br><span class="line"><span class="template-variable">&#125;</span><span class="xml">,</span></span><br><span class="line"><span class="xml">handlerBindView3:function()</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">  console.log("冒泡3")</span></span><br><span class="line"><span class="template-variable">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="组件化开发"><a href="#组件化开发" class="headerlink" title="组件化开发"></a>组件化开发</h3></li>
+<li><p>我们将一个完整的页面分成很多个组件。</p>
+</li>
+<li><p>每个组件都用于实现页面的的一个功能块。</p>
+</li>
+<li><p>而每一个组件又可以进行分析</p>
+<h4 id="自定义组件"><a href="#自定义组件" class="headerlink" title="自定义组件"></a>自定义组件</h4></li>
+<li><p>命名：标签名只能是小写字母，中划线，下划线的组合，所以自定义组件的标签名也只能包含这些字符</p>
+</li>
+<li><p>在根目录下创建一个目录在其中创建一个页面，在这其中写这个组件</p>
+</li>
+<li><p>导入就是在你想用到的页面的json文件中导入</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">  &#123;</span><br><span class="line">  <span class="attr">"usingComponents"</span>: &#123;</span><br><span class="line">    <span class="attr">"my-cpn"</span>:<span class="string">"/cpn/my-cpn/my-cpn"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>然后直接就可以使用自定义标签</p>
+<h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4><ul>
+<li>自定义组件也可以引入自定义组件，引入方法类似于页面引入自定义组件的方式</li>
+<li>全局注册app.json中”usingComponents”: {“my-cpn”:”/cpn/my-cpn/my-cpn”}，即可</li>
+<li>组件内的class样式，只能对组件Wxml内的节点生效，对于引用组件的page页面不会生效；</li>
+<li>组件内不能使用id选择器，属性选择器，标签选择器</li>
+<li>外部使用标签选择器，会对组件内产生影响。<h4 id="如何让class可以相互影响"><a href="#如何让class可以相互影响" class="headerlink" title="如何让class可以相互影响"></a>如何让class可以相互影响</h4></li>
+</ul>
+</li>
+<li><p>在Component对象中，可以传入一个options属性，options其中有一个stylesolation(隔离)属性。</p>
+</li>
+<li><p>stylesolation有三个取值：</p>
+<ul>
+<li><p>isolated表示启用样式隔离。在自定义组件内外，使用class指定的样式将不会相互影响(默认取值);</p>
+</li>
+<li><p>apply-shared表示页面wxss样式将影响到自定义组件，但自定义组件wxss中指定的样式不会影响页面;</p>
+</li>
+<li><p>shared表示页面wxss样式将影响到自定义组件，自定义组件wxss中的指定的样式也会影响页面和其他设置</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">Component</span>(&#123;</span><br><span class="line">  <span class="attribute">options</span>:&#123;</span><br><span class="line">      styleIsolation:<span class="string">"isolated"</span> //属性隔离</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="组件间通信"><a href="#组件间通信" class="headerlink" title="组件间通信"></a>组件间通信</h3></li>
+<li><p>组件间的基本通信方式有以下几种。</p>
+</li>
+<li><p>WXML 数据绑定：用于父组件向子组件的指定属性设置数据，仅能设置 JSON 兼容数据（自基础库版本 2.0.9 开始，还可以在数据中包含函数）。具体在 组件模板和样式 章节中介绍。</p>
+<ul>
+<li>数据绑定：在js文件中data域中设置一些初始化数据，后者空的数组等类型的数据，然后通过事件，生命周期中event对象获取数据，然后通过this.setData:()=&gt;{this.data.name = this.event.currentTarget.dataset.name} 这样的方式赋值，进行数据交互</li>
+</ul>
+</li>
+<li><p>事件：用于子组件向父组件传递数据，可以传递任意数据。<br>？？？？？？？？？？？？？？？？？？？？？？<br>如果以上两种方式不足以满足需要，父组件还可以通过 this.selectComponent 方法获取子组件实例对象，这样就可以直接访问组件的任意数据和方法。</p>
+<h3 id="组件和页面之间的通信"><a href="#组件和页面之间的通信" class="headerlink" title="组件和页面之间的通信"></a>组件和页面之间的通信</h3></li>
+<li><p>官网对这块描述：<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html" target="_blank" rel="noopener">https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html</a></p>
+</li>
+<li><p>页面传递该组件</p>
+<ul>
+<li><p>数据：properties</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">Component(&#123;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 组件的属性列表</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="symbol">  properties:</span> &#123;</span><br><span class="line"><span class="symbol">    title:</span>&#123;</span><br><span class="line"><span class="symbol">        type:</span> String,</span><br><span class="line"><span class="symbol">        value:</span> <span class="string">"默认标题"</span></span><br><span class="line">        <span class="comment">//监听值得改变,即观察title值得变化</span></span><br><span class="line"><span class="symbol">        observer:</span>function(newVal,oldVal)&#123;</span><br><span class="line">          console.log(newVal,oldVal)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="params">&lt;view&gt;</span>该自定义组件传递数据<span class="params">&lt;/view&gt;</span></span><br><span class="line"><span class="params">&lt;component-scan title="哈哈哈"&gt;</span><span class="params">&lt;/component-scan&gt;</span></span><br><span class="line"><span class="params">&lt;component-scan title="好好好"&gt;</span><span class="params">&lt;/component-scan&gt;</span></span><br><span class="line"><span class="params">&lt;component-scan &gt;</span><span class="params">&lt;/component-scan&gt;</span></span><br><span class="line"><span class="comment">//这样页面的数据就可以传递该组件</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>样式：externalClasses  </p>
+</li>
+<li><p>组件可以指定它所在节点的默认样式，使用 :host 选择器,即在组件的wxss文件中可以使用:host{}这个选择器该组件全局配置样式</p>
+<figure class="highlight processing"><table><tr><td class="code"><pre><span class="line"><span class="comment">//组件的wxml</span></span><br><span class="line">&lt;view class=<span class="string">"title titleclass"</span>&gt;&#123;&#123;title&#125;&#125;&lt;/view&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//组件的js</span></span><br><span class="line">  <span class="comment">//页面改变组件的样式</span></span><br><span class="line">  externalClasses:[<span class="string">'titleclass'</span>] <span class="comment">//注意这里是数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//页面。</span></span><br><span class="line">&lt;component-scan title=<span class="string">"哈哈哈"</span> titleclass=<span class="string">"red"</span>&gt;&lt;/component-scan&gt;</span><br><span class="line">&lt;component-scan title=<span class="string">"好好好"</span> titleclass=<span class="string">"green"</span>&gt;&lt;/component-scan&gt;</span><br><span class="line">&lt;component-scan titleclass=<span class="string">"yellow"</span>&gt;&lt;/component-scan&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//页面的wxss样式</span></span><br><span class="line">  .<span class="built_in">red</span>&#123;</span><br><span class="line">  <span class="built_in">color</span>: <span class="built_in">red</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  .<span class="built_in">green</span>&#123;</span><br><span class="line">    <span class="built_in">color</span>: <span class="built_in">green</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  .yellow&#123;</span><br><span class="line">    <span class="built_in">color</span>: yellow;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//通过这种方式就可以实现对样式的渲染</span></span><br></pre></td></tr></table></figure></li>
+<li><p>标签：slot<br>？？？？？？？？？？？？？？？？？？？？</p>
+<ul>
+<li>slot表示插槽，插入数据的位置</li>
+<li>在组件的wxml中可以包含 slot 节点，用于承载组件使用者提供的wxml结构。</li>
+<li>默认情况下，一个组件的wxml中只能有一个slot。需要使用多slot时，可以在组件js中声明启用。<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="xml">//1. 组件js文件中启用多slot插槽支持</span></span><br><span class="line"><span class="xml">Component(</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable"> options:&#123;</span></span><br><span class="line"><span class="template-variable">     multipleSlots: true //启用多slot插槽支持</span></span><br><span class="line"><span class="template-variable"> &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml">//2. 组件的页面对其的支持</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"wrapper"</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">"before"</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">view</span>&gt;</span>这里是组件的内部节点<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"propa propb"</span>&gt;</span></span><span class="template-variable">&#123;&#123;propa&#125;</span><span class="xml">&#125;++++++++</span><span class="template-variable">&#123;&#123;propb&#125;</span><span class="xml">&#125;<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">"after"</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">//页面wxml</span></span><br><span class="line"><span class="xml"> <span class="comment">&lt;!-- slot插槽 --&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">component-tag-name</span> <span class="attr">propa</span>=<span class="string">"dataFileA"</span> <span class="attr">propb</span>=<span class="string">"dataFileB"</span>&gt;</span></span></span><br><span class="line"><span class="xml">     <span class="comment">&lt;!-- 这部分内容将被放置在组件 &lt;slot&gt; 的位置上 --&gt;</span></span></span><br><span class="line"><span class="xml">     <span class="tag">&lt;<span class="name">view</span>&gt;</span>这里是插入到组件slot中的内容<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml">     <span class="comment">&lt;!-- 这里也就是说再多个slot插槽时，组件中使用name属性辨别在在页面中使用，其出现渲染屏幕的位置 --&gt;</span></span></span><br><span class="line"><span class="xml">     <span class="tag">&lt;<span class="name">view</span> <span class="attr">slot</span>=<span class="string">"before"</span>&gt;</span>这里是插入到组件slot name="before"中的内容<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml">     <span class="tag">&lt;<span class="name">view</span> <span class="attr">slot</span>=<span class="string">"after"</span>&gt;</span>这里是插入到组件slot name="after"中的内容<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;/<span class="name">component-tag-name</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>组件传递该页面</p>
+<ul>
+<li>自定义事件<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="xml">//组件wxml</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">size</span>=<span class="string">"mini"</span> <span class="attr">bindtap</span>=<span class="string">"handlerCount"</span>&gt;</span>+1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">//组件js</span></span><br><span class="line"><span class="xml"> /**</span></span><br><span class="line"><span class="xml">  * 组件的方法列表</span></span><br><span class="line"><span class="xml">  */</span></span><br><span class="line"><span class="xml">  methods: </span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">    handlerCount:function()&#123;</span></span><br><span class="line"><span class="template-variable">      //这里要把发生在组件内部的事件传出去</span></span><br><span class="line"><span class="template-variable">      //console.log("-----------")</span></span><br><span class="line"><span class="template-variable">      //triggerEvent时组件和页面之间通信的桥梁</span></span><br><span class="line"><span class="template-variable">      //第一个参数为事件名，第二个参数为数据，第三个为额外的选项</span></span><br><span class="line"><span class="template-variable">      this.triggerEvent("count",&#123;name:"mimi",age:18&#125;</span><span class="xml">,</span><span class="template-variable">&#123;&#125;</span><span class="xml">)</span></span><br><span class="line"><span class="xml">      /*</span></span><br><span class="line"><span class="xml">      * 对第三个参数说明</span></span><br><span class="line"><span class="xml">      * bubbles	Boolean	否	false	事件是否冒泡</span></span><br><span class="line"><span class="xml">      * composed	Boolean	否	false	事件是否可以穿越组件边界，为false时，事件将只能在引用组件的节点树上触发，不进入其他任何组件内部</span></span><br><span class="line"><span class="xml">      * capturePhase	Boolean	否	false	事件是否拥有捕获阶段</span></span><br><span class="line"><span class="xml">      **/</span></span><br><span class="line"><span class="xml">       <span class="comment">&lt;!-- this.triggerEvent('customevent', </span></span><span class="template-variable">&#123;&#125;</span><span class="xml"><span class="comment">, </span></span><span class="template-variable">&#123; bubbles: true &#125;</span><span class="xml"><span class="comment">) // 会依次触发事件冒泡</span></span></span><br><span class="line"><span class="xml">       this.triggerEvent('customevent', </span><span class="template-variable">&#123;&#125;</span><span class="xml">, </span><span class="template-variable">&#123; bubbles: true, composed: true &#125;</span><span class="xml">) // 会依次触发 </span></span><br><span class="line"><span class="xml">    &#125; --&gt;</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml">  //页面wxml</span></span><br><span class="line"><span class="xml">  <span class="comment">&lt;!-- 自定义事件++组件内部发生 --&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">view</span>&gt;</span>当前计数：</span><span class="template-variable">&#123;&#123;count&#125;</span><span class="xml">&#125;<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="comment">&lt;!-- 事件 --&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">component-bind</span>  <span class="attr">bind:count</span>=<span class="string">"handlerCount"</span>&gt;</span><span class="tag">&lt;/<span class="name">component-bind</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="comment">&lt;!-- 传递的参数 --&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">view</span>&gt;</span></span><span class="template-variable">&#123;&#123;name&#125;</span><span class="xml">&#125;:</span><span class="template-variable">&#123;&#123;age&#125;</span><span class="xml">&#125;<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">  //页面js</span></span><br><span class="line"><span class="xml">  Page(</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">    /**</span></span><br><span class="line"><span class="template-variable">    * 页面的初始数据</span></span><br><span class="line"><span class="template-variable">    */</span></span><br><span class="line"><span class="template-variable">    data: &#123;</span></span><br><span class="line"><span class="template-variable">      count:0</span></span><br><span class="line"><span class="template-variable">      nmae:"",</span></span><br><span class="line"><span class="template-variable">      age:0</span></span><br><span class="line"><span class="template-variable">    &#125;</span><span class="xml">,</span></span><br><span class="line"><span class="xml">    handlerCount:function()</span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">      console.log("--------")</span></span><br><span class="line"><span class="template-variable">      this.setData(&#123;</span></span><br><span class="line"><span class="template-variable">        count:this.data.count+1,</span></span><br><span class="line"><span class="template-variable">         //获取组件中传递过来的数据，</span></span><br><span class="line"><span class="template-variable">        name:event.detail.name,</span></span><br><span class="line"><span class="template-variable">        age:event.detail.age</span></span><br><span class="line"><span class="template-variable">      &#125;</span><span class="xml">)</span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml">  &#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="xml">  //通过这种方式就可以实现组件内部的事件为页面所用</span></span><br></pre></td></tr></table></figure>
+<h4 id="注意：在自定义小程序的的属性的时候-属性名必须要小写字母，否则不会显示前端渲染的场景，也不会报错"><a href="#注意：在自定义小程序的的属性的时候-属性名必须要小写字母，否则不会显示前端渲染的场景，也不会报错" class="headerlink" title="注意：在自定义小程序的的属性的时候,属性名必须要小写字母，否则不会显示前端渲染的场景，也不会报错"></a>注意：在自定义小程序的的属性的时候,属性名必须要小写字母，否则不会显示前端渲染的场景，也不会报错</h4><h3 id="自定义组件触发事件时提供的detail对象-gt-e-detail"><a href="#自定义组件触发事件时提供的detail对象-gt-e-detail" class="headerlink" title="自定义组件触发事件时提供的detail对象 ==&gt;e.detail"></a>自定义组件触发事件时提供的detail对象 ==&gt;e.detail</h3><h3 id="Component构造器"><a href="#Component构造器" class="headerlink" title="Component构造器"></a>Component构造器</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// component/component-tag-name/component-tag-name.js</span></span><br><span class="line">Component(&#123;</span><br><span class="line">  options:&#123;</span><br><span class="line">      multipleSlots: <span class="literal">true</span> <span class="comment">//启用多slot插槽支持</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 组件的属性列表</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  properties: &#123;</span><br><span class="line">    propa: &#123;</span><br><span class="line">      type:<span class="built_in">String</span>,</span><br><span class="line">      vallue:<span class="string">"默认值prop-a值"</span>,</span><br><span class="line">      observer:<span class="function"><span class="keyword">function</span>(<span class="params">newVal,oldVal</span>)</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(newVal,oldVal)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    propb:&#123;</span><br><span class="line">      type:<span class="built_in">String</span>,</span><br><span class="line">      vallue:<span class="string">"默认值prop-b的值"</span>,</span><br><span class="line">      observer:<span class="function"><span class="keyword">function</span>(<span class="params">newVal,oldVal</span>)</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(newVal,oldVal)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 组件的初始数据</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  data: &#123;</span><br><span class="line">  <span class="comment">//私有数据，用于模板的渲染</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 组件的方法列表</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  methods: &#123;</span><br><span class="line">    lifetimes:&#123;</span><br><span class="line">      <span class="comment">//定义方法名</span></span><br><span class="line">    &#125;,</span><br><span class="line">    onMyButtonTap:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.setData(&#123;</span><br><span class="line"></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//组件内部的方法在name前添加_下划线</span></span><br><span class="line">    _myPrivateMethod:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.setData(&#123;</span><br><span class="line">        <span class="string">"A[0].B"</span>:<span class="string">"myProvateDate"</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//有参</span></span><br><span class="line">    _myPrivateChange:<span class="function"><span class="keyword">function</span>(<span class="params">newVal,oldVal</span>)</span>&#123;</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  lifetimes:&#123;</span><br><span class="line">    <span class="comment">//生命周期函数，可以为函数定义函数名</span></span><br><span class="line">    attached:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    moved:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">//注意这里定义的函数会被lifetimes中定义的函数覆盖</span></span><br><span class="line">  attached:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">  pageLifetimes:&#123;</span><br><span class="line">    <span class="comment">//组件所在页面的生命周期函数</span></span><br><span class="line">    <span class="comment">//特殊的生命周期，它们并非与组件有很强的关联，但有时组件需要获知，</span></span><br><span class="line">    <span class="comment">//以便组件内部处理。这样的生命周期称为“组件所在页面的生命周期”，在 pageLifetimes 定义段中定义</span></span><br><span class="line">    show:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="comment">//组件所在页面被展示时调用</span></span><br><span class="line">    &#125;,</span><br><span class="line">    hide:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="comment">//组件所在的页面被隐藏时调用</span></span><br><span class="line">    &#125;,</span><br><span class="line">    resize:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="comment">//组件所在的页面变化是调用</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Component构造器构造页面"><a href="#Component构造器构造页面" class="headerlink" title="Component构造器构造页面"></a>Component构造器构造页面</h3></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>注意：</p>
+<ol>
+<li>页面也可以使用 Component 构造器构造，拥有与普通组件一样的定义段与实例方法，但是它必须包含对应的json文件包含的usingComponent的定义段</li>
+<li>同时，组件的属性可以用于接收页面的参数，如访问页面 /pages/index/index?paramA=123&amp;paramB=xyz ，如果声明有属性 paramA 或 paramB ，则它们会被赋值为 123 或 xyz 。</li>
+<li>页面的生命周期方法（即 on 开头的方法），应写在 methods 定义段中。<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="comment">// page/index/index.js</span></span><br><span class="line">  <span class="selector-tag">Page</span>(&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 页面的初始数据</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="attribute">data</span>: &#123;</span><br><span class="line">      <span class="attribute">count</span>:<span class="number">0</span>,</span><br><span class="line">      <span class="attribute">name</span>:<span class="string">""</span>,</span><br><span class="line">      <span class="attribute">age</span>:<span class="number">0</span>,</span><br><span class="line">      <span class="attribute">dataFileA</span>:<span class="string">""</span>,</span><br><span class="line">      <span class="attribute">dataFileB</span>:<span class="string">""</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attribute">handlerCount</span>:function(event)&#123;</span><br><span class="line">      console.log(event)</span><br><span class="line">      this.setData(&#123;</span><br><span class="line">        <span class="attribute">count</span>:this.data.count+<span class="number">1</span>,</span><br><span class="line">        <span class="comment">//获取组件中传递过来的数据，</span></span><br><span class="line">        <span class="attribute">name</span>:event.detail.name,</span><br><span class="line">        <span class="attribute">age</span>:event.detail.age</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="selector-tag">Component</span>(&#123;</span><br><span class="line">    <span class="attribute">properties</span>: &#123;</span><br><span class="line">      <span class="attribute">paramA</span>: Number,</span><br><span class="line">      <span class="attribute">paramB</span>: String,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="attribute">methods</span>: &#123;</span><br><span class="line">      <span class="comment">//注意页面的生命周期函数必须写在这里面</span></span><br><span class="line">      <span class="attribute">onLoad</span>: function() &#123;</span><br><span class="line">        this.data.paramA <span class="comment">// 页面参数 paramA 的值</span></span><br><span class="line">        this.data.paramB <span class="comment">// 页面参数 paramB 的值</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>这样做的优点：就是可以使用behavoirs来提取页面的公共代码</li>
+<li>官网地址：<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/component.html" target="_blank" rel="noopener">https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/component.html</a></li>
+</ul>
+<ol>
+<li>提取到一个js文件中，module.exports({//提供该外部使用})</li>
+<li>那个页面要用到在js文件中以下方式引入即可：<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> pageCommonBehavior = <span class="built_in">require</span>(<span class="string">"相对路径"</span>)</span><br><span class="line">Component(&#123;</span><br><span class="line">  behaviors:[pageCommonBehavior],</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h3></li>
+</ol>
+</li>
+<li><p>created ：组建的实例被创建完成时调用，注意，这个生命周期只应该用于给组件 this 添加一些自定义属性字段，不能调用setData方法设置数据</p>
+</li>
+<li><p>attached ：组件初始化完成，进入页面节点数时被调用，“绝大多数初始化工作可以在这个时机进行”</p>
+</li>
+<li><p>datached ：离开这个节点数时触发，注意，页面退出，组件还在这个节点树，会触发</p>
+</li>
+<li><p>component构造器中</p>
+<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line">lifetimes:&#123;</span><br><span class="line">     <span class="comment">//生命周期函数，可以为函数定义函数名</span></span><br><span class="line">     attached:<span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span>&#125;,</span><br><span class="line">     moved:<span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span>&#125;</span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="comment">//注意这里定义的函数会被lifetimes中定义的函数覆盖</span></span><br><span class="line">   attached:<span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span>&#125;,</span><br><span class="line">   pageLifetimes:&#123;</span><br><span class="line">     <span class="comment">//组件所在页面的生命周期函数</span></span><br><span class="line">     <span class="comment">//特殊的生命周期，它们并非与组件有很强的关联，但有时组件需要获知，</span></span><br><span class="line">     <span class="comment">//以便组件内部处理。这样的生命周期称为“组件所在页面的生命周期”，在 pageLifetimes 定义段中定义</span></span><br><span class="line">     show:<span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span></span><br><span class="line">       <span class="comment">//组件所在页面被展示时调用</span></span><br><span class="line">     &#125;,</span><br><span class="line">     hide:<span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span></span><br><span class="line">       <span class="comment">//组件所在的页面被隐藏时调用</span></span><br><span class="line">     &#125;,</span><br><span class="line">     <span class="built_in">resize</span>:<span class="function"><span class="keyword">function</span><span class="params">()</span>&#123;</span></span><br><span class="line">       <span class="comment">//组件所在的页面变化是调用</span></span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>微信小程序开发</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>微信小程序开发+基础</title>
     <url>/2020/05/16/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91-%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<ul>
