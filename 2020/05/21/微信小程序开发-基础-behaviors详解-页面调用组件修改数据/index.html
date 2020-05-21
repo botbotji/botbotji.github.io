@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="微信小程序开发," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="behaviors详解 基本介绍   behaviors用于组件间代码共享 每个behaviors可以包括 一组属性，数据，生命周期函数和方法 组件调用他是其内容就会加载到组件中 每个组件可以引用多个behavior，同时behavior也可以应用其他behavior应用案例   Behavior公用数据以及方法 供做所有的组件用 注意：创建组件的位置在组件文件夹下xxx&#x2F;xxx.js123456">
+<meta name="keywords" content="微信小程序开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序开发+基础(behaviors详解+页面调用组件修改数据)">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;21&#x2F;%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91-%E5%9F%BA%E7%A1%80-behaviors%E8%AF%A6%E8%A7%A3-%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8%E7%BB%84%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE&#x2F;index.html">
+<meta property="og:site_name" content="卓尔不凡">
+<meta property="og:description" content="behaviors详解 基本介绍   behaviors用于组件间代码共享 每个behaviors可以包括 一组属性，数据，生命周期函数和方法 组件调用他是其内容就会加载到组件中 每个组件可以引用多个behavior，同时behavior也可以应用其他behavior应用案例   Behavior公用数据以及方法 供做所有的组件用 注意：创建组件的位置在组件文件夹下xxx&#x2F;xxx.js123456">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-21T02:21:43.905Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/21/微信小程序开发-基础-behaviors详解-页面调用组件修改数据/"/>
+
+
+
+
+
+  <title>微信小程序开发+基础(behaviors详解+页面调用组件修改数据) | 卓尔不凡</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/botbotji" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卓尔不凡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">师夷长技以制夷</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/21/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91-%E5%9F%BA%E7%A1%80-behaviors%E8%AF%A6%E8%A7%A3-%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8%E7%BB%84%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卓尔不凡">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卓尔不凡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微信小程序开发+基础(behaviors详解+页面调用组件修改数据)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-21T10:14:00+08:00">
+                2020-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/05/21/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91-%E5%9F%BA%E7%A1%80-behaviors%E8%AF%A6%E8%A7%A3-%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8%E7%BB%84%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/05/21/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91-%E5%9F%BA%E7%A1%80-behaviors%E8%AF%A6%E8%A7%A3-%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8%E7%BB%84%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="behaviors详解"><a href="#behaviors详解" class="headerlink" title="behaviors详解"></a>behaviors详解</h3><ul>
+<li>基本介绍</li>
+</ul>
+<ol>
+<li>behaviors用于组件间代码共享</li>
+<li>每个behaviors可以包括 一组属性，数据，生命周期函数和方法</li>
+<li>组件调用他是其内容就会加载到组件中</li>
+<li>每个组件可以引用多个behavior，同时behavior也可以应用其他behavior<h4 id="应用案例"><a href="#应用案例" class="headerlink" title="应用案例"></a>应用案例</h4></li>
+</ol>
+<ul>
+<li>Behavior公用数据以及方法 供做所有的组件用</li>
+<li>注意：创建组件的位置在组件文件夹下xxx/xxx.js<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//  这里没有引入其他Behavior公用数据以及方法</span><br><span class="line">module.exports = Behavior(&#123;</span><br><span class="line">behavior:[],</span><br><span class="line">propertie<span class="variable">s:</span>&#123;</span><br><span class="line">    myDataChildrenBehavior<span class="variable">s:</span>&#123;</span><br><span class="line">    <span class="built_in">type</span>:String,</span><br><span class="line">    value:<span class="string">'我是嵌套demoBehaviorJs里面的数据'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line">dat<span class="variable">a:</span>&#123;</span><br><span class="line">    myDataOne:<span class="string">'模拟数据'</span>,</span><br><span class="line">    myDataTwo: <span class="string">'模拟数据二'</span>,</span><br><span class="line">&#125;,</span><br><span class="line">method<span class="variable">s:</span>&#123;</span><br><span class="line">    myClickChildBehavior()&#123;</span><br><span class="line">    console.<span class="built_in">log</span>(<span class="string">'我是嵌套demoBehaviorJs里面的方法'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>组件中引入Behavior<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// component/component-behaviors/component-behaviors.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myBehavior = <span class="built_in">require</span>(<span class="string">'../myBehavior/my-behavior.js'</span>)</span><br><span class="line">Component(&#123;</span><br><span class="line"></span><br><span class="line">behaviors:[myBehavior],</span><br><span class="line">properties: &#123;</span><br><span class="line">    isTrueOne: &#123;<span class="comment">//这里定义了modalHidden属性，属性值可以在组件使用时指定.写法为modal-hidden </span></span><br><span class="line">    <span class="keyword">type</span>: <span class="built_in">Boolean</span>,</span><br><span class="line">    <span class="keyword">default</span>:<span class="literal">false</span></span><br><span class="line">    &#125;, </span><br><span class="line">    isDisableNext:&#123;</span><br><span class="line">    <span class="keyword">type</span>: <span class="built_in">Boolean</span>,</span><br><span class="line">    value: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line">attached: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">&#125;,</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 组件的初始数据</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">data: &#123;</span><br><span class="line">    isTrue: <span class="literal">false</span></span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 组件的方法列表</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">methods: &#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>组件wxml<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">bindtap</span>=<span class="string">'myDemoBehaviorMethod'</span>&gt;</span></span><span class="template-variable">&#123;&#123;myDemoBehaviorData&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 我是引入在demoBehavior中的公用数据以及方法 --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">bindtap</span>=<span class="string">'myClickChildBehavior'</span>&gt;</span></span><span class="template-variable">&#123;&#123;myDataChildrenBehaviors&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 我是模拟 demoBehavior多个数据与方法 这个会省略但是会在添加在代码解释当中--&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">bindtap</span>=<span class="string">'myDemo'</span>&gt;</span></span><span class="template-variable">&#123;&#123;myDataDemo&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br></pre></td></tr></table></figure></li>
+<li>在页面json中注册组件，数据可以在页面正常使用<h3 id="还有些内置-behaviors"><a href="#还有些内置-behaviors" class="headerlink" title="还有些内置 behaviors"></a>还有些内置 behaviors</h3></li>
+<li>请查看官网：<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/behaviors.html" target="_blank" rel="noopener">https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/behaviors.html</a></li>
+</ul>
+<h3 id="自定义组件，实现案例"><a href="#自定义组件，实现案例" class="headerlink" title="自定义组件，实现案例"></a>自定义组件，实现案例</h3><ul>
+<li>页面给组件传值，组件通过定义Array属性</li>
+<li>flex实现快速布局</li>
+<li>点击事件修改样式==》实现方法：定义一个active类样式，在wxml中通过三目运算比较index与组件的初始化数据currentindex(currentindex:0)相等赋予其active样式</li>
+<li>利用data-xx:这种方式将index的值传递该js，js通过点击事件函数获取index的值即<br>【 const index = event.currentTarget.dataset.index】<br>在通过setData方法将值赋予currentindex【this.setData({currentindex:index})】</li>
+<li>代码实现</li>
+</ul>
+<ol>
+<li>组件部分<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//wxml</span></span><br><span class="line">    &lt;view <span class="class"><span class="keyword">class</span></span>=<span class="string">'tab-control'</span>&gt;</span><br><span class="line">    &lt;!-- <span class="xml"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"item"</span> <span class="attr">bindtap</span>=<span class="string">"halderstyle"</span>&gt;</span>流行<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span></span><br><span class="line">    &lt;view <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;新款&lt;<span class="regexp">/view&gt;</span></span><br><span class="line"><span class="regexp">    &lt;view class="item"&gt;精选&lt;/</span>view&gt; --&gt;</span><br><span class="line">    &lt;!-- 注意写逻辑相关的代码，选用block标签 --&gt;</span><br><span class="line">    &lt;block wx:<span class="keyword">for</span>=<span class="string">"&#123;&#123;titles&#125;&#125;"</span> wx:key=<span class="string">"&#123;&#123;index&#125;&#125;"</span>&gt;</span><br><span class="line">        &lt;view <span class="class"><span class="keyword">class</span></span>=<span class="string">"item &#123;&#123;currentindex == index ? 'active' : ''&#125;&#125;"</span></span><br><span class="line">            bindtap=<span class="string">"handlerIndex"</span></span><br><span class="line">            data-index=<span class="string">"&#123;&#123;index&#125;&#125;"</span>&gt;</span><br><span class="line">        &lt;text&gt;&#123;&#123;item&#125;&#125;&lt;<span class="regexp">/text&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>view&gt;</span><br><span class="line">    &lt;<span class="regexp">/block&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>view&gt;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//wxss flex布局</span></span><br><span class="line">    .tab-control&#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    background: rosybrown;</span><br><span class="line">    color: white;</span><br><span class="line">    margin-top: <span class="number">5</span>rpx;</span><br><span class="line">    line-height: <span class="number">88</span>rpx;</span><br><span class="line">    &#125;</span><br><span class="line">    .item&#123;</span><br><span class="line">    flex: <span class="number">1</span>;</span><br><span class="line">    text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//通过语法+三目运算+样式+js的赋值实现样式的点击变化效果</span></span><br><span class="line">    .active&#123;</span><br><span class="line">    color: aqua;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 文字下面的下划线 padding内边距顺时针这种结构让其突出显示</span></span><br><span class="line">    .active text&#123;</span><br><span class="line">    border-bottom: <span class="number">6</span>rpx solid aqua;</span><br><span class="line">    padding: <span class="number">10</span>rpx <span class="number">25</span>rpx;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//js</span></span><br><span class="line">    <span class="comment">// component/w-tab-control/w-tab-control.js</span></span><br><span class="line">    Component(&#123;</span><br><span class="line">        options：&#123;</span><br><span class="line">            <span class="comment">//配置组件的配置选项</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 组件的属性列表</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    properties: &#123;</span><br><span class="line">        titles:&#123;</span><br><span class="line">            type: <span class="built_in">Array</span>,</span><br><span class="line">            value:[<span class="string">'流行'</span>,<span class="string">'新款'</span>,<span class="string">'品牌'</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 组件的初始数据</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    data: &#123;</span><br><span class="line">        currentindex: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 组件的方法列表</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    methods: &#123;</span><br><span class="line">        handlerIndex:<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(event)</span><br><span class="line">        <span class="comment">//取出index的值</span></span><br><span class="line">        <span class="keyword">const</span> index = event.currentTarget.dataset.index</span><br><span class="line">        <span class="keyword">this</span>.setData(&#123;</span><br><span class="line">            currentindex:index</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">//通知事件内部的点击事件</span></span><br><span class="line">        <span class="keyword">this</span>.triggerEvent(<span class="string">'handlerIndex'</span>,&#123;index,<span class="attr">title</span>:<span class="keyword">this</span>.properties.titles[index]&#125;,&#123;&#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//外部组件传入额外的样式</span></span><br><span class="line">    externalClasses:[]</span><br><span class="line">    &#125;),</span><br><span class="line">    observer:&#123;</span><br><span class="line">        <span class="comment">//监听属性properties或者data初始值的改变</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>页面使用<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  <span class="symbol">&lt;view&gt;</span></span><br><span class="line">  &lt;<span class="keyword">w</span>-<span class="keyword">tab</span>-control/&gt;</span><br><span class="line">  &lt;/<span class="keyword">view</span>&gt;</span><br><span class="line">  <span class="symbol">&lt;view&gt;</span></span><br><span class="line">  &lt;<span class="keyword">w</span>-<span class="keyword">tab</span>-control titles=<span class="string">"&#123;&#123;['衣服','鞋子','裤子']&#125;&#125;"</span></span><br><span class="line">                  bind:handlerIndex=<span class="string">"handlerIndex"</span>/&gt;</span><br><span class="line">  &lt;/<span class="keyword">view</span>&gt;</span><br><span class="line"></span><br><span class="line">  //js中通过组件的事件triggerEvent传递组件的数据</span><br><span class="line">    handlerIndex:<span class="function"><span class="keyword">function</span><span class="params">(event)</span>&#123;</span></span><br><span class="line">  console.<span class="built_in">log</span>(event)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="页面直接调用组件修改数据"><a href="#页面直接调用组件修改数据" class="headerlink" title="页面直接调用组件修改数据"></a>页面直接调用组件修改数据</h3></li>
+<li>this.selectComponent()</li>
+<li>代码实现<h4 id="第一种实现方式：在页面js中通过setData设值"><a href="#第一种实现方式：在页面js中通过setData设值" class="headerlink" title="第一种实现方式：在页面js中通过setData设值"></a>第一种实现方式：在页面js中通过setData设值</h4><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//构建一个组件myself，计数器，初始化count为0</span></span><br><span class="line"> <span class="comment">//在页面调用组件 ==》 通过绑定的事件中 this.selectComponent("id选择器/class选择器") = my_self --》组件对象</span></span><br><span class="line"> <span class="comment">//然后通过组件对象my_self调用setData设置数据 </span></span><br><span class="line"> <span class="comment">//控制台打印my_self,在其data属性项就可以看到组件的初始化数据</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">//组件</span></span><br><span class="line"> &lt;<span class="keyword">view</span>&gt;组件内计数器：&#123;&#123;<span class="keyword">count</span>&#125;&#125;&lt;/<span class="keyword">view</span>&gt;</span><br><span class="line"></span><br><span class="line"> <span class="comment">//页面wxml</span></span><br><span class="line">    &lt;<span class="keyword">view</span>&gt;</span><br><span class="line">        &lt;button size=<span class="string">"mini"</span> bindtap=<span class="string">"handlertap"</span>&gt;修改组件内的样式&lt;/button&gt;</span><br><span class="line">        &lt;myself id=<span class="string">"self"</span>/&gt;</span><br><span class="line">    &lt;/<span class="keyword">view</span>&gt;</span><br><span class="line"><span class="comment">//页面js</span></span><br><span class="line">   handlertap:function()&#123;</span><br><span class="line">    <span class="comment">//修改组件中myself的数据</span></span><br><span class="line">    <span class="keyword">const</span> my_self = this.selectComponent('#self') <span class="comment">//拿到组件的初始化数据</span></span><br><span class="line">    <span class="comment">//数据位于my_self对象的data中</span></span><br><span class="line">    console.<span class="built_in">log</span>(my_self)</span><br><span class="line">    <span class="comment">//设置值</span></span><br><span class="line">    my_self.setData(&#123;</span><br><span class="line">      <span class="keyword">count</span>: my_self.data.<span class="keyword">count</span>+1</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="第二种方式：方法实现页面直接调用组件修改数据"><a href="#第二种方式：方法实现页面直接调用组件修改数据" class="headerlink" title="第二种方式：方法实现页面直接调用组件修改数据"></a>第二种方式：方法实现页面直接调用组件修改数据</h4></li>
+<li>一般情况下对于页面直接调用组件修改数据，采用在组件js文件中method属性向外暴露出一个方法/接口</li>
+<li>在页面 const my_self = this.selectComponent(‘#self’) //拿到组件的初始化数据对象</li>
+<li>通过my_self调用方法传值，在组件内部方法值实现具体的代码逻辑单元<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> * 组件的方法列表</span><br><span class="line"> */</span><br><span class="line">methods: &#123;</span><br><span class="line">  incrementCount:<span class="function"><span class="keyword">function</span><span class="params">(num)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.setData(&#123;</span><br><span class="line">      count: <span class="keyword">this</span>.data.count + num</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//页面js</span></span><br><span class="line">  handlertap:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="comment">//修改组件中myself的数据</span></span><br><span class="line">  <span class="keyword">const</span> my_self = <span class="keyword">this</span>.selectComponent(<span class="string">'#self'</span>) <span class="comment">//拿到组件的初始化数据</span></span><br><span class="line">  <span class="comment">//数据位于my_self对象的data中</span></span><br><span class="line">  console.log(my_self)</span><br><span class="line"></span><br><span class="line">  <span class="comment">//调用特定的自定义方法</span></span><br><span class="line">  my_self.incrementCount(<span class="number">10</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢关顾！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/qrcode.png" alt="卓尔不凡 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zgub.jpg" alt="卓尔不凡 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/" rel="tag"><i class="fab fa-behance-square"></i> 微信小程序开发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/20/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E5%9F%BA%E7%A1%80-API-%E9%A1%B5%E9%9D%A2-%E7%99%BB%E5%BD%95/" rel="next" title="微信小程序+基础(API+页面+登录)">
+                <i class="fa fa-chevron-left"></i> 微信小程序+基础(API+页面+登录)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="卓尔不凡" />
+            
+              <p class="site-author-name" itemprop="name">卓尔不凡</p>
+              <p class="site-description motion-element" itemprop="description">你我暮年，闲坐庭院， 云卷云舒听雨声，星密星稀赏月影， 花开花落忆江南， 你话往时，我画往事， 愿有岁月可回首，且以深情共白头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/botbotji" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#behaviors详解"><span class="nav-number">1.</span> <span class="nav-text">behaviors详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#应用案例"><span class="nav-number">1.1.</span> <span class="nav-text">应用案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还有些内置-behaviors"><span class="nav-number">2.</span> <span class="nav-text">还有些内置 behaviors</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义组件，实现案例"><span class="nav-number">3.</span> <span class="nav-text">自定义组件，实现案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页面直接调用组件修改数据"><span class="nav-number">4.</span> <span class="nav-text">页面直接调用组件修改数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一种实现方式：在页面js中通过setData设值"><span class="nav-number">4.1.</span> <span class="nav-text">第一种实现方式：在页面js中通过setData设值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二种方式：方法实现页面直接调用组件修改数据"><span class="nav-number">4.2.</span> <span class="nav-text">第二种方式：方法实现页面直接调用组件修改数据</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓尔不凡</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+</body>
+</html>
