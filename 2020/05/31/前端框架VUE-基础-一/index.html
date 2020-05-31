@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="前端框架VUE," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="模板语法+Mustache语法 (双大括号)*  &amp;quot;{{}}&amp;quot;相当于原先property属性 *  Mustache语法不能作用于Html attribute上，遇到这种情况应该使用v-bind指令 * 实例 123456	&amp;lt;div v-bind:id=&quot;msg&quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;	&#x2F;&#x2F;简写	&amp;lt;div :id=&quot;msg&quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;">
+<meta name="keywords" content="前端框架VUE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端框架VUE+基础(一)">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;31&#x2F;%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6VUE-%E5%9F%BA%E7%A1%80-%E4%B8%80&#x2F;index.html">
+<meta property="og:site_name" content="卓尔不凡">
+<meta property="og:description" content="模板语法+Mustache语法 (双大括号)*  &amp;quot;{{}}&amp;quot;相当于原先property属性 *  Mustache语法不能作用于Html attribute上，遇到这种情况应该使用v-bind指令 * 实例 123456	&amp;lt;div v-bind:id=&quot;msg&quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;	&#x2F;&#x2F;简写	&amp;lt;div :id=&quot;msg&quot;&amp;gt;&amp;lt;&#x2F;div&amp;gt;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;31&#x2F;%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6VUE-%E5%9F%BA%E7%A1%80-%E4%B8%80&#x2F;imgUrl">
+<meta property="og:updated_time" content="2020-05-31T13:34:09.581Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;31&#x2F;%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6VUE-%E5%9F%BA%E7%A1%80-%E4%B8%80&#x2F;imgUrl">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/31/前端框架VUE-基础-一/"/>
+
+
+
+
+
+  <title>前端框架VUE+基础(一) | 卓尔不凡</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/botbotji" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">卓尔不凡</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">师夷长技以制夷</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/31/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6VUE-%E5%9F%BA%E7%A1%80-%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="卓尔不凡">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="卓尔不凡">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端框架VUE+基础(一)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-31T00:39:13+08:00">
+                2020-05-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/05/31/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6VUE-%E5%9F%BA%E7%A1%80-%E4%B8%80/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/05/31/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6VUE-%E5%9F%BA%E7%A1%80-%E4%B8%80/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="模板语法-Mustache语法-双大括号"><a href="#模板语法-Mustache语法-双大括号" class="headerlink" title="模板语法+Mustache语法 (双大括号)"></a>模板语法+Mustache语法 (双大括号)</h3><pre><code>*  &quot;{{}}&quot;相当于原先property属性
+*  Mustache语法不能作用于Html attribute上，遇到这种情况应该使用v-bind指令
+* 实例
+<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	&lt;<span class="keywords">div</span> v-bind:<span class="symbol">id</span>=<span class="string">"msg"</span>&gt;&lt;/<span class="keywords">div</span>&gt;</span><br><span class="line">	<span class="comment">//简写</span></span><br><span class="line">	&lt;<span class="keywords">div</span> :<span class="symbol">id</span>=<span class="string">"msg"</span>&gt;&lt;/<span class="keywords">div</span>&gt;</span><br><span class="line">``` </span><br><span class="line">* 对于布尔类型(存在即为<span class="literal">true</span>),v-bind会有所不同</span><br><span class="line">  * 注意编程习惯：布尔类型变量 is开头 如：isButtonDisabled</span><br></pre></td></tr></table></figure>
+   &lt;button v-bind:disabled=&quot;isButtonDisabled&quot;&gt;Button&lt;/button&gt;
+   //isButtonDisabled 值为true时才会渲染
+   //充分必要条件
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">* 当然在Mustache语法也支持简单的逻辑运算，算数运算，三目运算，这些表达式</span><br><span class="line">    * 注意：这些表达式会被所属Vue实例的数据作用域下的作为JavaScript被解析,但是每个绑定只能是单个表达式.</span><br><span class="line">### 指令</span><br><span class="line">* 指的是以这个v-为前缀的特殊属性</span><br><span class="line">* v-<span class="keyword">if</span>=<span class="string">"seen"</span>:判断seen为真值的时候才会插入/移除其元素</span><br><span class="line">* 参数：如v-bind：href=<span class="string">"url"</span> 这种形式href就是属性，告知v-bind指令将元素的href attribute与表达式url的值绑定</span><br><span class="line">#### v-on</span><br><span class="line">* v-on：用于监听DOM的事件</span><br><span class="line">* 如点击事件</span><br></pre></td></tr></table></figure></code></pre><p> <a v-on:click="doSomething">…</a></p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#### v-bind：属性绑定</span><br><span class="line">#### v-once 执行一次指令地插值，插值处的内容不会更新</span><br><span class="line">#### v-html 输出原始Html</span><br><span class="line">#### 动态参数</span><br><span class="line">* []这个里面用JavaScript表达式作为一个指令的参数：</span><br><span class="line"><span class="number">1.</span> 就是你在data 初始化数据 attributeName,自定义组件的时候你就可以在页面内动态的使用attributeName：赋值</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;a v-bind:[attributeName]=&quot;url&quot;&gt; ... &lt;/a&gt;</code></pre><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2.</span> 动态事件：就是可以使用动态参数为一个动态的事件名绑定处理函数</span><br></pre></td></tr></table></figure>
+<p> &lt;a v-on:[eventName]=’halderClick’&gt;…</a></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* 注意：</span><br><span class="line">    <span class="number">1.</span> 就是attributeName或者evevtName为<span class="literal">null</span>时，这个也就显性的用于移除绑定，也就是说<span class="literal">null</span>时不会绑定,其他非String类型的将会触发警告。</span><br><span class="line">    <span class="number">2.</span> attributeName或者evevtName为表达式,会有编译警告，解决方法就是使用计算属性</span><br><span class="line">    <span class="number">3.</span> 撰写模板：attributeName或者evevtName要小写</span><br></pre></td></tr></table></figure>
+<pre><code>    &lt;!--
+    在 DOM 中使用模板时这段代码会被转换为 `v-bind:[someattr]`。
+    除非在实例中有一个名为“someattr”的 property，否则代码不会工作。
+    --&gt;
+    &lt;a v-bind:[someAttr]=&quot;value&quot;&gt; ... &lt;/a&gt;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
+    &lt;script src=&quot;/VUE/Vue初体验/js/vue.js&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+    /* 实现样式 */
+    #inner {
+        width: 100px;
+        height: 100px;
+        background-color: rosybrown;
+    }
+    #btn {
+        width: 200px;
+        height: 200px;
+        background-color: mediumspringgreen;
+    }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;box&quot;&gt;
+    &lt;span&gt;Meaage:{{message}}&lt;/span&gt;&lt;br /&gt;
+    &lt;span v-once&gt;final:{{once}}&lt;/span&gt;&lt;br /&gt;
+    &lt;span v-html&gt;Html:{{html}}&lt;/span&gt;
+    &lt;div v-bind:id=&quot;dynamicId&quot;&gt;
+        绑定数据样式
+    &lt;/div&gt;
+    &lt;!-- //disabled，禁用按钮 --&gt;
+    &lt;button v-bind:disabled=&quot;isButtonDisabled&quot;&gt;
+        按钮
+    &lt;/button&gt;
+
+    &lt;!-- //不显示p元素？？？？ --&gt;
+    &lt;p v-if=&quot;seen&quot;&gt;isButtonDisabled:&apos;true&apos;&lt;/p&gt;
+    &lt;div&gt;
+        &lt;img v-bind:src=&quot;url&quot; alt=&quot;&quot; srcset=&quot;&quot; /&gt;
+    &lt;/div&gt;
+    &lt;!-- 这里写 count + 1 无效--&gt;
+    &lt;button v-on:click=&quot;count +=1&quot;&gt;计数器：{{count}}&lt;/button&gt;
+    &lt;button v-on:click=&quot;geet&quot;&gt;Get&lt;/button&gt;&lt;br /&gt;
+
+    &lt;div id=&quot;btn&quot; class=&quot;btn&quot; v-on:click=&quot;buttonclick&quot;&gt;
+        测试事件
+    &lt;/div&gt;
+
+    &lt;button @click=&quot;count +=1&quot;&gt;计数器：{{count}}&lt;/button&gt;
+    &lt;!-- 动态参数 --&gt;
+    &lt;!-- &lt;a v-bind:[attributeName]= &quot;csdnUrl&quot;&gt;链接到CSDN&lt;/a&gt; --&gt;
+    &lt;a v-bind:href=&quot;csdnUrl&quot;&gt;链接到CSDN&lt;/a&gt;
+    &lt;!-- 修饰符 .prevent 阻止系统默认（行为）, 与触发事件调用enent.preventDefault() --&gt;
+    &lt;!-- &lt;form action=&quot;&quot; v-on:submit.prevent=&quot;onSubmit&quot;&gt;&lt;/form&gt; --&gt;
+
+    &lt;!-- 计算属性 --&gt;
+    &lt;div id=&quot;comp&quot;&gt;
+        &lt;p&gt;原数据{{message02}}&lt;/p&gt;
+        &lt;p&gt;反转后的数据:{{reversemessage02}}&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div id=&quot;demo&quot;&gt;{{fullName}}&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+    var app = new Vue({
+        el: &quot;#box&quot;,
+        data: {
+        message: &quot;模板语法&quot;,
+        once: &quot;v-once指令==》属性值将不会改变&quot;,
+        html: &quot;&lt;span v-html&gt;Html:{{}}&lt;/span&gt;&quot;,
+        dynamicId: &quot;inner&quot;,
+        isButtonDisabled: &quot;&quot;,
+        seen: &quot;false&quot;,
+        url: &quot;/boke-data/images/APPInstance.png&quot;,
+        count: 0,
+        attributeName: &quot;href&quot;,
+        csdnUrl: &quot;https://https://www.csdn.net/.com&quot;,
+        message02: &quot;Hello world&quot;,
+        firstname: &quot;Foo&quot;,
+        lastName: &quot;Bar&quot;,
+        fullName: &quot;&quot;
+        },
+        watch: {
+        firstName: function (val) {
+            console.log(val)
+            this.fullName = val + &quot; &quot; + this.lastName;
+        },
+        lastName: function (val) {
+            console.log(val)
+            this.fullName = val + &quot;&quot; + val;
+        },
+        },
+        // 事件处理方法必须写在这里
+        methods: {
+        buttonclick: function (event) {
+            console.log(this.$el.textContent);
+            console.log(event);
+        },
+        doSomething: function () {
+            console.log(&quot;---------&quot;);
+        },
+        geet: function () {
+            alert(&apos; console.log(&quot;---------&quot;)&apos;);
+        },
+        },
+        computed: {
+        //计算属性 getter函数
+        reversemessage02: function () {
+            return this.message02.split(&quot;&quot;).reverse().join(&quot;&quot;);
+        },
+        },
+    });
+    console.log(app.reversemessage02);
+    app.message02 = &quot;GoodBye&quot;;
+    console.log(app.message02);
+    console.log(app.reversemessage02);
+    &lt;/script&gt;
+&lt;/body&gt;
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 修饰符(modifier)</span></span><br><span class="line">* 修饰符 (modifier) 是以半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。</span><br><span class="line">* .prevent:就是告诉v-<span class="keyword">on</span>事件指令对于触发事件调用event.preventDefault()</span><br></pre></td></tr></table></figure>
+&lt;form v-on:submit.prevent=&quot;onSubmit&quot;&gt;...&lt;/form&gt;</code></pre><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">### 缩写</span><br><span class="line"> * v-<span class="keyword">on</span>:click=<span class="string">""</span>    ==&gt; <span class="meta">@cick</span>=<span class="string">""</span>  ==&gt; @[event]=<span class="string">"动态属性"</span></span><br><span class="line"> * v-bind:href=<span class="string">""</span>  ==&gt; :bind:href=<span class="string">""</span> ==&gt; :[key]=<span class="string">'url'</span></span><br></pre></td></tr></table></figure>
+ <body>
+    <div id="app">
+        <img @src="imgUrl" alt="" srcset="">
+        <a @href="https://baidu.com" target="_blank" rel="noopener">百度一下</a>
+    </div>
+    <!-- 插值操作 -->
+    <script src="../js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'app',
+            data:{
+                message:'',
+                imgURL:'E:/VScode-data/Flex弹性布局/image/20200520231835.png',
+            }
+        }) 
+    </script>
+</body
+ <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">### 源码地址</span><br><span class="line">* https:<span class="comment">//github.com/vuejs/vue</span></span><br><span class="line"></span><br><span class="line">### Truthy(真值)</span><br><span class="line">* 在JavaScript中，Truthy指的是在布尔值上下文中，转换后的值为真的值。</span><br><span class="line">* 所有值都是真值，除非它们被定义为 假值（即除 false、<span class="number">0</span>、<span class="string">""</span>、null、undefined 和 NaN 以外皆为真值）。</span><br><span class="line">* 下面就是详细的真值示例</span><br></pre></td></tr></table></figure>
+    if (true)
+    if ({})
+    if ([])
+    if (42)
+    if ("foo")
+    if (new Date())
+    if (-42)
+    if (3.14)
+    if (-3.14)
+    if (Infinity)
+    if (-Infinity)
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* Vue中的判断成功就是条件Truthy</span><br><span class="line"><span class="comment">### 前缀 $</span></span><br><span class="line">* 除了数据的属性<span class="keyword">property</span><span class="title"></span>，Vue实例还暴露了一些有用的实例<span class="keyword">property</span><span class="title"></span>与方法；</span><br><span class="line">* 特征：他们都有前缀$,以便与用户定义的属性区分==》Vm.$watch</span><br><span class="line">* 官网的小案例：</span><br></pre></td></tr></table></figure>
+ var data ={a:1}
+ var vm = new Vue({
+     el:"#app",
+     data:data
+ })
+ vm.$data === data //true
+ vm.$el === document.getElementById('app') //true
+
+<p> //$watch 实例方法 用来监听值的变化<br> vm.$wtch(‘a’,function(newValue,oldValue)){<br>     //这里回掉将在‘vm.a’的之变化后调用<br> }</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>官网：实例API的地址:https://cn.vuejs.org/v2/api/#%E5%AE%9E%E4%BE%8B-property</span><br><span class="line"><span class="section">#### el</span></span><br><span class="line"><span class="bullet">* </span>提供一个在页面上已存在的 DOM 元素作为 Vue 实例的挂载目标。可以是 CSS 选择器，也可以是一个 HTMLElement 实例。</span><br><span class="line"><span class="bullet">* </span>不能作用到 <span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span> 或者 <span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span> 上</span><br><span class="line"><span class="bullet">* </span>也可以通过 实例.$mount() 手动挂载</span><br><span class="line"><span class="section">### 实例的生命周期钩子</span></span><br><span class="line"><span class="bullet">* </span>Vue的实例的生命周期从生到死...</span><br><span class="line"><span class="bullet">* </span>在每一个小阶段：比如==》需要设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等。</span><br><span class="line"><span class="bullet">* </span>在生命周期钩子函数中，用户就可以在不同的需求下在不同的阶段添加自己的代码执行逻辑单元</span><br><span class="line"><span class="bullet">* </span>在钩子函数中 this 的指向vm的实例</span><br><span class="line"><span class="bullet">* </span>注意：不要在选项 property 或回调上使用箭头函数，this.xxx 的行为未定义。</span><br><span class="line"><span class="section">#### 官网图示：</span></span><br><span class="line">![](https://cn.vuejs.org/images/lifecycle.png)</span><br><span class="line"><span class="section">#### 钩子函数详解  官网地址：https://cn.vuejs.org/v2/api/</span></span><br><span class="line"><span class="bullet">* </span>beforeCreate</span><br><span class="line"><span class="bullet">  * </span>在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。</span><br><span class="line"><span class="bullet">* </span>created</span><br><span class="line"><span class="bullet">   * </span>在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。</span><br><span class="line"><span class="bullet">* </span>beforeMount</span><br><span class="line"><span class="bullet">  * </span>在挂载开始之前被调用：相关的 渲染render 函数首次被调用。</span><br><span class="line"><span class="bullet">* </span>mounted</span><br><span class="line"><span class="bullet">    * </span>el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。</span><br><span class="line"><span class="bullet">* </span>beforeUpdate</span><br><span class="line"><span class="bullet">    * </span>数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。</span><br><span class="line">你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。</span><br><span class="line"><span class="bullet">* </span>updated</span><br><span class="line"><span class="bullet">    * </span>由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。</span><br><span class="line"><span class="bullet">* </span>activated</span><br><span class="line"><span class="bullet">* </span>deactivated</span><br><span class="line"><span class="bullet">* </span>beforeDestroy</span><br><span class="line"><span class="bullet">* </span>destroyed</span><br><span class="line"><span class="bullet">* </span>errorCaptured</span><br><span class="line"><span class="section">### template</span></span><br></pre></td></tr></table></figure>
+<body>
+
+<pre><code>&lt;div id=&quot;app&quot;&gt;
+    {{message}}
+&lt;/div&gt;
+&lt;div class=&apos;static&apos;&gt;
+    &lt;h2  v-bind:class=&quot;{active:isActive,Line:isLine}&quot;&gt;{{message}}&lt;/h2&gt;
+    &lt;button v-on:click=&apos;&apos;&gt;&lt;/button&gt;
+    &lt;div v-bind:class=&quot;classObject&quot;&gt;&lt;/div&gt;
+    &lt;div v-bind:class=&quot;[activeClass,errorClass]&quot;&gt;&lt;/div&gt;
+    &lt;!-- &lt;div class=&apos;active text-danger&apos;&gt;&lt;/div&gt; --&gt;
+    &lt;!-- 三目运算 --&gt;
+    &lt;div v-bind:class=&quot;[isActive ? activeClass : &apos;&apos;,errorClass]&quot;&gt;&lt;/div&gt;
+    &lt;div v-bind:class=&apos;[{active:isActive},errorClass]&apos;&gt;&lt;/div&gt;
+
+    &lt;!-- 调用组件 --&gt;
+    &lt;my-component class=&apos;baz boo&apos;&gt;&lt;/my-component&gt;
+
+    &lt;!-- 绑定内联样式 对象语法 通过js设置样式--&gt;
+    &lt;div v-bind:style=&quot;{color:activeColor,fontSize:fontSize+&apos;px&apos;}&quot;&gt;&lt;/div&gt;
+
+    &lt;!-- 直接绑定一个 css对象  --&gt;
+    &lt;div v-bind:style=&quot;styleObject&quot;&gt;&lt;/div&gt;
+    &lt;div v-bind:style=&apos;[baseStyle,overrideigStyle]&apos;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+    //v-if 判断是否为真值
+    &lt;h1 v-if=&apos;awesome&apos;&gt;Vue is awesome!&lt;/h1&gt;
+    &lt;h1 v-else&gt;success&lt;/h1&gt;
+
+    &lt;!-- 模板 --&gt;
+
+&lt;/div&gt;
+&lt;script src=&quot;../js/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    const app = new Vue({
+        el:&apos;#app&apos;,
+        data:{
+            activeClass:&apos;active&apos;,
+            errorClass:&apos;text-danger&apos;,
+            message:&quot;你好呀！-&quot;,
+            isActive:true,
+            hasError:false,
+            activeColor:&apos;red&apos;,
+            fontSize:&apos;30&apos;,
+            styleObject:{
+                color:&apos;yellow&apos;,
+                fontSize:&apos;30px&apos;
+            }
+        },
+        // 计算属性
+        computed:{
+            classObject:function(){
+                return{
+                    active:this.isActive &amp;&amp; !this.error,
+                    &apos;text-danger&apos;:this.error &amp;&amp; this.error.type ==&apos;fatal&apos;
+
+                }
+            },
+
+        }
+
+    //     Vue.component(&apos;my-component&apos;,{
+    //             template:&apos;&lt;p class=&quot;foo bar&quot;&gt;&lt;/p&gt;&apos;
+    //         }),
+    //         Vue.component(
+    //             &apos;alert&apos;,{
+    //                 template:&apos;
+    //                 &lt;div class=&apos;demo-alert-box&apos;&gt;
+    //                     &lt;strong&gt;Error!&lt;/strong&gt;
+    //                     &lt;slot&gt;&lt;/slot&gt;    
+    //                 &lt;/div&gt;&apos;}
+    //         })
+    // })
+
+&lt;/script&gt;</code></pre></body>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### v-bind绑定驼峰命名的转换</span><br></pre></td></tr></table></figure>
+    <body>
+        <div id="app">
+            <!-- 如果组件中的数据变量命已驼峰命名法（cInfo）...再绑定v-bind的时候使用v-bind:c-info=''这种形式 -->
+        <cpn v-bind:c-info="info"></cpn>
+        </div>
+
+<pre><code>    &lt;template id=&quot;cpn&quot;&gt;
+        &lt;!-- 注意：如过组件中元素比较多的情况下，要使用根元素将其包裹起来--root element，否则会报错 --&gt;
+    &lt;h2&gt;{{cInfo}}&lt;/h2&gt;
+    &lt;/template&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.11&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+    const cpn = {
+        template: &quot;#cpn&quot;,
+        props: {
+        cInfo: {
+            type: Object,
+            default() {
+            return {};
+            },
+        },
+        },
+    };
+
+    const app = new Vue({
+        el: &quot;#app&quot;,
+        data: {
+        info: {
+            name:
+            &quot;Vue对于驼峰命名法的效验可通过页面的 v-bind:c-info这样(cInfo)&quot;,
+            age: 88,
+            sex: 0,
+        },
+        },
+        components: {
+        cpn,
+        },
+    });
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### v-<span class="keyword">if</span>及v-else</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;
+  &lt;span v-if=&quot;del&quot;&gt;{{message}}&lt;/span&gt;
+  &lt;span v-else style=&quot;text-decoration: line-through;&quot;&gt;{{message}}&lt;/span&gt;
+
+&lt;/div&gt;
+&lt;todo-item&gt;&lt;/todo-item&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  Vue.Component(&quot;todo-item&quot;, {
+      props:{
+        messge:String,
+        del:{
+            type:Boolean,
+            defaule:false
+        }
+      },
+        template:&apos; &lt;li v-if=&quot;!del&quot;&gt;{{message}}&lt;span&gt;&lt;span v-else style=&quot;text-decortion:line-through&quot;&gt;{{message}}&lt;/span&gt;&lt;/span&lt;/li&gt;&apos;,
+
+        data: function (){
+            return {};
+        },
+        methods: {},
+    })
+
+    var app = new Vue({
+        el: &quot;#app&quot;, //指定DOM节点
+        data: {
+        message: &quot;我自横刀向天笑&quot;,
+        del: false,
+        },
+  });
+&lt;/script&gt;</code></pre>  </body>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### vue实例的数据</span><br></pre></td></tr></table></figure>
+ <body>
+
+<pre><code>&lt;div id=&quot;app&quot;&gt;
+    &lt;cpn&gt;&lt;/cpn&gt;
+&lt;/div&gt;
+&lt;!-- 组件内部不能直接访问Vue实力的数据 --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.11&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/x-template&quot; id=&quot;myCpn&quot;&gt;
+    &lt;div&gt;
+        &lt;h2&gt;组件内部访问Vue实例的数据&lt;/h2&gt;
+        &lt;h2&gt;{{message}}&lt;/h2&gt;
+        &lt;h2&gt;{{title}}&lt;/h2&gt;
+    &lt;/div&gt;
+&lt;/script&gt;
+
+&lt;script&gt;
+    //注册一个全局组件
+    Vue.component(&apos;cpn&apos;,{
+        template:&apos;#myCpn&apos;,
+        //组件中存放数据的位置，此处data必须是个函数，并且这个函数返回一个对象，其对象内部保存着数据           data:function(){
+            data:function(){
+            return {
+                title:&apos;abc&apos;,
+                message:&apos;组件消息&apos;
+            }
+        }
+    })
+
+  const app = new Vue({
+      el:&apos;#app&apos;,
+      data:{
+        message:&quot;消息&quot;,
+        title:&apos;标题&apos;
+      },
+      components:{
+
+      }
+  });
+&lt;/script&gt;</code></pre>  </body>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### v-model数据双向绑定</span><br><span class="line">#### v-mode表单绑定</span><br></pre></td></tr></table></figure>
+<body>
+
+<pre><code>&lt;div id=&quot;app&quot;&gt;
+    &lt;!-- 这样就实现了数据双向绑定 当input中数据改变的时候message的之也随之改变 --&gt;
+    描述:&lt;input type=&quot;text&quot; v-model=&quot;message&quot;/&gt;
+    &lt;span&gt;{{message}}&lt;/span&gt;  
+    &lt;!-- v-model的实质就是两个属性 v-bind:value=&quot;message&quot; --&gt;
+    &lt;!-- v-on:input=&quot;valueInput&quot; 监听事件 --&gt;
+    v-model的实质:&lt;input type=&quot;text&quot; v-bind:value=&quot;message&quot; v-on:input=&quot;valueInput&quot;/&gt;
+    第二种写法语法糖：&lt;input type=&quot;text&quot; :value=&quot;message&quot; @input=&quot;message = $event.target.value&quot;/&gt;
+&lt;/div&gt;
+nihao
+&lt;!-- 表单控价在实际开发中是非常常见的，特别是对于用户信息提交需要大量的表单--&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.11&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    const app = new Vue({
+        el:&apos;#app&apos;,
+        data:{
+            message:&quot;Hello world&quot;
+        },
+        methods:{
+            valueInput:function(event){
+                console.log(event)
+                // 绑定事件浏览会返回一个event对象，在event对象中就可以获取target的value
+                this.message = event.target.value
+            }
+        }
+    })
+&lt;/script&gt;</code></pre></body>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#### v-model的使用radio单选框</span><br></pre></td></tr></table></figure>
+<body>
+    <!-- v-model:radio -->
+    <div id="app">
+        <!-- 
+            说明：
+            在html中，<label>标签通常和<input>标签一起使用，<label>标签为input元素定义标注（标记）。
+
+<pre><code>        &lt;label&gt;标签的作用是为鼠标用户改进了可用性，当用户点击&lt;label&gt;标签中的文本时，浏览器就会自动将焦点转到和该标签相关联的控件上；
+
+        &lt;label&gt;标签在单选按钮和复选按钮上经常被使用，使用该标签后，你点击单选按钮或复选按钮的文本也是可以选中的。
+     --&gt;
+     &lt;!-- 即点击文本便可选中 --&gt;
+    &lt;!-- &lt;label for=&quot;关联控件的id&quot; form=&quot;所属表单id列表&quot;&gt;文本内容&lt;/label&gt; --&gt;
+    &lt;!-- 在html5中还新增了一个属性form，form属性是用来规定所属的一个或多个表单的 id 列表，以空格隔开； --&gt;
+    &lt;label for=&quot;meal&quot;&gt;
+        &lt;!-- 注意：这里的有v-model  name属性可以省略(互斥)   --&gt;
+        &lt;input type=&quot;radio&quot; name=&quot;sex&quot; id=&quot;meal&quot; value=&quot;男&quot; v-model=&quot;sex&quot;/&gt;男
+    &lt;/label&gt;
+    &lt;label for=&quot;gril&quot;&gt;
+        &lt;input type=&quot;radio&quot; name=&quot;sex&quot; id=&quot;gril&quot; value=&quot;女&quot; v-model=&quot;sex&quot;/&gt;女
+    &lt;/label&gt;
+
+    &lt;hr&gt;
+    宁选择的性别：&lt;text&gt;{{sex}}&lt;/text&gt; &lt;span&gt;{{sex}}&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.11&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+
+    const app = new Vue({
+        el:&apos;#app&apos;,
+        data:{
+            message: &apos;Hello world&apos;,
+            // 默认选中男
+            sex: &apos;男&apos;
+        }
+    })
+&lt;/script&gt;</code></pre></body>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#### v-model使用checkbox复选框</span><br></pre></td></tr></table></figure>
+  <body>
+    <div id="app">
+      <!-- 单选 -->
+      <label for="agree">
+        <input type="checkbox" id="agree" v-model="isAgree" />同意协议
+      </label>
+      <button :disabled="!isAgree">下一步</button>
+      <hr />
+      <span>你选择的是：</span>
+      <hr />
+      复选框：<br>
+      <!-- <label for="check"> </label>  注意一般情况下 一个label与一个input-->
+      <input type="checkbox" value="java" v-model='hobbies'/>java
+      <input type="checkbox" value="spring" v-model='hobbies'/>spring
+      <input type="checkbox" value="javaScript" v-model='hobbies'/>javaScript
+      <input type="checkbox" value="springBoot" v-model='hobbies'/>springBoot
+      <input type="checkbox" value="es6" v-model='hobbies'/>es6
+      <hr>
+      <span></span>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: "v-model双向数据绑定",
+
+<pre><code>      isAgree: false,
+
+      hobbies:[]
+    },
+  });
+&lt;/script&gt;</code></pre>  </body>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#### v-model的应用select下拉框</span><br></pre></td></tr></table></figure>
+  <body>
+      <!-- 
+        select标签属性
+        autofocus：在页面加载时下拉列表自动获得焦点，值：autofocus（html5新增属性）；
+        disabled：属性值为true时，禁用下拉列表；
+        form：定义select字段所属的一个或多个表单（html5新增属性）；
+        multiple：属性值为true时，可选择多个选项；
+        name：下拉列表的名称。
+        required：规定用户在提交表单前必须选择一个下拉列表中的选项，值：required（html5新增属性）；
+        size：下拉列表中可见选项的数目。
+       -->
+    <div id="app">
+        <!-- 多选添加multiple="multiple"属性，用数组接收 -->
+        你可选择(单选)：
+      <select name="sel" id="" v-model="fruit">
+        <option value="苹果">苹果</option>
+        <option value="香蕉">香蕉</option>
+        <option value="栗子">栗子</option>
+        <option value="仙桃">仙桃</option>
+        <option value="猕猴桃">猕猴桃</option>
+      </select>
+      <hr />
+      <span>你的选择：</span>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: "select标签上v-model应用",
+          fruit: "",
+        },
+      });
+    </script>
+  </body>
+```
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢关顾！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/qrcode.png" alt="卓尔不凡 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zgub.jpg" alt="卓尔不凡 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6VUE/" rel="tag"><i class="fab fa-behance-square"></i> 前端框架VUE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/21/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91-%E5%9F%BA%E7%A1%80-behaviors%E8%AF%A6%E8%A7%A3-%E9%A1%B5%E9%9D%A2%E8%B0%83%E7%94%A8%E7%BB%84%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE/" rel="next" title="微信小程序开发+基础(behaviors详解+页面调用组件修改数据)">
+                <i class="fa fa-chevron-left"></i> 微信小程序开发+基础(behaviors详解+页面调用组件修改数据)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/31/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6VUE%E5%9F%BA%E7%A1%80-%E7%BB%84%E4%BB%B6/" rel="prev" title="前端框架VUE基础+组件">
+                前端框架VUE基础+组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="卓尔不凡" />
+            
+              <p class="site-author-name" itemprop="name">卓尔不凡</p>
+              <p class="site-description motion-element" itemprop="description">你我暮年，闲坐庭院， 云卷云舒听雨声，星密星稀赏月影， 花开花落忆江南， 你话往时，我画往事， 愿有岁月可回首，且以深情共白头</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/botbotji" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板语法-Mustache语法-双大括号"><span class="nav-number">1.</span> <span class="nav-text">模板语法+Mustache语法 (双大括号)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓尔不凡</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+</body>
+</html>
