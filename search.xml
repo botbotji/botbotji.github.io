@@ -105,15 +105,15 @@
   <entry>
     <title>前端框架VUE+基础(一)</title>
     <url>/2020/05/31/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6VUE-%E5%9F%BA%E7%A1%80-%E4%B8%80/</url>
-    <content><![CDATA[<h3 id="模板语法-Mustache语法-双大括号"><a href="#模板语法-Mustache语法-双大括号" class="headerlink" title="模板语法+Mustache语法 (双大括号)"></a>模板语法+Mustache语法 (双大括号)</h3><pre><code>*  &quot;{{}}&quot;相当于原先property属性
-*  Mustache语法不能作用于Html attribute上，遇到这种情况应该使用v-bind指令
-* 实例
-<figure class="highlight gml"><table><tr><td class="code"><pre><span class="line">	&lt;<span class="keywords">div</span> v-bind:<span class="symbol">id</span>=<span class="string">"msg"</span>&gt;&lt;/<span class="keywords">div</span>&gt;</span><br><span class="line">	<span class="comment">//简写</span></span><br><span class="line">	&lt;<span class="keywords">div</span> :<span class="symbol">id</span>=<span class="string">"msg"</span>&gt;&lt;/<span class="keywords">div</span>&gt;</span><br><span class="line">``` </span><br><span class="line">* 对于布尔类型(存在即为<span class="literal">true</span>),v-bind会有所不同</span><br><span class="line">  * 注意编程习惯：布尔类型变量 is开头 如：isButtonDisabled</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h3 id="模板语法-Mustache语法-双大括号"><a href="#模板语法-Mustache语法-双大括号" class="headerlink" title="模板语法+Mustache语法 (双大括号)"></a>模板语法+Mustache语法 (双大括号)</h3><pre><code>- &quot;{{}} &quot;相当于原先property属性
+- Mustache语法不能作用于Html attribute上，遇到这种情况应该使用v-bind指令
+- 实例
+<figure class="highlight gml"><table><tr><td class="code"><pre><span class="line">	&lt;<span class="keywords">div</span> v-bind:<span class="symbol">id</span>=<span class="string">"msg"</span>&gt;&lt;/<span class="keywords">div</span>&gt;</span><br><span class="line">	<span class="comment">//简写</span></span><br><span class="line">	&lt;<span class="keywords">div</span> :<span class="symbol">id</span>=<span class="string">"msg"</span>&gt;&lt;/<span class="keywords">div</span>&gt;</span><br><span class="line">``` </span><br><span class="line">- 对于布尔类型(存在即为<span class="literal">true</span>),v-bind会有所不同</span><br><span class="line">  - 注意编程习惯：布尔类型变量 is开头 如：isButtonDisabled</span><br></pre></td></tr></table></figure>
    &lt;button v-bind:disabled=&quot;isButtonDisabled&quot;&gt;Button&lt;/button&gt;
    //isButtonDisabled 值为true时才会渲染
    //充分必要条件
 <figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">* 当然在Mustache语法也支持简单的逻辑运算，算数运算，三目运算，这些表达式</span><br><span class="line">    * 注意：这些表达式会被所属Vue实例的数据作用域下的作为JavaScript被解析,但是每个绑定只能是单个表达式.</span><br><span class="line">### 指令</span><br><span class="line">* 指的是以这个v-为前缀的特殊属性</span><br><span class="line">* v-<span class="keyword">if</span>=<span class="string">"seen"</span>:判断seen为真值的时候才会插入/移除其元素</span><br><span class="line">* 参数：如v-bind：href=<span class="string">"url"</span> 这种形式href就是属性，告知v-bind指令将元素的href attribute与表达式url的值绑定</span><br><span class="line">#### v-on</span><br><span class="line">* v-on：用于监听DOM的事件</span><br><span class="line">* 如点击事件</span><br></pre></td></tr></table></figure></code></pre><p> <a v-on:click="doSomething">…</a></p>
-<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">#### v-bind：属性绑定</span><br><span class="line">#### v-once 执行一次指令地插值，插值处的内容不会更新</span><br><span class="line">#### v-html 输出原始Html</span><br><span class="line">#### 动态参数</span><br><span class="line">* []这个里面用JavaScript表达式作为一个指令的参数：</span><br><span class="line"><span class="number">1.</span> 就是你在data 初始化数据 attributeName,自定义组件的时候你就可以在页面内动态的使用attributeName：赋值</span><br></pre></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">#### v-bind：属性绑定</span><br><span class="line"></span><br><span class="line">#### v-once 执行一次指令地插值，插值处的内容不会更新</span><br><span class="line"></span><br><span class="line">#### v-html 输出原始Html</span><br><span class="line"></span><br><span class="line">#### 动态参数</span><br><span class="line"></span><br><span class="line">* []这个里面用JavaScript表达式作为一个指令的参数：</span><br><span class="line"><span class="number">1.</span> 就是你在data 初始化数据 attributeName,自定义组件的时候你就可以在页面内动态的使用attributeName：赋值</span><br></pre></td></tr></table></figure>
 <pre><code>&lt;a v-bind:[attributeName]=&quot;url&quot;&gt; ... &lt;/a&gt;</code></pre><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">2.</span> 动态事件：就是可以使用动态参数为一个动态的事件名绑定处理函数</span><br></pre></td></tr></table></figure>
 <p> &lt;a v-on:[eventName]=’halderClick’&gt;…</a></p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">* 注意：</span><br><span class="line">    <span class="number">1.</span> 就是attributeName或者evevtName为<span class="literal">null</span>时，这个也就显性的用于移除绑定，也就是说<span class="literal">null</span>时不会绑定,其他非String类型的将会触发警告。</span><br><span class="line">    <span class="number">2.</span> attributeName或者evevtName为表达式,会有编译警告，解决方法就是使用计算属性</span><br><span class="line">    <span class="number">3.</span> 撰写模板：attributeName或者evevtName要小写</span><br></pre></td></tr></table></figure>
@@ -123,244 +123,244 @@
     --&gt;
     &lt;a v-bind:[someAttr]=&quot;value&quot;&gt; ... &lt;/a&gt;
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
-    &lt;script src=&quot;/VUE/Vue初体验/js/vue.js&quot;&gt;&lt;/script&gt;
-    &lt;style&gt;
-    /* 实现样式 */
-    #inner {
-        width: 100px;
-        height: 100px;
-        background-color: rosybrown;
-    }
-    #btn {
-        width: 200px;
-        height: 200px;
-        background-color: mediumspringgreen;
-    }
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div id=&quot;box&quot;&gt;
-    &lt;span&gt;Meaage:{{message}}&lt;/span&gt;&lt;br /&gt;
-    &lt;span v-once&gt;final:{{once}}&lt;/span&gt;&lt;br /&gt;
-    &lt;span v-html&gt;Html:{{html}}&lt;/span&gt;
-    &lt;div v-bind:id=&quot;dynamicId&quot;&gt;
-        绑定数据样式
-    &lt;/div&gt;
-    &lt;!-- //disabled，禁用按钮 --&gt;
-    &lt;button v-bind:disabled=&quot;isButtonDisabled&quot;&gt;
-        按钮
-    &lt;/button&gt;
+        &lt;script src=&quot;/VUE/Vue初体验/js/vue.js&quot;&gt;&lt;/script&gt;
+        &lt;style&gt;
+        /* 实现样式 */
+        #inner {
+            width: 100px;
+            height: 100px;
+            background-color: rosybrown;
+        }
+        #btn {
+            width: 200px;
+            height: 200px;
+            background-color: mediumspringgreen;
+        }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;box&quot;&gt;
+        &lt;span&gt;Meaage:{{message}}&lt;/span&gt;&lt;br /&gt;
+        &lt;span v-once&gt;final:{{once}}&lt;/span&gt;&lt;br /&gt;
+        &lt;span v-html&gt;Html:{{html}}&lt;/span&gt;
+        &lt;div v-bind:id=&quot;dynamicId&quot;&gt;
+            绑定数据样式
+        &lt;/div&gt;
+        &lt;!-- //disabled，禁用按钮 --&gt;
+        &lt;button v-bind:disabled=&quot;isButtonDisabled&quot;&gt;
+            按钮
+        &lt;/button&gt;
 
-    &lt;!-- //不显示p元素？？？？ --&gt;
-    &lt;p v-if=&quot;seen&quot;&gt;isButtonDisabled:&apos;true&apos;&lt;/p&gt;
-    &lt;div&gt;
-        &lt;img v-bind:src=&quot;url&quot; alt=&quot;&quot; srcset=&quot;&quot; /&gt;
-    &lt;/div&gt;
-    &lt;!-- 这里写 count + 1 无效--&gt;
-    &lt;button v-on:click=&quot;count +=1&quot;&gt;计数器：{{count}}&lt;/button&gt;
-    &lt;button v-on:click=&quot;geet&quot;&gt;Get&lt;/button&gt;&lt;br /&gt;
+        &lt;!-- //不显示p元素？？？？ --&gt;
+        &lt;p v-if=&quot;seen&quot;&gt;isButtonDisabled:&apos;true&apos;&lt;/p&gt;
+        &lt;div&gt;
+            &lt;img v-bind:src=&quot;url&quot; alt=&quot;&quot; srcset=&quot;&quot; /&gt;
+        &lt;/div&gt;
+        &lt;!-- 这里写 count + 1 无效--&gt;
+        &lt;button v-on:click=&quot;count +=1&quot;&gt;计数器：{{count}}&lt;/button&gt;
+        &lt;button v-on:click=&quot;geet&quot;&gt;Get&lt;/button&gt;&lt;br /&gt;
 
-    &lt;div id=&quot;btn&quot; class=&quot;btn&quot; v-on:click=&quot;buttonclick&quot;&gt;
-        测试事件
-    &lt;/div&gt;
+        &lt;div id=&quot;btn&quot; class=&quot;btn&quot; v-on:click=&quot;buttonclick&quot;&gt;
+            测试事件
+        &lt;/div&gt;
 
-    &lt;button @click=&quot;count +=1&quot;&gt;计数器：{{count}}&lt;/button&gt;
-    &lt;!-- 动态参数 --&gt;
-    &lt;!-- &lt;a v-bind:[attributeName]= &quot;csdnUrl&quot;&gt;链接到CSDN&lt;/a&gt; --&gt;
-    &lt;a v-bind:href=&quot;csdnUrl&quot;&gt;链接到CSDN&lt;/a&gt;
-    &lt;!-- 修饰符 .prevent 阻止系统默认（行为）, 与触发事件调用enent.preventDefault() --&gt;
-    &lt;!-- &lt;form action=&quot;&quot; v-on:submit.prevent=&quot;onSubmit&quot;&gt;&lt;/form&gt; --&gt;
+        &lt;button @click=&quot;count +=1&quot;&gt;计数器：{{count}}&lt;/button&gt;
+        &lt;!-- 动态参数 --&gt;
+        &lt;!-- &lt;a v-bind:[attributeName]= &quot;csdnUrl&quot;&gt;链接到CSDN&lt;/a&gt; --&gt;
+        &lt;a v-bind:href=&quot;csdnUrl&quot;&gt;链接到CSDN&lt;/a&gt;
+        &lt;!-- 修饰符 .prevent 阻止系统默认（行为）, 与触发事件调用enent.preventDefault() --&gt;
+        &lt;!-- &lt;form action=&quot;&quot; v-on:submit.prevent=&quot;onSubmit&quot;&gt;&lt;/form&gt; --&gt;
 
-    &lt;!-- 计算属性 --&gt;
-    &lt;div id=&quot;comp&quot;&gt;
-        &lt;p&gt;原数据{{message02}}&lt;/p&gt;
-        &lt;p&gt;反转后的数据:{{reversemessage02}}&lt;/p&gt;
-    &lt;/div&gt;
+        &lt;!-- 计算属性 --&gt;
+        &lt;div id=&quot;comp&quot;&gt;
+            &lt;p&gt;原数据{{message02}}&lt;/p&gt;
+            &lt;p&gt;反转后的数据:{{reversemessage02}}&lt;/p&gt;
+        &lt;/div&gt;
 
-    &lt;div id=&quot;demo&quot;&gt;{{fullName}}&lt;/div&gt;
-    &lt;/div&gt;
+        &lt;div id=&quot;demo&quot;&gt;{{fullName}}&lt;/div&gt;
+        &lt;/div&gt;
 
-    &lt;script&gt;
-    var app = new Vue({
-        el: &quot;#box&quot;,
-        data: {
-        message: &quot;模板语法&quot;,
-        once: &quot;v-once指令==》属性值将不会改变&quot;,
-        html: &quot;&lt;span v-html&gt;Html:{{}}&lt;/span&gt;&quot;,
-        dynamicId: &quot;inner&quot;,
-        isButtonDisabled: &quot;&quot;,
-        seen: &quot;false&quot;,
-        url: &quot;/boke-data/images/APPInstance.png&quot;,
-        count: 0,
-        attributeName: &quot;href&quot;,
-        csdnUrl: &quot;https://https://www.csdn.net/.com&quot;,
-        message02: &quot;Hello world&quot;,
-        firstname: &quot;Foo&quot;,
-        lastName: &quot;Bar&quot;,
-        fullName: &quot;&quot;
-        },
-        watch: {
-        firstName: function (val) {
-            console.log(val)
-            this.fullName = val + &quot; &quot; + this.lastName;
-        },
-        lastName: function (val) {
-            console.log(val)
-            this.fullName = val + &quot;&quot; + val;
-        },
-        },
-        // 事件处理方法必须写在这里
-        methods: {
-        buttonclick: function (event) {
-            console.log(this.$el.textContent);
-            console.log(event);
-        },
-        doSomething: function () {
-            console.log(&quot;---------&quot;);
-        },
-        geet: function () {
-            alert(&apos; console.log(&quot;---------&quot;)&apos;);
-        },
-        },
-        computed: {
-        //计算属性 getter函数
-        reversemessage02: function () {
-            return this.message02.split(&quot;&quot;).reverse().join(&quot;&quot;);
-        },
-        },
-    });
-    console.log(app.reversemessage02);
-    app.message02 = &quot;GoodBye&quot;;
-    console.log(app.message02);
-    console.log(app.reversemessage02);
-    &lt;/script&gt;
-&lt;/body&gt;
+        &lt;script&gt;
+        var app = new Vue({
+            el: &quot;#box&quot;,
+            data: {
+            message: &quot;模板语法&quot;,
+            once: &quot;v-once指令==》属性值将不会改变&quot;,
+            html: &quot;&lt;span v-html&gt;Html:{{}}&lt;/span&gt;&quot;,
+            dynamicId: &quot;inner&quot;,
+            isButtonDisabled: &quot;&quot;,
+            seen: &quot;false&quot;,
+            url: &quot;/boke-data/images/APPInstance.png&quot;,
+            count: 0,
+            attributeName: &quot;href&quot;,
+            csdnUrl: &quot;https://https://www.csdn.net/.com&quot;,
+            message02: &quot;Hello world&quot;,
+            firstname: &quot;Foo&quot;,
+            lastName: &quot;Bar&quot;,
+            fullName: &quot;&quot;
+            },
+            watch: {
+            firstName: function (val) {
+                console.log(val)
+                this.fullName = val + &quot; &quot; + this.lastName;
+            },
+            lastName: function (val) {
+                console.log(val)
+                this.fullName = val + &quot;&quot; + val;
+            },
+            },
+            // 事件处理方法必须写在这里
+            methods: {
+            buttonclick: function (event) {
+                console.log(this.$el.textContent);
+                console.log(event);
+            },
+            doSomething: function () {
+                console.log(&quot;---------&quot;);
+            },
+            geet: function () {
+                alert(&apos; console.log(&quot;---------&quot;)&apos;);
+            },
+            },
+            computed: {
+            //计算属性 getter函数
+            reversemessage02: function () {
+                return this.message02.split(&quot;&quot;).reverse().join(&quot;&quot;);
+            },
+            },
+        });
+        console.log(app.reversemessage02);
+        app.message02 = &quot;GoodBye&quot;;
+        console.log(app.message02);
+        console.log(app.reversemessage02);
+        &lt;/script&gt;
+    &lt;/body&gt;
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">### 修饰符(modifier)</span></span><br><span class="line">* 修饰符 (modifier) 是以半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。</span><br><span class="line">* .prevent:就是告诉v-<span class="keyword">on</span>事件指令对于触发事件调用event.preventDefault()</span><br></pre></td></tr></table></figure>
 &lt;form v-on:submit.prevent=&quot;onSubmit&quot;&gt;...&lt;/form&gt;</code></pre><figure class="highlight dart"><table><tr><td class="code"><pre><span class="line">### 缩写</span><br><span class="line"> * v-<span class="keyword">on</span>:click=<span class="string">""</span>    ==&gt; <span class="meta">@cick</span>=<span class="string">""</span>  ==&gt; @[event]=<span class="string">"动态属性"</span></span><br><span class="line"> * v-bind:href=<span class="string">""</span>  ==&gt; :bind:href=<span class="string">""</span> ==&gt; :[key]=<span class="string">'url'</span></span><br></pre></td></tr></table></figure>
- <body>
-    <div id="app">
-        <img @src="imgUrl" alt="" srcset="">
-        <a @href="https://baidu.com" target="_blank" rel="noopener">百度一下</a>
-    </div>
-    <!-- 插值操作 -->
-    <script src="../js/vue.js"></script>
-    <script>
+<pre><code> &lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;img @src=&quot;imgUrl&quot; alt=&quot;&quot; srcset=&quot;&quot;&gt;
+        &lt;a @href=&quot;https://baidu.com&quot;&gt;百度一下&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;!-- 插值操作 --&gt;
+    &lt;script src=&quot;../js/vue.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
         var vm = new Vue({
-            el:'app',
+            el:&apos;app&apos;,
             data:{
-                message:'',
-                imgURL:'E:/VScode-data/Flex弹性布局/image/20200520231835.png',
+                message:&apos;&apos;,
+                imgURL:&apos;E:/VScode-data/Flex弹性布局/image/20200520231835.png&apos;,
             }
         }) 
-    </script>
-</body
- <figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">### 源码地址</span><br><span class="line">* https:<span class="comment">//github.com/vuejs/vue</span></span><br><span class="line"></span><br><span class="line">### Truthy(真值)</span><br><span class="line">* 在JavaScript中，Truthy指的是在布尔值上下文中，转换后的值为真的值。</span><br><span class="line">* 所有值都是真值，除非它们被定义为 假值（即除 false、<span class="number">0</span>、<span class="string">""</span>、null、undefined 和 NaN 以外皆为真值）。</span><br><span class="line">* 下面就是详细的真值示例</span><br></pre></td></tr></table></figure>
-    if (true)
-    if ({})
-    if ([])
-    if (42)
-    if ("foo")
-    if (new Date())
-    if (-42)
-    if (3.14)
-    if (-3.14)
-    if (Infinity)
-    if (-Infinity)
-<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">* Vue中的判断成功就是条件Truthy</span><br><span class="line"><span class="comment">### 前缀 $</span></span><br><span class="line">* 除了数据的属性<span class="keyword">property</span><span class="title"></span>，Vue实例还暴露了一些有用的实例<span class="keyword">property</span><span class="title"></span>与方法；</span><br><span class="line">* 特征：他们都有前缀$,以便与用户定义的属性区分==》Vm.$watch</span><br><span class="line">* 官网的小案例：</span><br></pre></td></tr></table></figure>
- var data ={a:1}
- var vm = new Vue({
-     el:"#app",
-     data:data
- })
- vm.$data === data //true
- vm.$el === document.getElementById('app') //true
+    &lt;/script&gt;
+&lt;/body</code></pre> <figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">### 源码地址</span><br><span class="line">* https:<span class="comment">//github.com/vuejs/vue</span></span><br><span class="line"></span><br><span class="line">### Truthy(真值)</span><br><span class="line">* 在JavaScript中，Truthy指的是在布尔值上下文中，转换后的值为真的值。</span><br><span class="line">* 所有值都是真值，除非它们被定义为 假值（即除 false、<span class="number">0</span>、<span class="string">""</span>、null、undefined 和 NaN 以外皆为真值）。</span><br><span class="line">* 下面就是详细的真值示例</span><br></pre></td></tr></table></figure>
+<pre><code>if (true)
+if ({})
+if ([])
+if (42)
+if (&quot;foo&quot;)
+if (new Date())
+if (-42)
+if (3.14)
+if (-3.14)
+if (Infinity)
+if (-Infinity)</code></pre><figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">* Vue中的判断成功就是条件Truthy</span><br><span class="line"><span class="comment">### 前缀 $</span></span><br><span class="line">* 除了数据的属性<span class="keyword">property</span><span class="title"></span>，Vue实例还暴露了一些有用的实例<span class="keyword">property</span><span class="title"></span>与方法；</span><br><span class="line">* 特征：他们都有前缀$,以便与用户定义的属性区分==》Vm.$watch</span><br><span class="line">* 官网的小案例：</span><br></pre></td></tr></table></figure>
+<pre><code>var data ={a:1}
+var vm = new Vue({
+    el:&quot;#app&quot;,
+    data:data
+})
+vm.$data === data //true
+vm.$el === document.getElementById(&apos;app&apos;) //true
 
-<p> //$watch 实例方法 用来监听值的变化<br> vm.$wtch(‘a’,function(newValue,oldValue)){<br>     //这里回掉将在‘vm.a’的之变化后调用<br> }</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">* </span>官网：实例API的地址:https://cn.vuejs.org/v2/api/#%E5%AE%9E%E4%BE%8B-property</span><br><span class="line"><span class="section">#### el</span></span><br><span class="line"><span class="bullet">* </span>提供一个在页面上已存在的 DOM 元素作为 Vue 实例的挂载目标。可以是 CSS 选择器，也可以是一个 HTMLElement 实例。</span><br><span class="line"><span class="bullet">* </span>不能作用到 <span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span> 或者 <span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span> 上</span><br><span class="line"><span class="bullet">* </span>也可以通过 实例.$mount() 手动挂载</span><br><span class="line"><span class="section">### 实例的生命周期钩子</span></span><br><span class="line"><span class="bullet">* </span>Vue的实例的生命周期从生到死...</span><br><span class="line"><span class="bullet">* </span>在每一个小阶段：比如==》需要设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等。</span><br><span class="line"><span class="bullet">* </span>在生命周期钩子函数中，用户就可以在不同的需求下在不同的阶段添加自己的代码执行逻辑单元</span><br><span class="line"><span class="bullet">* </span>在钩子函数中 this 的指向vm的实例</span><br><span class="line"><span class="bullet">* </span>注意：不要在选项 property 或回调上使用箭头函数，this.xxx 的行为未定义。</span><br><span class="line"><span class="section">#### 官网图示：</span></span><br><span class="line">![](https://cn.vuejs.org/images/lifecycle.png)</span><br><span class="line"><span class="section">#### 钩子函数详解  官网地址：https://cn.vuejs.org/v2/api/</span></span><br><span class="line"><span class="bullet">* </span>beforeCreate</span><br><span class="line"><span class="bullet">  * </span>在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。</span><br><span class="line"><span class="bullet">* </span>created</span><br><span class="line"><span class="bullet">   * </span>在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。</span><br><span class="line"><span class="bullet">* </span>beforeMount</span><br><span class="line"><span class="bullet">  * </span>在挂载开始之前被调用：相关的 渲染render 函数首次被调用。</span><br><span class="line"><span class="bullet">* </span>mounted</span><br><span class="line"><span class="bullet">    * </span>el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。</span><br><span class="line"><span class="bullet">* </span>beforeUpdate</span><br><span class="line"><span class="bullet">    * </span>数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。</span><br><span class="line">你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。</span><br><span class="line"><span class="bullet">* </span>updated</span><br><span class="line"><span class="bullet">    * </span>由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。</span><br><span class="line"><span class="bullet">* </span>activated</span><br><span class="line"><span class="bullet">* </span>deactivated</span><br><span class="line"><span class="bullet">* </span>beforeDestroy</span><br><span class="line"><span class="bullet">* </span>destroyed</span><br><span class="line"><span class="bullet">* </span>errorCaptured</span><br><span class="line"><span class="section">### template</span></span><br></pre></td></tr></table></figure>
-<body>
+//$watch 实例方法 用来监听值的变化
+vm.$wtch(&apos;a&apos;,function(newValue,oldValue)){
+    //这里回掉将在‘vm.a’的之变化后调用
+}</code></pre><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">* </span>官网：实例API的地址:https://cn.vuejs.org/v2/api/#%E5%AE%9E%E4%BE%8B-property</span><br><span class="line"><span class="section">#### el</span></span><br><span class="line"><span class="bullet">* </span>提供一个在页面上已存在的 DOM 元素作为 Vue 实例的挂载目标。可以是 CSS 选择器，也可以是一个 HTMLElement 实例。</span><br><span class="line"><span class="bullet">* </span>不能作用到 <span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span> 或者 <span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span> 上</span><br><span class="line"><span class="bullet">* </span>也可以通过 实例.$mount() 手动挂载</span><br><span class="line"><span class="section">### 实例的生命周期钩子</span></span><br><span class="line"><span class="bullet">* </span>Vue的实例的生命周期从生到死...</span><br><span class="line"><span class="bullet">* </span>在每一个小阶段：比如==》需要设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等。</span><br><span class="line"><span class="bullet">* </span>在生命周期钩子函数中，用户就可以在不同的需求下在不同的阶段添加自己的代码执行逻辑单元</span><br><span class="line"><span class="bullet">* </span>在钩子函数中 this 的指向vm的实例</span><br><span class="line"><span class="bullet">* </span>注意：不要在选项 property 或回调上使用箭头函数，this.xxx 的行为未定义。</span><br><span class="line"><span class="section">#### 官网图示：</span></span><br><span class="line">![](https://cn.vuejs.org/images/lifecycle.png)</span><br><span class="line"><span class="section">#### 钩子函数详解  官网地址：https://cn.vuejs.org/v2/api/</span></span><br><span class="line"><span class="bullet">* </span>beforeCreate</span><br><span class="line"><span class="bullet">  * </span>在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。</span><br><span class="line"><span class="bullet">* </span>created</span><br><span class="line"><span class="bullet">   * </span>在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。</span><br><span class="line"><span class="bullet">* </span>beforeMount</span><br><span class="line"><span class="bullet">  * </span>在挂载开始之前被调用：相关的 渲染render 函数首次被调用。</span><br><span class="line"><span class="bullet">* </span>mounted</span><br><span class="line"><span class="bullet">    * </span>el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。</span><br><span class="line"><span class="bullet">* </span>beforeUpdate</span><br><span class="line"><span class="bullet">    * </span>数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。</span><br><span class="line">你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。</span><br><span class="line"><span class="bullet">* </span>updated</span><br><span class="line"><span class="bullet">    * </span>由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。</span><br><span class="line"><span class="bullet">* </span>activated</span><br><span class="line"><span class="bullet">* </span>deactivated</span><br><span class="line"><span class="bullet">* </span>beforeDestroy</span><br><span class="line"><span class="bullet">* </span>destroyed</span><br><span class="line"><span class="bullet">* </span>errorCaptured</span><br><span class="line"><span class="section">### template</span></span><br></pre></td></tr></table></figure>
+<pre><code>&lt;body&gt;
 
-<pre><code>&lt;div id=&quot;app&quot;&gt;
-    {{message}}
-&lt;/div&gt;
-&lt;div class=&apos;static&apos;&gt;
-    &lt;h2  v-bind:class=&quot;{active:isActive,Line:isLine}&quot;&gt;{{message}}&lt;/h2&gt;
-    &lt;button v-on:click=&apos;&apos;&gt;&lt;/button&gt;
-    &lt;div v-bind:class=&quot;classObject&quot;&gt;&lt;/div&gt;
-    &lt;div v-bind:class=&quot;[activeClass,errorClass]&quot;&gt;&lt;/div&gt;
-    &lt;!-- &lt;div class=&apos;active text-danger&apos;&gt;&lt;/div&gt; --&gt;
-    &lt;!-- 三目运算 --&gt;
-    &lt;div v-bind:class=&quot;[isActive ? activeClass : &apos;&apos;,errorClass]&quot;&gt;&lt;/div&gt;
-    &lt;div v-bind:class=&apos;[{active:isActive},errorClass]&apos;&gt;&lt;/div&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        {{message}}
+    &lt;/div&gt;
+    &lt;div class=&apos;static&apos;&gt;
+        &lt;h2  v-bind:class=&quot;{active:isActive,Line:isLine}&quot;&gt;{{message}}&lt;/h2&gt;
+        &lt;button v-on:click=&apos;&apos;&gt;&lt;/button&gt;
+        &lt;div v-bind:class=&quot;classObject&quot;&gt;&lt;/div&gt;
+        &lt;div v-bind:class=&quot;[activeClass,errorClass]&quot;&gt;&lt;/div&gt;
+        &lt;!-- &lt;div class=&apos;active text-danger&apos;&gt;&lt;/div&gt; --&gt;
+        &lt;!-- 三目运算 --&gt;
+        &lt;div v-bind:class=&quot;[isActive ? activeClass : &apos;&apos;,errorClass]&quot;&gt;&lt;/div&gt;
+        &lt;div v-bind:class=&apos;[{active:isActive},errorClass]&apos;&gt;&lt;/div&gt;
 
-    &lt;!-- 调用组件 --&gt;
-    &lt;my-component class=&apos;baz boo&apos;&gt;&lt;/my-component&gt;
+        &lt;!-- 调用组件 --&gt;
+        &lt;my-component class=&apos;baz boo&apos;&gt;&lt;/my-component&gt;
 
-    &lt;!-- 绑定内联样式 对象语法 通过js设置样式--&gt;
-    &lt;div v-bind:style=&quot;{color:activeColor,fontSize:fontSize+&apos;px&apos;}&quot;&gt;&lt;/div&gt;
+        &lt;!-- 绑定内联样式 对象语法 通过js设置样式--&gt;
+        &lt;div v-bind:style=&quot;{color:activeColor,fontSize:fontSize+&apos;px&apos;}&quot;&gt;&lt;/div&gt;
 
-    &lt;!-- 直接绑定一个 css对象  --&gt;
-    &lt;div v-bind:style=&quot;styleObject&quot;&gt;&lt;/div&gt;
-    &lt;div v-bind:style=&apos;[baseStyle,overrideigStyle]&apos;&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div&gt;
-    //v-if 判断是否为真值
-    &lt;h1 v-if=&apos;awesome&apos;&gt;Vue is awesome!&lt;/h1&gt;
-    &lt;h1 v-else&gt;success&lt;/h1&gt;
+        &lt;!-- 直接绑定一个 css对象  --&gt;
+        &lt;div v-bind:style=&quot;styleObject&quot;&gt;&lt;/div&gt;
+        &lt;div v-bind:style=&apos;[baseStyle,overrideigStyle]&apos;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        //v-if 判断是否为真值
+        &lt;h1 v-if=&apos;awesome&apos;&gt;Vue is awesome!&lt;/h1&gt;
+        &lt;h1 v-else&gt;success&lt;/h1&gt;
 
-    &lt;!-- 模板 --&gt;
+        &lt;!-- 模板 --&gt;
 
-&lt;/div&gt;
-&lt;script src=&quot;../js/vue.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-    const app = new Vue({
-        el:&apos;#app&apos;,
-        data:{
-            activeClass:&apos;active&apos;,
-            errorClass:&apos;text-danger&apos;,
-            message:&quot;你好呀！-&quot;,
-            isActive:true,
-            hasError:false,
-            activeColor:&apos;red&apos;,
-            fontSize:&apos;30&apos;,
-            styleObject:{
-                color:&apos;yellow&apos;,
-                fontSize:&apos;30px&apos;
-            }
-        },
-        // 计算属性
-        computed:{
-            classObject:function(){
-                return{
-                    active:this.isActive &amp;&amp; !this.error,
-                    &apos;text-danger&apos;:this.error &amp;&amp; this.error.type ==&apos;fatal&apos;
-
+    &lt;/div&gt;
+    &lt;script src=&quot;../js/vue.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        const app = new Vue({
+            el:&apos;#app&apos;,
+            data:{
+                activeClass:&apos;active&apos;,
+                errorClass:&apos;text-danger&apos;,
+                message:&quot;你好呀！-&quot;,
+                isActive:true,
+                hasError:false,
+                activeColor:&apos;red&apos;,
+                fontSize:&apos;30&apos;,
+                styleObject:{
+                    color:&apos;yellow&apos;,
+                    fontSize:&apos;30px&apos;
                 }
             },
+            // 计算属性
+            computed:{
+                classObject:function(){
+                    return{
+                        active:this.isActive &amp;&amp; !this.error,
+                        &apos;text-danger&apos;:this.error &amp;&amp; this.error.type ==&apos;fatal&apos;
 
-        }
+                    }
+                },
 
-    //     Vue.component(&apos;my-component&apos;,{
-    //             template:&apos;&lt;p class=&quot;foo bar&quot;&gt;&lt;/p&gt;&apos;
-    //         }),
-    //         Vue.component(
-    //             &apos;alert&apos;,{
-    //                 template:&apos;
-    //                 &lt;div class=&apos;demo-alert-box&apos;&gt;
-    //                     &lt;strong&gt;Error!&lt;/strong&gt;
-    //                     &lt;slot&gt;&lt;/slot&gt;    
-    //                 &lt;/div&gt;&apos;}
-    //         })
-    // })
+            }
 
-&lt;/script&gt;</code></pre></body>
-<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">### v-bind绑定驼峰命名的转换</span><br></pre></td></tr></table></figure>
-    <body>
-        <div id="app">
-            <!-- 如果组件中的数据变量命已驼峰命名法（cInfo）...再绑定v-bind的时候使用v-bind:c-info=''这种形式 -->
-        <cpn v-bind:c-info="info"></cpn>
-        </div>
+        //     Vue.component(&apos;my-component&apos;,{
+        //             template:&apos;&lt;p class=&quot;foo bar&quot;&gt;&lt;/p&gt;&apos;
+        //         }),
+        //         Vue.component(
+        //             &apos;alert&apos;,{
+        //                 template:&apos;
+        //                 &lt;div class=&apos;demo-alert-box&apos;&gt;
+        //                     &lt;strong&gt;Error!&lt;/strong&gt;
+        //                     &lt;slot&gt;&lt;/slot&gt;    
+        //                 &lt;/div&gt;&apos;}
+        //         })
+        // })
 
-<pre><code>    &lt;template id=&quot;cpn&quot;&gt;
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">### v-bind绑定驼峰命名的转换</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;!-- 如果组件中的数据变量命已驼峰命名法（cInfo）...再绑定v-bind的时候使用v-bind:c-info=&apos;&apos;这种形式 --&gt;
+    &lt;cpn v-bind:c-info=&quot;info&quot;&gt;&lt;/cpn&gt;
+    &lt;/div&gt;
+
+    &lt;template id=&quot;cpn&quot;&gt;
         &lt;!-- 注意：如过组件中元素比较多的情况下，要使用根元素将其包裹起来--root element，否则会报错 --&gt;
     &lt;h2&gt;{{cInfo}}&lt;/h2&gt;
     &lt;/template&gt;
@@ -468,76 +468,77 @@
       }
   });
 &lt;/script&gt;</code></pre>  </body>
-<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">### v-model数据双向绑定</span><br><span class="line">#### v-mode表单绑定</span><br></pre></td></tr></table></figure>
-<body>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">### v-model数据双向绑定</span><br><span class="line"></span><br><span class="line">#### v-mode表单绑定</span><br></pre></td></tr></table></figure>
+    <body>
 
-<pre><code>&lt;div id=&quot;app&quot;&gt;
-    &lt;!-- 这样就实现了数据双向绑定 当input中数据改变的时候message的之也随之改变 --&gt;
-    描述:&lt;input type=&quot;text&quot; v-model=&quot;message&quot;/&gt;
-    &lt;span&gt;{{message}}&lt;/span&gt;  
-    &lt;!-- v-model的实质就是两个属性 v-bind:value=&quot;message&quot; --&gt;
-    &lt;!-- v-on:input=&quot;valueInput&quot; 监听事件 --&gt;
-    v-model的实质:&lt;input type=&quot;text&quot; v-bind:value=&quot;message&quot; v-on:input=&quot;valueInput&quot;/&gt;
-    第二种写法语法糖：&lt;input type=&quot;text&quot; :value=&quot;message&quot; @input=&quot;message = $event.target.value&quot;/&gt;
-&lt;/div&gt;
-nihao
-&lt;!-- 表单控价在实际开发中是非常常见的，特别是对于用户信息提交需要大量的表单--&gt;
-&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.11&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-    const app = new Vue({
-        el:&apos;#app&apos;,
-        data:{
-            message:&quot;Hello world&quot;
-        },
-        methods:{
-            valueInput:function(event){
-                console.log(event)
-                // 绑定事件浏览会返回一个event对象，在event对象中就可以获取target的value
-                this.message = event.target.value
+<pre><code>    &lt;div id=&quot;app&quot;&gt;
+        &lt;!-- 这样就实现了数据双向绑定 当input中数据改变的时候message的之也随之改变 --&gt;
+        描述:&lt;input type=&quot;text&quot; v-model=&quot;message&quot;/&gt;
+        &lt;span&gt;{{message}}&lt;/span&gt;  
+        &lt;!-- v-model的实质就是两个属性 v-bind:value=&quot;message&quot; --&gt;
+        &lt;!-- v-on:input=&quot;valueInput&quot; 监听事件 --&gt;
+        v-model的实质:&lt;input type=&quot;text&quot; v-bind:value=&quot;message&quot; v-on:input=&quot;valueInput&quot;/&gt;
+        第二种写法语法糖：&lt;input type=&quot;text&quot; :value=&quot;message&quot; @input=&quot;message = $event.target.value&quot;/&gt;
+    &lt;/div&gt;
+    nihao
+    &lt;!-- 表单控价在实际开发中是非常常见的，特别是对于用户信息提交需要大量的表单--&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.11&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        const app = new Vue({
+            el:&apos;#app&apos;,
+            data:{
+                message:&quot;Hello world&quot;
+            },
+            methods:{
+                valueInput:function(event){
+                    console.log(event)
+                    // 绑定事件浏览会返回一个event对象，在event对象中就可以获取target的value
+                    this.message = event.target.value
+                }
             }
-        }
-    })
-&lt;/script&gt;</code></pre></body>
-<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">#### v-model的使用radio单选框</span><br></pre></td></tr></table></figure>
-<body>
-    <!-- v-model:radio -->
-    <div id="app">
-        <!-- 
+        })
+    &lt;/script&gt;
+
+&lt;/body&gt;</code></pre><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">#### v-model的使用radio单选框</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;body&gt;
+    &lt;!-- v-model:radio --&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;!-- 
             说明：
-            在html中，<label>标签通常和<input>标签一起使用，<label>标签为input元素定义标注（标记）。
+            在html中，&lt;label&gt;标签通常和&lt;input&gt;标签一起使用，&lt;label&gt;标签为input元素定义标注（标记）。
 
-<pre><code>        &lt;label&gt;标签的作用是为鼠标用户改进了可用性，当用户点击&lt;label&gt;标签中的文本时，浏览器就会自动将焦点转到和该标签相关联的控件上；
+            &lt;label&gt;标签的作用是为鼠标用户改进了可用性，当用户点击&lt;label&gt;标签中的文本时，浏览器就会自动将焦点转到和该标签相关联的控件上；
 
-        &lt;label&gt;标签在单选按钮和复选按钮上经常被使用，使用该标签后，你点击单选按钮或复选按钮的文本也是可以选中的。
-     --&gt;
-     &lt;!-- 即点击文本便可选中 --&gt;
-    &lt;!-- &lt;label for=&quot;关联控件的id&quot; form=&quot;所属表单id列表&quot;&gt;文本内容&lt;/label&gt; --&gt;
-    &lt;!-- 在html5中还新增了一个属性form，form属性是用来规定所属的一个或多个表单的 id 列表，以空格隔开； --&gt;
-    &lt;label for=&quot;meal&quot;&gt;
-        &lt;!-- 注意：这里的有v-model  name属性可以省略(互斥)   --&gt;
-        &lt;input type=&quot;radio&quot; name=&quot;sex&quot; id=&quot;meal&quot; value=&quot;男&quot; v-model=&quot;sex&quot;/&gt;男
-    &lt;/label&gt;
-    &lt;label for=&quot;gril&quot;&gt;
-        &lt;input type=&quot;radio&quot; name=&quot;sex&quot; id=&quot;gril&quot; value=&quot;女&quot; v-model=&quot;sex&quot;/&gt;女
-    &lt;/label&gt;
+            &lt;label&gt;标签在单选按钮和复选按钮上经常被使用，使用该标签后，你点击单选按钮或复选按钮的文本也是可以选中的。
+         --&gt;
+         &lt;!-- 即点击文本便可选中 --&gt;
+        &lt;!-- &lt;label for=&quot;关联控件的id&quot; form=&quot;所属表单id列表&quot;&gt;文本内容&lt;/label&gt; --&gt;
+        &lt;!-- 在html5中还新增了一个属性form，form属性是用来规定所属的一个或多个表单的 id 列表，以空格隔开； --&gt;
+        &lt;label for=&quot;meal&quot;&gt;
+            &lt;!-- 注意：这里的有v-model  name属性可以省略(互斥)   --&gt;
+            &lt;input type=&quot;radio&quot; name=&quot;sex&quot; id=&quot;meal&quot; value=&quot;男&quot; v-model=&quot;sex&quot;/&gt;男
+        &lt;/label&gt;
+        &lt;label for=&quot;gril&quot;&gt;
+            &lt;input type=&quot;radio&quot; name=&quot;sex&quot; id=&quot;gril&quot; value=&quot;女&quot; v-model=&quot;sex&quot;/&gt;女
+        &lt;/label&gt;
 
-    &lt;hr&gt;
-    宁选择的性别：&lt;text&gt;{{sex}}&lt;/text&gt; &lt;span&gt;{{sex}}&lt;/span&gt;
-&lt;/div&gt;
+        &lt;hr&gt;
+        宁选择的性别：&lt;text&gt;{{sex}}&lt;/text&gt; &lt;span&gt;{{sex}}&lt;/span&gt;
+    &lt;/div&gt;
 
-&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.11&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.11&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
 
-    const app = new Vue({
-        el:&apos;#app&apos;,
-        data:{
-            message: &apos;Hello world&apos;,
-            // 默认选中男
-            sex: &apos;男&apos;
-        }
-    })
-&lt;/script&gt;</code></pre></body>
-<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">#### v-model使用checkbox复选框</span><br></pre></td></tr></table></figure>
+        const app = new Vue({
+            el:&apos;#app&apos;,
+            data:{
+                message: &apos;Hello world&apos;,
+                // 默认选中男
+                sex: &apos;男&apos;
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre><figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">#### v-model使用checkbox复选框</span><br></pre></td></tr></table></figure>
   <body>
     <div id="app">
       <!-- 单选 -->
@@ -607,8 +608,7 @@ nihao
       });
     </script>
   </body>
-```
-]]></content>
+```]]></content>
       <tags>
         <tag>前端框架VUE</tag>
       </tags>
