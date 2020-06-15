@@ -1,6 +1,290 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>前端框架VUE+插件路由vue-router</title>
+    <url>/2020/06/15/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6VUE-%E6%8F%92%E4%BB%B6%E8%B7%AF%E7%94%B1vue-router/</url>
+    <content><![CDATA[<h3 id="vue-项目中使用-vue-router"><a href="#vue-项目中使用-vue-router" class="headerlink" title="vue 项目中使用 vue-router"></a>vue 项目中使用 vue-router</h3><ol>
+<li>安装</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install --save vue-router</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在页面的某一位置选择一个坑，用来切换路由页面</li>
+</ol>
+<ul>
+<li>在页面放置一个路由的坑，路由的视图，后续 url 地址匹配什么样的路由视图规则，所对应的路由页面组件，就会渲染这个位置<br><router-view></router-view></li>
+</ul>
+<ol start="3">
+<li>在 src 下面创建一个 router.js 文件。这个文件去实例化 vue-router 的实例对象，并配置路由的规则。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//1. 引入Vue</span><br><span class="line">import Vue from &quot;vue&quot;</span><br><span class="line"></span><br><span class="line">//2. 引入vue-router</span><br><span class="line">import VueRouter from &quot;vue-router&quot;</span><br><span class="line"></span><br><span class="line">// 5. 引入需要用到的路由页面组件</span><br><span class="line">import PageA from &quot;./views/PageA.vue&quot;</span><br><span class="line">import PageA from &quot;./views/PageB.vue&quot;</span><br><span class="line"></span><br><span class="line">//3. vue-router 是vue的插件，需要使用Vue.use()方法去调用插件</span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line"></span><br><span class="line">//4. 定义路由规则  下面数组的第一项为添加默认选中的状态</span><br><span class="line">const routes = [</span><br><span class="line">    &#123;</span><br><span class="line">      //默认高亮显示</span><br><span class="line">       path: &apos;/&apos;,</span><br><span class="line">        component: PageA</span><br><span class="line">      //重定向</span><br><span class="line">      //redirect: &apos;相对路径&apos;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        path: &apos;/a&apos;,</span><br><span class="line">        component: PageA</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        path: &apos;/b&apos;,</span><br><span class="line">        component: PageB</span><br><span class="line">    &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">// 6. 实例化 vue-router</span><br><span class="line">const router = new VueRouter(&#123;</span><br><span class="line">    routes: routes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 7. 暴露 实例对象</span><br><span class="line">export default router</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>需要在 main.js 中，new Vue()的地方，配置一个 router 选项，选项的值，就是第三步中暴露出来的路由的实例</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import router from &apos;./router&apos;</span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = false</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">  router: router,</span><br><span class="line">  render: h =&gt; h(App)</span><br><span class="line">&#125;).$mount(&apos;#app&apos;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>以上就完成了路由的配置及初步使用 <a href="http://localhost:8082/#/b" target="_blank" rel="noopener">http://localhost:8082/#/b</a> 访问 b 页面</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;h1&gt;我是App&lt;/h1&gt;</span><br><span class="line">  &lt;a href=&quot;/#/a&quot;&gt;A页面&lt;/a&gt;</span><br><span class="line">  &lt;a href=&quot;/#/b&quot;&gt;B页面&lt;/a&gt;</span><br><span class="line">  &lt;!-- router-link 路由的组件 相当于a标签的功能 --&gt;</span><br><span class="line">  &lt;router-link to=&quot;/a&quot;&gt;router-link++A页面&lt;/router-link&gt;</span><br><span class="line">  &lt;router-link to=&quot;/b&quot;&gt;router-link++B页面&lt;/router-link&gt;</span><br><span class="line">  &lt;!-- 在页面放置一个路由的坑，路由的视图，后续url地址匹配什么样的路由视图规则，所对应的路由页面组件，就会渲染这个位置 --&gt;</span><br><span class="line">  &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="vue-router-插件的-rounter-link-组件编译后在浏览器显示的效果"><a href="#vue-router-插件的-rounter-link-组件编译后在浏览器显示的效果" class="headerlink" title="vue-router 插件的 rounter-link 组件编译后在浏览器显示的效果"></a>vue-router 插件的 rounter-link 组件编译后在浏览器显示的效果</h3><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;a <span class="attribute">href</span>=<span class="string">"#/films/nowPlaying"</span> <span class="attribute">class</span>=<span class="string">"router-link-exact-active router-link-active"</span> <span class="attribute">aria-current</span>=<span class="string">"page"</span>&gt;电影&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意：在鼠标选中这个 router-link 的时候他会多出两个属性 ==》router-link-exact-active 与 router-link-active</li>
+<li>这样就可以修改他的选中高亮显示的效果</li>
+</ul>
+<h3 id="路由的初步使用导航栏"><a href="#路由的初步使用导航栏" class="headerlink" title="路由的初步使用导航栏"></a>路由的初步使用导航栏</h3><ul>
+<li>App.vue</li>
+</ul>
+<figure class="highlight xquery"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span></span><br><span class="line"><span class="xml">  </span><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="comment">&lt;!-- 可变的路由坑 --&gt;</span></span></span><br><span class="line"><span class="xml">    </span><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"page-keng"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      </span><span class="xml"><span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="comment">&lt;!-- 不变的路由坑 --&gt;</span></span></span><br><span class="line"><span class="xml">    </span><span class="xml"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"tabbar"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      </span><span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="comment">&lt;!-- 根据路由的页面router的路由规则，渲染页面 --&gt;</span></span></span><br><span class="line"><span class="xml">        </span><span class="xml"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/films/nowPlaying"</span>&gt;</span>电影<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">      </span><span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">        </span><span class="xml"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/center"</span>&gt;</span>影院<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">      </span><span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">        </span><span class="xml"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/cinemas"</span>&gt;</span>个人中心<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml">export default </span><span class="xquery">&#123;&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"scss"</span>&gt;</span></span></span><br><span class="line"><span class="xml">* </span><span class="xquery">&#123;</span></span><br><span class="line"><span class="xquery">  margin: <span class="number">0</span>;</span></span><br><span class="line"><span class="xquery">  padding: <span class="number">0</span>;</span></span><br><span class="line"><span class="xquery">&#125;</span></span><br><span class="line"><span class="xml">html,</span></span><br><span class="line"><span class="xml">body </span><span class="xquery">&#123;</span></span><br><span class="line"><span class="xquery">  height: <span class="number">100</span>%;</span></span><br><span class="line"><span class="xquery">&#125;</span></span><br><span class="line"><span class="xml">#app </span><span class="xquery">&#123;</span></span><br><span class="line"><span class="xquery">  height: <span class="number">100</span>%;</span></span><br><span class="line"><span class="xquery">  // background: #ff5777;</span></span><br><span class="line"><span class="xquery">  // 调整flexbox交叉轴的方向</span></span><br><span class="line"><span class="xquery">  flex-direction: column;</span></span><br><span class="line"><span class="xquery">  display: flex;</span></span><br><span class="line"><span class="xquery">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml">.page-keng </span><span class="xquery">&#123;</span></span><br><span class="line"><span class="xquery">  flex: <span class="number">1</span>;</span></span><br><span class="line"><span class="xquery">&#125;</span></span><br><span class="line"><span class="xml">.tabbar </span><span class="xquery">&#123;</span></span><br><span class="line"><span class="xquery">  display: flex;</span></span><br><span class="line"><span class="xquery">  height: <span class="number">50</span>px;</span></span><br><span class="line"><span class="xquery">  //上下居中</span></span><br><span class="line"><span class="xquery">  line-height: <span class="number">50</span>px;</span></span><br><span class="line"><span class="xquery">  border-top: <span class="number">1</span>px solid #<span class="number">000</span>;</span></span><br><span class="line"><span class="xquery">  li &#123;</span></span><br><span class="line"><span class="xquery">    list-style: none;</span></span><br><span class="line"><span class="xquery">    flex: <span class="number">1</span>;</span></span><br><span class="line"><span class="xquery">    text-align: center;</span></span><br><span class="line"><span class="xquery">    .router-link-active &#123;</span></span><br><span class="line"><span class="xquery">      color: #ff577f;</span></span><br><span class="line"><span class="xquery">    &#125;</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>router.js</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="comment">//路由页面</span></span><br><span class="line"><span class="keyword">import</span> Center <span class="keyword">from</span> <span class="string">'./views/Center.vue'</span></span><br><span class="line"><span class="keyword">import</span> Cinemas <span class="keyword">from</span> <span class="string">'./views/Cinemas.vue'</span></span><br><span class="line"><span class="keyword">import</span> Films <span class="keyword">from</span> <span class="string">'./views/Films.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//vue-router 是vue的插件，需要使用Vue.use()方法去调用插件</span></span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">    <span class="comment">// &#123;</span></span><br><span class="line">    <span class="comment">//     path: '/',</span></span><br><span class="line">    <span class="comment">//     component: Center</span></span><br><span class="line">    <span class="comment">// &#125;,</span></span><br><span class="line">    &#123;</span><br><span class="line">        path: <span class="string">'/center'</span>,</span><br><span class="line">        component: Center</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        path: <span class="string">'/cinemas'</span>,</span><br><span class="line">        component: Cinemas</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        path: <span class="string">'/films/nowPlaying'</span>,</span><br><span class="line">        component: Films</span><br><span class="line">    &#125;</span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    routes: routes</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+
+<h3 id="eslint-的代码检查工具"><a href="#eslint-的代码检查工具" class="headerlink" title="eslint 的代码检查工具"></a>eslint 的代码检查工具</h3><ul>
+<li>向上面路由中的部分代码,不允许出现出现空行</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">const routes = [</span><br><span class="line">    &#123; <span class="string">path:</span> <span class="string">'/'</span>, <span class="string">redirect:</span> <span class="string">'/films/nowPlaying'</span> &#125;,</span><br><span class="line">    &#123; <span class="string">path:</span> <span class="string">'/center'</span>, <span class="string">component:</span> Center &#125;,</span><br><span class="line">    &#123; <span class="string">path:</span> <span class="string">'/cinemas'</span>, <span class="string">component:</span> Cinemas &#125;,</span><br><span class="line">    &#123; <span class="string">path:</span> <span class="string">'/films/nowPlaying'</span>, <span class="string">component:</span> Films &#125;,</span><br><span class="line">    &#123; <span class="string">path:</span> <span class="string">'/film/4728'</span>, <span class="string">component:</span> Film &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<h3 id="路由的嵌套"><a href="#路由的嵌套" class="headerlink" title="路由的嵌套"></a>路由的嵌套</h3><ul>
+<li>应用 比如在某个路由页面不需要 tab 导航栏，就可以使用嵌套路由</li>
+</ul>
+<ul>
+<li>重定向</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&#123; <span class="attribute">path</span>: <span class="string">'/'</span>, redirect: <span class="string">'/films/nowPlaying'</span> &#125;,</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>嵌套</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Vue.use(VueRouter)</span><br><span class="line">const routes = [</span><br><span class="line">  &#123; path: &apos;/film/4728&apos;, component: Film &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: &apos;/&apos;,</span><br><span class="line">    component: Home,</span><br><span class="line">    children: [</span><br><span class="line">      // 默认显示的页面</span><br><span class="line">      &#123; path: &apos;/&apos;, redirect: &apos;/films/nowPlaying&apos; &#125;,</span><br><span class="line">      &#123; path: &apos;/center&apos;, component: Center &#125;,</span><br><span class="line">      &#123; path: &apos;/cinemas&apos;, component: Cinemas &#125;,</span><br><span class="line">      &#123; path: &apos;/films/nowPlaying&apos;, component: Films &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line">const router = new VueRouter(&#123;</span><br><span class="line">  routes: routes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default router</span><br></pre></td></tr></table></figure>
+
+<h3 id="动态路由-gt-动态路径参数-以冒号开头"><a href="#动态路由-gt-动态路径参数-以冒号开头" class="headerlink" title="动态路由 ==&gt;动态路径参数 以冒号开头"></a>动态路由 ==&gt;动态路径参数 以冒号开头</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123; path: &apos;/user/:id&apos;, component: User &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>一个“路径参数”使用冒号 : 标记。当匹配到一个路由时，参数值会被设置到 this.$route.params，可以在每个组件内使用</li>
+</ul>
+<h3 id="VScode-开发技巧-更改语言模式"><a href="#VScode-开发技巧-更改语言模式" class="headerlink" title="VScode 开发技巧 更改语言模式"></a>VScode 开发技巧 更改语言模式</h3><ul>
+<li>如果你有需求将一段数据的格式改变 json 等格式就可以使用</li>
+<li>步骤：<ol>
+<li>按快捷键 ctrl + t 弹出面板 输入：&gt;Change Langeuage Mode 修改语言模板 enter</li>
+<li>输入 json 就会转化成 json 格式</li>
+</ol>
+</li>
+</ul>
+<h3 id="router-link-组件的使用技巧"><a href="#router-link-组件的使用技巧" class="headerlink" title="router-link 组件的使用技巧"></a>router-link 组件的使用技巧</h3><ul>
+<li>这里采用 router-link 代替 li 添加组件的 tag 属性指明替换的属性 tag=”li”</li>
+</ul>
+<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"page-films"</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">h1</span>&gt;</span>电影列表页面<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">     <span class="tag">&lt;<span class="name">router-link</span></span></span></span><br><span class="line"><span class="xml">       class="film-page"</span></span><br><span class="line"><span class="xml">       v-for="item in filmList"</span></span><br><span class="line"><span class="xml">       :key="item.filmId"</span></span><br><span class="line"><span class="xml">       :to="'/film/' + item.filmId"</span></span><br><span class="line"><span class="xml">       tag="li"</span></span><br><span class="line"><span class="xml">     &gt;</span></span><br><span class="line"><span class="xml">       <span class="comment">&lt;!-- 这里采用router-link 代替li 添加组件的tag属性指明替换的属性==tag="li" --&gt;</span></span></span><br><span class="line"><span class="xml">       <span class="comment">&lt;!-- &lt;router-link to="/film/item.filmId"&gt; --&gt;</span></span></span><br><span class="line"><span class="xml">       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">"item.poster"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">       <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">img</span></span></span></span><br><span class="line"><span class="xml">           src=""</span></span><br><span class="line"><span class="xml">           alt=""</span></span><br><span class="line"><span class="xml">         &gt;</span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">span</span>&gt;</span></span><span class="template-variable">&#123;&#123;item.name&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="xml">       <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;<span class="name">button</span>&gt;</span>购票<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">       <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">       <span class="comment">&lt;!-- &lt;/router-link&gt; --&gt;</span></span></span><br><span class="line"><span class="xml">     <span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span></span><br><span class="line"><span class="xml">   <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="route"><a href="#route" class="headerlink" title="$route"></a>$route</h4><ul>
+<li>当我们在 vue 项目中使用了 vue-router。这时，当我们项目中的每一个 vue 组件，都会自动获取到一个$route 数据。这个数据中存放的是匹配当前路由的信息对象。</li>
+<li>可以通过它，得到当前动态路由参数 Params 或查询参数的 query(query 中就是通过在路径上?传参的数据信息)</li>
+</ul>
+<h3 id="二级页面出现数据没有更新的问题"><a href="#二级页面出现数据没有更新的问题" class="headerlink" title="二级页面出现数据没有更新的问题"></a>二级页面出现数据没有更新的问题</h3><ul>
+<li><p>原因：Vue 把当前页面路由页面组件给缓存了，也就是这个详情页面没有销毁也就不会重新创建</p>
+</li>
+<li><p>解决方法：</p>
+<ol>
+<li>监听$route 是否有变化 watch()属性</li>
+</ol>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">mounted()&#123;</span><br><span class="line">  watch(<span class="function"><span class="keyword">function</span></span>(<span class="keyword">new</span><span class="type">Val</span> oldVal)&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">new</span><span class="type">Val</span> === <span class="built_in">this</span>.$route.params.fileId)&#123;</span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>。。。。。使用一个路由的钩子函数 beforeRouterUpdate</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">methods:&#123;</span><br><span class="line">  <span class="comment">//ajax</span></span><br><span class="line">    getFilminfo()&#123;</span><br><span class="line">      <span class="comment">//获取当前影片的Id</span></span><br><span class="line">      <span class="keyword">let</span> id = <span class="keyword">this</span>.$route.params.filmId</span><br><span class="line"></span><br><span class="line">      <span class="comment">//发送ajax请求</span></span><br><span class="line">      $ajax(&#123;</span><br><span class="line">        url: <span class="string">`url`</span>,</span><br><span class="line">        method: <span class="string">'GET'</span>,</span><br><span class="line">        headers:&#123;</span><br><span class="line">          <span class="comment">//头信息</span></span><br><span class="line">        &#125;,</span><br><span class="line">        success:<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span>(res.status == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">this</span>.filmInfo = res.data.film</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//axios</span></span><br><span class="line">    getFilmInfo()&#123;</span><br><span class="line">      <span class="comment">//获取当前影片的Id</span></span><br><span class="line">      <span class="keyword">let</span> id = <span class="keyword">this</span>.$route.params.filmId</span><br><span class="line"></span><br><span class="line">      axios.get(<span class="string">'url'</span>,&#123;</span><br><span class="line">        params:&#123;</span><br><span class="line">          <span class="comment">//参数</span></span><br><span class="line">        &#125;,</span><br><span class="line">        headers:&#123;</span><br><span class="line">          <span class="comment">//请求头</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> result = response.data</span><br><span class="line">        <span class="built_in">console</span>.log(result)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  created()&#123;</span><br><span class="line">    <span class="keyword">this</span>.this.getFilmInfo()</span><br><span class="line">  &#125;</span><br><span class="line">  beforeRouterUpdate(to, <span class="keyword">from</span>, next)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'组件内的 update'</span>)</span><br><span class="line">    next()</span><br><span class="line">    <span class="keyword">this</span>.getFilmInfo()</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="编程式导航"><a href="#编程式导航" class="headerlink" title="编程式导航"></a>编程式导航</h3><ul>
+<li>用 js 的方式来实现跳转，而不是 router-link</li>
+<li>需要用到的是 $router 路由实例对象</li>
+<li>方法:<ul>
+<li>$router.push() 普通的 router-link 的跳转</li>
+<li>$router.replace() 重定向 -$router.back() 后退</li>
+<li>$router.forward() 前进</li>
+<li>$router.go() 前进/后退 go(1)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">router-link</span> @<span class="attr">click</span>=<span class="string">"goRouter"</span>&gt;</span><span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span>&#123;</span></span><br><span class="line">    data()&#123;</span><br><span class="line"><span class="actionscript">      <span class="keyword">return</span>&#123;</span></span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:[</span><br><span class="line">      goRouter(film)&#123;</span><br><span class="line"><span class="actionscript">        <span class="comment">//传递url地址的方式</span></span></span><br><span class="line"><span class="actionscript">        <span class="comment">//this.$router.push('/film/$&#123;film.filmId&#125;')</span></span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">        <span class="comment">//传递对象的方式(path 与 params 不能同时存在；params 与 query不能单独存在)</span></span></span><br><span class="line"><span class="actionscript">        <span class="comment">//name 在配置路由的时候可以 配置name属性，然后在这里可以用name:'路由名'，来跳转</span></span></span><br><span class="line"><span class="actionscript">        <span class="comment">//query 路径拼接的参数</span></span></span><br><span class="line"><span class="actionscript">        <span class="keyword">this</span>.$router.push(&#123;</span></span><br><span class="line"><span class="actionscript">          path:<span class="string">'/film/$&#123;film.filmId&#125;'</span>,</span></span><br><span class="line"><span class="actionscript">          name:<span class="string">''</span>,</span></span><br><span class="line">          params:&#123;&#125;,</span><br><span class="line">          query:&#123;&#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="路由的两种模式-hash-默认-history-模式"><a href="#路由的两种模式-hash-默认-history-模式" class="headerlink" title="路由的两种模式 hash 默认 history 模式"></a>路由的两种模式 hash 默认 history 模式</h3><ul>
+<li>两者的区别</li>
+</ul>
+<ol>
+<li>url 地址表现不同，hash 有#号，history 没有</li>
+<li>实现原理不同，<br>hash 的原理是通过监听 onhashchange 事件<br>history 原理是基于 html5 中新增的 history 相关的 api 实现的，<br>hisotry.push() 追加<br>history.replace() 替换<br>window.onpopstate 事件 前进/后退</li>
+<li>上线之后的表现不同，hash 不会有问题，而 history 可能会出现 404 的问题，需要服务端那边做配置处理</li>
+</ol>
+<h3 id="axios-与-正向代理"><a href="#axios-与-正向代理" class="headerlink" title="axios 与 正向代理"></a>axios 与 正向代理</h3><ul>
+<li>axios</li>
+<li>网络请求工具库 ==》axios<ol>
+<li>axios.get(url,config)</li>
+<li>axios.post(url,data,config)</li>
+<li>axios(config)</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>返回一个 Promise 对象</li>
+<li>then 里面接受到的 res，并不是后台的数据，而是 axios 封装过的数据，包含有请求与响应信息等，res 中的 data 才是后台该我们的数据。</li>
+</ul>
+<ul>
+<li>Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。</li>
+</ul>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  created () &#123;</span><br><span class="line">    <span class="regexp">// axios.get(url,config)</span></span><br><span class="line"><span class="regexp">    axios.get('https://m</span>.maizuo.com/gateway<span class="string">', &#123;</span></span><br><span class="line"><span class="string">      params: &#123;</span></span><br><span class="line"><span class="string">        k: 308996</span></span><br><span class="line"><span class="string">      &#125;,</span></span><br><span class="line"><span class="string">      headers: &#123;</span></span><br><span class="line"><span class="string">        '</span>X-Client-Info<span class="string">': '</span>&#123;<span class="string">"a"</span>:<span class="string">"3000"</span>,<span class="string">"ch"</span>:<span class="string">"1002"</span>,<span class="string">"v"</span>:<span class="string">"5.0.4"</span>,<span class="string">"e"</span>:<span class="string">"1592188274293904612065281"</span>,<span class="string">"bc"</span>:<span class="string">"310100"</span>&#125;<span class="string">',</span></span><br><span class="line"><span class="string">        '</span>X-Host<span class="string">': '</span>mall.report.event<span class="string">'</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;).then(response =&gt; &#123;</span></span><br><span class="line"><span class="string">      console.log(response)</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>官网案例 GET 方法</li>
+</ul>
+<figure class="highlight scilab"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 为给定 ID 的 user 创建请求</span></span><br><span class="line">axios.get(<span class="string">'/user?ID=12345'</span>)</span><br><span class="line">  .<span class="keyword">then</span>(<span class="function"><span class="keyword">function</span> <span class="params">(response)</span> &#123;</span></span><br><span class="line">    console.<span class="built_in">log</span>(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="keyword">catch</span>(<span class="function"><span class="keyword">function</span> <span class="params">(error)</span> &#123;</span></span><br><span class="line">    console.<span class="built_in">log</span>(<span class="built_in">error</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上面的请求也可以这样做</span></span><br><span class="line">axios.get(<span class="string">'/user'</span>, &#123;</span><br><span class="line">    params: &#123;</span><br><span class="line">      ID: <span class="number">12345</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="keyword">then</span>(<span class="function"><span class="keyword">function</span> <span class="params">(response)</span> &#123;</span></span><br><span class="line">    console.<span class="built_in">log</span>(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="keyword">catch</span>(<span class="function"><span class="keyword">function</span> <span class="params">(error)</span> &#123;</span></span><br><span class="line">    console.<span class="built_in">log</span>(<span class="built_in">error</span>);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>POST</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">axios.post(<span class="string">'http://movie.miguvideo.com/mgw/search4mv/v1/search/cinema'</span>)</span><br><span class="line">      .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> result = response.data</span><br><span class="line">        <span class="built_in">console</span>.log(result)</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">axios.post(<span class="string">'/user'</span>, &#123;</span><br><span class="line">  firstName: <span class="string">'Fred'</span>,</span><br><span class="line">  lastName: <span class="string">'Flintstone'</span></span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(response);</span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>异常跨域</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">Access to XMLHttpRequest at <span class="string">'http://movie.miguvideo.com/mgw/search4mv/v1/search/cinema'</span> <span class="keyword">from</span> origin <span class="string">'http://localhost:8080'</span> has been blocked by CORS policy: No <span class="string">'Access-Control-Allow-Origin'</span> header <span class="keyword">is</span> present on the requested resource.</span><br><span class="line">xhr.js?b50d:<span class="number">178</span> POST http:<span class="comment">//movie.miguvideo.com/mgw/search4mv/v1/search/cinema net::ERR_FAILED</span></span><br><span class="line">dispatchXhrRequest @ xhr.js?b50d:<span class="number">178</span></span><br><span class="line">xhrAdapter @ xhr.js?b50d:<span class="number">12</span></span><br><span class="line">dispatchRequest @ dispatchRequest.js?<span class="number">5270</span>:<span class="number">52</span></span><br><span class="line">Promise.then (async)</span><br><span class="line">request @ Axios.js?<span class="number">0</span>a06:<span class="number">61</span></span><br><span class="line">Axios.&lt;computed&gt; @ Axios.js?<span class="number">0</span>a06:<span class="number">86</span></span><br><span class="line">wrap @ bind.js?<span class="number">1</span>d2b:<span class="number">9</span></span><br><span class="line">created @ App.vue?<span class="number">234</span>e:<span class="number">24</span></span><br><span class="line">invokeWithErrorHandling @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">1854</span></span><br><span class="line">callHook @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">4219</span></span><br><span class="line">Vue._init @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">5008</span></span><br><span class="line">VueComponent @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">5154</span></span><br><span class="line">createComponentInstanceForVnode @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">3283</span></span><br><span class="line">init @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">3114</span></span><br><span class="line">createComponent @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">5978</span></span><br><span class="line">createElm @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">5925</span></span><br><span class="line">patch @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">6516</span></span><br><span class="line">Vue._update @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">3945</span></span><br><span class="line">updateComponent @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">4066</span></span><br><span class="line"><span class="keyword">get</span> @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">4479</span></span><br><span class="line">Watcher @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">4468</span></span><br><span class="line">mountComponent @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">4073</span></span><br><span class="line">Vue.$mount @ vue.runtime.esm.js?<span class="number">2</span>b0e:<span class="number">8415</span></span><br><span class="line">eval @ main.js?<span class="number">56</span>d7:<span class="number">4</span></span><br><span class="line">./src/main.js @ app.js:<span class="number">1009</span></span><br><span class="line">__webpack_require__ @ app.js:<span class="number">849</span></span><br><span class="line">fn @ app.js:<span class="number">151</span></span><br><span class="line"><span class="number">1</span> @ app.js:<span class="number">1022</span></span><br><span class="line">__webpack_require__ @ app.js:<span class="number">849</span></span><br><span class="line">checkDeferredModules @ app.js:<span class="number">46</span></span><br><span class="line">(anonymous) @ app.js:<span class="number">925</span></span><br><span class="line">(anonymous) @ app.js:<span class="number">928</span></span><br><span class="line">createError.js?<span class="number">2</span>d83:<span class="number">16</span> Uncaught (<span class="keyword">in</span> promise) Error: Network Error</span><br><span class="line">  at createError (createError.js?<span class="number">2</span>d83:<span class="number">16</span>)</span><br><span class="line">  at XMLHttpRequest.handleError (xhr.js?b50d:<span class="number">83</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="正向代理-请求数据"><a href="#正向代理-请求数据" class="headerlink" title="正向代理 请求数据"></a>正向代理 请求数据</h3><ul>
+<li>协议域名端口号，一项不匹配就会产生跨域</li>
+<li>出现跨域问题，可使用正向代理解决</li>
+<li>安装创建代理</li>
+</ul>
+<ul>
+<li>安装命令<br>npm init -y<br>npm install –save express axios</li>
+</ul>
+<ul>
+<li>cd 项目</li>
+<li>创建 server.js 文件</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">const</span> axios = <span class="built_in">require</span>(<span class="string">'axios'</span>)</span><br><span class="line"><span class="keyword">const</span> server = express()</span><br><span class="line"></span><br><span class="line"><span class="comment">//配置报错的请求头</span></span><br><span class="line">server.use(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">    res.set(<span class="string">'Access-Control-Allow-Origin'</span>, <span class="string">'*'</span>)</span><br><span class="line">    next()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//监听网络请求</span></span><br><span class="line">server.get(<span class="string">'/migu'</span>, <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">    axios.post(<span class="string">'http://movie.miguvideo.com/mgw/search4mv/v1/search/cinema'</span>)</span><br><span class="line">        .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> result = response.data;</span><br><span class="line">            res.send(result)</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">server.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动命令: nodemon .\server.js</li>
+<li>访问 localhost:3000/migu</li>
+<li>nodemon 是一种工具，通过在检测到目录中的文件更改时自动重新启动节点应用程序来帮助开发基于 node.js 的应用程序。</li>
+</ul>
+<p>nodemon 并没有要求任何对你的代码或开发的方法中的额外变化。nodemon 是一个替换包装器 node，用于在执行脚本时 nodemon 替换 node 命令行上。</p>
+<ul>
+<li>最后让 localhost:8080 -访问-&gt;localhist:3000/migu(代理) –&gt;目标网址</li>
+</ul>
+<h3 id="直接配置-vue-config-js-中的-proxy-代理"><a href="#直接配置-vue-config-js-中的-proxy-代理" class="headerlink" title="直接配置 vue-config.js 中的 proxy 代理"></a>直接配置 vue-config.js 中的 proxy 代理</h3><ul>
+<li>vue-config.js 是当前项目的一些配置设置，可以设置 webpack，多页面，正向代理</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 当前项目的一些配置设置，可以设置webpack，多页面，正向代理 module.exports = &#123;</span><br><span class="line">devServer: &#123; proxy: &apos;http://movie.miguvideo.com&apos; // 直接配置域名 &#125; &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><p>？？？？？？？？？？？？？？？？</p>
+<h3 id="路由的导航守卫和-beforeRouterUpdate"><a href="#路由的导航守卫和-beforeRouterUpdate" class="headerlink" title="路由的导航守卫和 beforeRouterUpdate"></a>路由的导航守卫和 beforeRouterUpdate</h3><ul>
+<li>导航就是路由在发生一些变化，守卫就是在这过程中的一些操作，主要用来通过跳转或取消的方式守卫导航</li>
+</ul>
+<h4 id="植入路由导航的级别-》参数或查询的改变并不会触发进入-离开的导航守卫-总共-7-个钩子函数某个时刻会自动触发"><a href="#植入路由导航的级别-》参数或查询的改变并不会触发进入-离开的导航守卫-总共-7-个钩子函数某个时刻会自动触发" class="headerlink" title="植入路由导航的级别 =》参数或查询的改变并不会触发进入/离开的导航守卫(总共 7 个钩子函数某个时刻会自动触发)"></a>植入路由导航的级别 =》参数或查询的改变并不会触发进入/离开的导航守卫(总共 7 个钩子函数某个时刻会自动触发)</h4><ul>
+<li><p>全局守卫</p>
+<ol>
+<li>全局前置 brforeEach</li>
+</ol>
+<figure class="highlight moonscript"><table><tr><td class="code"><pre><span class="line">router.beforeEach(<span class="function"><span class="params">(to, <span class="keyword">from</span>, <span class="built_in">next</span>)</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>参数说明：<ol>
+<li>to<br>要去的路由信息对象</li>
+<li>from<br>从哪里来的路由信息对象</li>
+<li>next(只会严格调用一次)<br>是否放行</li>
+<li>next() 放行进入下一个钩子函数，若全部的钩子函数执行完毕，导航的状态就是 confirmed(确定的)</li>
+<li>next(false) 阻止，中断当前的导航，url 改变，那么 url 的地址就会重置到 from 路由对应的地址。</li>
+<li>next(‘/‘)或者 next({path:’/‘}) 重定向到某个路由上，当前的导航被中断，然后进行一个新的导航。</li>
+<li>next(error) 抛出异常，传入的参数是一个 Error 实例，则导航会被终止且该错误会被传递给 router.onError()注册过的回调。</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li>全局的解析守卫 beforeResolve<ul>
+<li>这和 router.beforeEach 类似，区别是在导航被确认之前，同时在所有组件内守卫和异步路由组件被解析之后，解析守卫就被调用.</li>
+</ul>
+</li>
+<li>全局后置 afterEach</li>
+</ol>
+</li>
+<li><p>单个路由独享</p>
+<ol>
+<li>beforeEnter<br>在全局前置之后调用，路由独享在组件内的 enter 之前调用</li>
+</ol>
+</li>
+<li><p>组件级=》组件内的守卫</p>
+<ol>
+<li>beforeRouterEnter<br>在全局前置之后调用</li>
+<li>beforeRouterUpdate<br>只能在动态路由参数的情况下 调用</li>
+<li>beforeRouterLeave<br>离开组件时调用，在全局前置之前调用</li>
+</ol>
+</li>
+</ul>
+<h3 id="路由导航守卫的应用"><a href="#路由导航守卫的应用" class="headerlink" title="路由导航守卫的应用"></a>路由导航守卫的应用</h3><ol>
+<li>登录拦截</li>
+</ol>
+<ul>
+<li>单个路由独享钩子函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123; path: &apos;/login&apos;, component: Login &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: &apos;/card&apos;,</span><br><span class="line">    component: Card,</span><br><span class="line">    //这里用到 路由独享的钩子函数</span><br><span class="line">    beforeEnter: (to, from, next) =&gt; &#123;</span><br><span class="line">      console.log(&apos;路由独享 做登录拦截&apos;)</span><br><span class="line">      console.log(to)</span><br><span class="line">      // 判断当前是否登录状态</span><br><span class="line">      if (window.isLogin) &#123;</span><br><span class="line">        console.log(&apos;已登录&apos;)</span><br><span class="line">        next()</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        console.log(&apos;跳转登录&apos;)</span><br><span class="line">        // 重定向到登陆页 注意这里的符号不是单引号，而是tab键上面的那个符号</span><br><span class="line">        next(`/login?redirect=$&#123;to.fullPath&#125;`)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>login 脚本</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">    methods: &#123;</span><br><span class="line">      heandlerLogin () &#123;</span><br><span class="line"><span class="actionscript">        <span class="comment">// 将window.isLogin 设置为 true</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.isLogin = <span class="literal">true</span></span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">        <span class="comment">// 获取url地址上的 redirect 参数</span></span></span><br><span class="line"><span class="actionscript">        <span class="keyword">const</span> redirect = <span class="keyword">this</span>.$route.query.redirect || <span class="string">'/'</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(redirect)</span></span><br><span class="line"><span class="actionscript">        <span class="comment">// 跳回首页 replace重定向</span></span></span><br><span class="line"><span class="actionscript">        <span class="keyword">this</span>.$router.replace(redirect)</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>全局前置钩子函数</li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">router.beforeEach((<span class="keyword">to</span>, <span class="keyword">from</span>, next) =&gt; &#123;</span><br><span class="line">  console.log(<span class="string">'全局 前置'</span>)</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">to</span>.path === <span class="string">'/card'</span> || <span class="keyword">to</span>.path === <span class="string">'/money'</span>)&#123;</span><br><span class="line">    // 判断当前是否登录状态</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">window</span>.isLogin) &#123;</span><br><span class="line">        console.log(<span class="string">'已登录'</span>)</span><br><span class="line">        next()</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        console.log(<span class="string">'跳转登录'</span>)</span><br><span class="line">        // 重定向到登陆页 注意这里的符号不是单引号，而是tab键上面的那个符号</span><br><span class="line">        next(`/<span class="keyword">login</span>?redirect=$&#123;<span class="keyword">to</span>.fullPath&#125;`)</span><br><span class="line">      &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>进一步完善，添加路由的元信息 meta: { requiresAuth: true } //记录登录的状态，</li>
+</ul>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在路由上添加 ==》路由元信息</span></span><br><span class="line"> &#123; <span class="attribute">path</span>: <span class="string">'/money'</span>, <span class="attribute">component</span>: Money,  <span class="attribute">meta</span>: &#123; <span class="attribute">requiresAuth</span>: true &#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">router</span><span class="selector-class">.beforeEach</span>((to, from, next) =&gt; &#123;</span><br><span class="line">   <span class="selector-tag">console</span><span class="selector-class">.log</span>(<span class="string">'全局 前置'</span>)</span><br><span class="line">   <span class="comment">// 如果元信息就需要登录判断</span></span><br><span class="line">   <span class="selector-tag">if</span>(to.meta.requiresAuth)&#123;</span><br><span class="line">     <span class="comment">// 判断当前是否登录状态</span></span><br><span class="line">       <span class="selector-tag">if</span> (window.isLogin) &#123;</span><br><span class="line">         <span class="selector-tag">console</span><span class="selector-class">.log</span>(<span class="string">'已登录'</span>)</span><br><span class="line">         <span class="selector-tag">next</span>()</span><br><span class="line">       &#125; <span class="selector-tag">else</span> &#123;</span><br><span class="line">         <span class="selector-tag">console</span><span class="selector-class">.log</span>(<span class="string">'跳转登录'</span>)</span><br><span class="line">         <span class="comment">// 重定向到登陆页 注意这里的符号不是单引号，而是tab键上面的那个符号</span></span><br><span class="line">         <span class="selector-tag">next</span>(<span class="built_in">`/login?redirect=$&#123;to.fullPath&#125;`</span>)</span><br><span class="line">       &#125;</span><br><span class="line">   &#125; <span class="selector-tag">else</span> &#123;</span><br><span class="line">     <span class="selector-tag">next</span>()</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>应用场景：如果有单独一个需要拦截就使用路由独享，多个就使用路由全局前置</li>
+</ul>
+<h3 id="进度条效果-》过度动效"><a href="#进度条效果-》过度动效" class="headerlink" title="进度条效果==》过度动效"></a>进度条效果==》过度动效</h3><ul>
+<li>推荐 github 上进度条效果的插件：<a href="https://github.com/rstacruz/nprogress" target="_blank" rel="noopener">https://github.com/rstacruz/nprogress</a></li>
+</ul>
+<ul>
+<li>安装命令: npm install –save nprogress</li>
+</ul>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="module-access"><span class="module"><span class="identifier">NProgress</span>.</span></span>start<span class="literal">()</span>; <span class="comment">//加载进度条</span></span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">NProgress</span>.</span></span><span class="keyword">done</span><span class="literal">()</span>;  <span class="comment">//加载结束</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在路由的页面导入插件及其样式</li>
+</ul>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Nprogress <span class="keyword">from</span> <span class="string">'nprogress'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'nprogress/nprogress.css'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在全局前置钩子函数中启动进度条效果</li>
+</ul>
+<figure class="highlight autoit"><table><tr><td class="code"><pre><span class="line">  / 全局守卫</span><br><span class="line">  router.beforeEach((<span class="keyword">to</span>, from, <span class="keyword">next</span>) =&gt; &#123;</span><br><span class="line">    console.<span class="built_in">log</span>(<span class="keyword">to</span>)</span><br><span class="line">    console.<span class="built_in">log</span>(from)</span><br><span class="line">    console.<span class="built_in">log</span>(<span class="keyword">next</span>)</span><br><span class="line">    console.<span class="built_in">log</span>(<span class="string">'全局前置'</span>)</span><br><span class="line">    Nprogress.start()</span><br><span class="line">    <span class="keyword">next</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在全局后置钩子函数中结束进度条</li>
+</ul>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 全局后置守卫</span></span><br><span class="line">router.after<span class="constructor">Each((<span class="params">to</span>, <span class="params">from</span>)</span> =&gt; &#123;</span><br><span class="line">  console.log('全局后置守卫')</span><br><span class="line">  <span class="module-access"><span class="module"><span class="identifier">Nprogress</span>.</span></span><span class="keyword">done</span><span class="literal">()</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改插件的样式<br>只需要覆盖插件的样式即可<br>在 App.vue 可全局覆盖样式</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>前端框架VUE</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>前端框架VUE基础+slot插槽</title>
     <url>/2020/05/31/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6VUE%E5%9F%BA%E7%A1%80-slot%E6%8F%92%E6%A7%BD/</url>
     <content><![CDATA[<h3 id="slot插槽"><a href="#slot插槽" class="headerlink" title="slot插槽"></a>slot插槽</h3><ul>
