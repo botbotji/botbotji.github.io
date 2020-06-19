@@ -90,17 +90,14 @@
 
 
 
-<meta name="description" content="中介模式 基本介绍： 中介者模式(Mediator Pattern),用一个中介对象来封装一系列的对象交互。中介者使用各个对象不需要显示的相互引用从而使其耦合松散而且可以独立的改变他们之间的交互。 中介者模式属于行为型模式，使代码+., 易于维护 比如MVC模式，C(Controller控制器)是M(Model模型)和V(View视图)的中介者，在前后端交互时起到了中间人的作用   类图 类图说明">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java设计模式+中介模式">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;10&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F&#x2F;index.html">
+<meta name="description" content="你我暮年，闲坐庭院， 云卷云舒听雨声，星密星稀赏月影， 花开花落忆江南， 你话往时，我画往事， 愿有岁月可回首，且以深情共白头">
+<meta property="og:type" content="website">
+<meta property="og:title" content="卓尔不凡">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%E5%BD%92%E7%BA%B3&#x2F;index.html">
 <meta property="og:site_name" content="卓尔不凡">
-<meta property="og:description" content="中介模式 基本介绍： 中介者模式(Mediator Pattern),用一个中介对象来封装一系列的对象交互。中介者使用各个对象不需要显示的相互引用从而使其耦合松散而且可以独立的改变他们之间的交互。 中介者模式属于行为型模式，使代码+., 易于维护 比如MVC模式，C(Controller控制器)是M(Model模型)和V(View视图)的中介者，在前后端交互时起到了中间人的作用   类图 类图说明">
+<meta property="og:description" content="你我暮年，闲坐庭院， 云卷云舒听雨声，星密星稀赏月影， 花开花落忆江南， 你话往时，我画往事， 愿有岁月可回首，且以深情共白头">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;10&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F&#x2F;images%5CMediator.png">
-<meta property="og:updated_time" content="2020-05-10T13:39:56.943Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;10&#x2F;Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F&#x2F;images%5CMediator.png">
 
 
 
@@ -130,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/05/10/Java设计模式-中介模式/"/>
+  <link rel="canonical" href="http://yoursite.com/tags/前端知识点归纳/"/>
 
 
 
 
 
-  <title>Java设计模式+中介模式 | 卓尔不凡</title>
+  <title>标签: 前端知识点归纳 | 卓尔不凡</title>
   
 
 
@@ -155,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left ">
     <div class="headband"></div>
 	<a href="https://github.com/botbotji" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
@@ -294,233 +291,54 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block tag">
 
-  
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h1>前端知识点归纳<small>标签</small>
+        </h1>
+      </div>
 
-  
-  
-  
+      
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/10/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="卓尔不凡">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="卓尔不凡">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
+            <a class="post-title-link" href="/2020/06/19/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%E5%BD%92%E7%BA%B3%E4%B9%8Bvue-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" itemprop="url">
+              
+                <span itemprop="name">前端知识点归纳之vue+微信小程序</span>
+              
+            </a>
         
-          <h1 class="post-title" itemprop="name headline">Java设计模式+中介模式</h1>
-        
+      </h2>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-10T21:38:13+08:00">
-                2020-05-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/05/10/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/05/10/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  294
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="中介模式"><a href="#中介模式" class="headerlink" title="中介模式"></a>中介模式</h3><ul>
-<li>基本介绍：<ol>
-<li>中介者模式(Mediator Pattern),用一个中介对象来封装一系列的对象交互。中介者使用各个对象不需要显示的相互引用从而使其耦合松散而且可以独立的改变他们之间的交互。</li>
-<li>中介者模式属于行为型模式，使代码+., 易于维护</li>
-<li>比如MVC模式，C(Controller控制器)是M(Model模型)和V(View视图)的中介者，在前后端交互时起到了中间人的作用</li>
-</ol>
-<ul>
-<li>类图<br><img src="images%5CMediator.png" alt="" title="中介者模式"></li>
-<li>类图说明：<ol>
-<li>Medialtor：就是抽象中介者定义同事对象到中介对象的接口</li>
-<li>Colleague：就是抽象同事类</li>
-<li>ConcreteMediator：具体的中介者对象，实现抽象方法,它需要知道所有的具体的同事类，即一个集合来管理HashMap，并接受某个同事对象消息，完成相应的任务</li>
-<li>ConcreateColleague：具体的同事类，会有很多，每个同事只知道自己的行为，而不了解其他同事类的行为（方法），但是他们都会依赖中介者对象<h4 id="中介者模式应用案例-–》智能家庭管理"><a href="#中介者模式应用案例-–》智能家庭管理" class="headerlink" title="中介者模式应用案例 –》智能家庭管理"></a>中介者模式应用案例 –》智能家庭管理</h4></li>
-</ol>
-</li>
-</ul>
-</li>
-<li>类图<br><img src="" alt=""></li>
-</ul>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>感谢关顾！</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/qrcode.png" alt="卓尔不凡 微信支付"/>
-        <p>微信支付</p>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2020-06-19T15:42:35+08:00"
+              content="2020-06-19" >
+          06-19
+        </time>
       </div>
-    
 
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/zgub.jpg" alt="卓尔不凡 支付宝"/>
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2020/05/10/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="next" title="Java设计模式+解释器模式">
-                <i class="fa fa-chevron-left"></i> Java设计模式+解释器模式
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/05/10/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" rel="prev" title="Java设计模式+状态模式">
-                Java设计模式+状态模式 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
       
     </div>
+
   </div>
+  
+  
+  
+
+  
 
 
           </div>
@@ -528,18 +346,6 @@
 
 
           
-
-  
-    <div class="comments" id="comments">
-      
-        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
-        <div id="gitment-container" style="display:none"></div>
-      
-    </div>
-
-  
-
-
 
         </div>
         
@@ -560,17 +366,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -641,22 +438,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#中介模式"><span class="nav-number">1.</span> <span class="nav-text">中介模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#中介者模式应用案例-–》智能家庭管理"><span class="nav-number">1.1.</span> <span class="nav-text">中介者模式应用案例 –》智能家庭管理</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -805,10 +586,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
